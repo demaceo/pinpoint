@@ -1,6 +1,8 @@
 import express from "express";
+// const { express } = require("express");
 import { Request, Response } from "express";
-import { getDraft } from "../controllers/chatbotController";
+import { getDraft } from "../controllers/chatbotController.js";
+// const { getDraft } = require("../controllers/chatbotController");
 
 const router = express.Router();
 

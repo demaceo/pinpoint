@@ -1,6 +1,8 @@
 import express from "express";
+// const { express } = require("express");
 import { Request, Response } from "express";
-import { contactOfficial } from "../controllers/emailController";
+import { contactOfficial } from "../controllers/emailController.js";
+// const { contactOfficial } = require("../controllers/emailController");
 
 const router = express.Router();
 

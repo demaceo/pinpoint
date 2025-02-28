@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { fetchOfficials } from "../services/officialsService";
+import { fetchOfficials } from "../services/officialsService.js";
+// const { fetchOfficials } = require("../services/officialsService");
 
 export const getOfficials = async (req: Request, res: Response): Promise<Response> => {
     try {

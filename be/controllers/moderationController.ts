@@ -1,16 +1,19 @@
 import { Request, Response } from "express";
-import { moderateContent } from "../services/moderationService";
+// const { Request, Response } = require("express");
+import { moderateContent } from "../services/moderationService.js";
+// const {moderateContent } = require("../services/moderationService");
 
-export const checkContent = async (req: Request, res: Response): Promise<Response> => {
+export const checkContent = async (req: Request, res: Response) => {
+    const { text } = req.body;
+    if (!text) return res.status(400).json({ error: "No text provided" });
+
     try {
-        const { text } = req.body;
-        if (!text) {
-            return res.status(400).json({ error: "No text provided" });
-        }
-
         const flagged = await moderateContent(text);
-        return res.json({ flagged });
+        if (!flagged) return res.status(404).json({ error: "No issues found in the content" });
+        res.json({ flagged });
     } catch (error) {
-        return res.status(500).json({ error: "Content moderation failed" });
+        console.error(error);
+        res.status(500).json({ error: "Content moderation failed" });
     }
 };
+    

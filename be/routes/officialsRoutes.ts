@@ -1,11 +1,11 @@
 import express from "express";
-import { getOfficials } from "../controllers/officialsController";
+// const {express} = require("express");
 import { Request, Response } from "express";
-
+import { getOfficials } from "../controllers/officialsController.js";
+// const { getOfficials } = require("../controllers/officialsController");
 
 const router = express.Router();
 // router.post("/", getOfficials);
-
 
 router.post("/", async (req: Request, res: Response) => {
     try {

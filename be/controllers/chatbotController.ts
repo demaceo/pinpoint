@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { generateDraft } from "../services/chatbotService";
-
+// const { generateDraft } = require("../services/chatbotService");
+import { generateDraft } from "../services/chatbotService.js";
 export const getDraft = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { prompt } = req.body;
