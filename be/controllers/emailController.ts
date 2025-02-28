@@ -1,0 +1,16 @@
+import { Request, Response } from "express";
+import { sendEmail } from "../services/emailService";
+
+export const contactOfficial = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const { toEmail, fromEmail, message } = req.body;
+        if (!toEmail || !fromEmail || !message) {
+            return res.status(400).json({ error: "Missing fields" });
+        }
+
+        await sendEmail(toEmail, fromEmail, message);
+        return res.json({ success: "Email sent successfully!" });
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to send email" });
+    }
+};
