@@ -1,6 +1,6 @@
 import express from "express";
 import { Request, Response } from "express";
-import { checkContent } from "../controllers/moderationController.ts";
+import { checkContent } from "../controllers/moderationController";
 
 const router = express.Router();
 // router.post("/check", checkContent);

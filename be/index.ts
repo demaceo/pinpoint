@@ -1,11 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
-import officialsRoutes from "./routes/officialsRoutes.ts";
-import emailRoutes from "./routes/emailRoutes.ts";
-import moderationRoutes from "./routes/moderationRoutes.ts";
-import chatbotRoutes from "./routes/chatbotRoutes.ts";
+import officialsRoutes from "./routes/officialsRoutes";
+import emailRoutes from "./routes/emailRoutes";
+import moderationRoutes from "./routes/moderationRoutes";
+import chatbotRoutes from "./routes/chatbotRoutes";
 
 dotenv.config();
 

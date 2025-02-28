@@ -11,6 +11,7 @@ export const contactOfficial = async (req: Request, res: Response): Promise<Resp
         await sendEmail(toEmail, fromEmail, message);
         return res.json({ success: "Email sent successfully!" });
     } catch (error) {
+        console.error("Email error:", error);
         return res.status(500).json({ error: "Failed to send email" });
     }
 };

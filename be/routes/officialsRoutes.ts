@@ -1,5 +1,5 @@
 import express from "express";
-import { getOfficials } from "../controllers/officialsController.ts";
+import { getOfficials } from "../controllers/officialsController";
 import { Request, Response } from "express";
 
 
