@@ -1,4 +1,4 @@
-### **📌 Pinpoint**
+### **📌 Pinpoint (IN PROGRESS:)**
 
 📍 **Pinpoint** is a web application that helps U.S. citizens **engage with their elected government officials** by:
 
