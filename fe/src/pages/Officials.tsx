@@ -1,18 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { fetchOfficials } from "../services/api.ts";
-import OfficialsGraph from "../components/OfficialsGraph.tsx";
+import { fetchOfficialsByState } from "../services/openStatesService";
 
 const Officials: React.FC = () => {
-  const [officials, setOfficials] = useState([]);
+  const [officials, setOfficials] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const state = "California"; // Replace with user input later
 
   useEffect(() => {
-    fetchOfficials("New York, NY").then(setOfficials);
-  }, []);
+    fetchOfficialsByState(state)
+      .then(setOfficials)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [state]);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Elected Officials</h1>
-      <OfficialsGraph officials={officials} />
+      <h1>Officials in {state}</h1>
+      <ul>
+        {officials.map((official, index) => (
+          <li key={index}>
+            {official.name} - {official.current_role?.title}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
