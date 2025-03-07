@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-// const { Request, Response } = require("express");
 import { moderateContent } from "../services/moderationService.js";
-// const {moderateContent } = require("../services/moderationService");
 
 export const checkContent = async (req: Request, res: Response) => {
     const { text } = req.body;

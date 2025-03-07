@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-// const { sendEmail } = require("../services/emailService");
 import {sendEmail}  from "../services/emailService.js";
 
 export const contactOfficial = async (req: Request, res: Response): Promise<Response> => {

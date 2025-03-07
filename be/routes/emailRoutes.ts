@@ -1,13 +1,9 @@
 import express from "express";
-// const { express } = require("express");
 import { Request, Response } from "express";
 import { contactOfficial } from "../controllers/emailController.js";
-// const { contactOfficial } = require("../controllers/emailController");
-
 const router = express.Router();
 
 // router.post("/send", contactOfficial);
-
 router.post("/send", async (req: Request, res: Response) => {
     try {
         const draft = await contactOfficial(req, res);

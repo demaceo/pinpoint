@@ -1,8 +1,6 @@
 import express from "express";
-// const {express} = require("express");
 import { Request, Response } from "express";
 import { getOfficials } from "../controllers/officialsController.js";
-// const { getOfficials } = require("../controllers/officialsController");
 
 const router = express.Router();
 // router.post("/", getOfficials);
