@@ -1,14 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
+interface Location {
+    lat: number;
+    lng: number;
+}
 
 export const useUserLocation = () => {
-    const [location, setLocation] = useState<null | string>(null);
+    const [location, setLocation] = useState<Location | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
-            (pos) => setLocation(`${pos.coords.latitude},${pos.coords.longitude}`),
-            () => setLocation("Location access denied")
+            (pos) => {
+                setLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+            },
+            (err) => {
+                setError("Location access denied");
+            }
         );
     }, []);
 
-    return location;
+    return { location, error };
 };
