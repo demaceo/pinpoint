@@ -1,6 +1,6 @@
 import React from "react";
-import ContactForm from "../components/ContactForm.tsx";
-
+import ContactForm from "../../components/ContactForm/ContactForm";
+import './Contact.css'
 const Contact: React.FC = () => {
   return (
     <div className="p-6">

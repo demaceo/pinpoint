@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/officials/state", async (req: Request, res: Response) => {
     try {
-        const officials = await getOfficialsByState(req, res);
+        const officials = await getOfficialsByState(req);
         if (officials) {
             res.json(officials);
         } else {
@@ -27,7 +27,7 @@ router.get("/officials/state", async (req: Request, res: Response) => {
 
 router.get("/officials/geo", async (req: Request, res: Response) => {
     try {
-        const officials = await getOfficialsByGeo(req, res);
+        const officials = await getOfficialsByGeo(req);
         if (officials) {
             res.json(officials);
         } else {
@@ -41,7 +41,7 @@ router.get("/officials/geo", async (req: Request, res: Response) => {
 
 router.get("/bills", async (req: Request, res: Response) => {
     try {
-        const bills = await getBillsByState(req, res);
+        const bills = await getBillsByState(req);
         if (bills) {
             res.json(bills);
         } else {
@@ -55,7 +55,7 @@ router.get("/bills", async (req: Request, res: Response) => {
 
 router.get("/committees", async (req: Request, res: Response) => {
     try {
-        const committees = await getCommitteesByState(req, res);
+        const committees = await getCommitteesByState(req);
         if (committees) {
             res.json(committees);
         } else {

@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./OfficialCard.css"
 interface Official {
   name: string;
   office: string;

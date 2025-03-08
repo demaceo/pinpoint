@@ -1,66 +1,43 @@
-import { Request, Response } from "express";
-import { fetchOfficialsByState, fetchOfficialsByGeo, fetchBillsByState, fetchCommitteesByState } from "../services/openStatesService.js";
+import { Request } from "express";
+import {
+    fetchOfficialsByState,
+    fetchOfficialsByGeo,
+    fetchBillsByState,
+    fetchCommitteesByState
+} from "../services/openStatesService.js";
 
 /**
- * Controller to fetch elected officials by state.
+ * Fetch officials by state (Returns data only)
  */
-export const getOfficialsByState = async (req: Request, res: Response): Promise<Response> => {
+export const getOfficialsByState = async (req: Request) => {
     const { jurisdiction } = req.query;
-    if (!jurisdiction) return res.status(400).json({ error: "Jurisdiction is required" });
-
-    try {
-        const officials = await fetchOfficialsByState(jurisdiction as string);
-        return res.json(officials);
-    } catch (error) {
-        res.status(500).json({ error: (error as Error).message });
-    }
-    return res.status(500).json({ error: "Unexpected error" });
+    if (!jurisdiction) throw new Error("Jurisdiction is required");
+    return await fetchOfficialsByState(jurisdiction as string);
 };
 
 /**
- * Controller to fetch elected officials by geolocation.
+ * Fetch officials by geolocation (Returns data only)
  */
-export const getOfficialsByGeo = async (req: Request, res: Response): Promise<Response> => {
+export const getOfficialsByGeo = async (req: Request) => {
     const { latitude, longitude } = req.query;
-    if (!latitude || !longitude) return res.status(400).json({ error: "Latitude and Longitude are required" });
-
-    try {
-        const officials = await fetchOfficialsByGeo(latitude as string, longitude as string);
-        return res.json(officials);
-    } catch (error) {
-        res.status(500).json({ error: (error as Error).message });
-    }
-    return res.status(500).json({ error: "Unexpected error" });
+    if (!latitude || !longitude) throw new Error("Latitude and longitude are required");
+    return await fetchOfficialsByGeo(latitude as string, longitude as string);
 };
 
 /**
- * Controller to fetch bills for a state.
+ * Fetch bills by state (Returns data only)
  */
-export const getBillsByState = async (req: Request, res: Response): Promise<Response> => {
+export const getBillsByState = async (req: Request) => {
     const { jurisdiction } = req.query;
-    if (!jurisdiction) return res.status(400).json({ error: "Jurisdiction is required" });
-
-    try {
-        const bills = await fetchBillsByState(jurisdiction as string);
-        return res.json(bills);
-    } catch (error) {
-        res.status(500).json({ error: (error as Error).message });
-    }
-    return res.status(500).json({ error: "Unexpected error" });
+    if (!jurisdiction) throw new Error("Jurisdiction is required");
+    return await fetchBillsByState(jurisdiction as string);
 };
 
 /**
- * Controller to fetch committees for a state.
+ * Fetch committees by state (Returns data only)
  */
-export const getCommitteesByState = async (req: Request, res: Response): Promise<Response> => {
+export const getCommitteesByState = async (req: Request) => {
     const { jurisdiction } = req.query;
-    if (!jurisdiction) return res.status(400).json({ error: "Jurisdiction is required" });
-
-    try {
-        const committees = await fetchCommitteesByState(jurisdiction as string);
-        return res.json(committees);
-    } catch (error) {
-        res.status(500).json({ error: (error as Error).message });
-    }
-    return res.status(500).json({ error: "Unexpected error" });
+    if (!jurisdiction) throw new Error("Jurisdiction is required");
+    return await fetchCommitteesByState(jurisdiction as string);
 };

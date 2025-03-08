@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
 interface Location {
     lat: number;
@@ -14,7 +13,7 @@ export const useUserLocation = () => {
             (pos) => {
                 setLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
             },
-            (err) => {
+            () => {
                 setError("Location access denied");
             }
         );

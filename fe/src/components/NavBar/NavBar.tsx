@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import "./NavBar.css"
 const NavBar: React.FC = () => {
   return (
     <nav className="bg-gray-800 text-white p-4">

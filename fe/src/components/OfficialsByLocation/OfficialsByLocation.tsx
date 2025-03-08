@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { useUserLocation } from "../hooks/useUserLocation";
-import { fetchOfficialsByGeo } from "../services/openStatesService";
-
+import { useUserLocation } from "../../hooks/useUserLocation";
+import { fetchOfficialsByGeo } from "../../services/openStatesService";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import "./OfficialsByLocation.css"
 const OfficialsByLocation: React.FC = () => {
   const { location, error } = useUserLocation();
   const [officials, setOfficials] = useState<any[]>([]);
@@ -18,7 +19,7 @@ const OfficialsByLocation: React.FC = () => {
   }, [location]);
 
   if (error) return <p>{error}</p>;
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
   if (!location) return <p>Fetching location...</p>;
 
   return (

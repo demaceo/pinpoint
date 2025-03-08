@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import './ContactForm.css'
 const ContactForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");

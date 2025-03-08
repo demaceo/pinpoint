@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
+import './OfficialDetails.css'
 const OfficialDetails: React.FC = () => {
   const { id } = useParams();
 

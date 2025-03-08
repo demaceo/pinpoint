@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { fetchOfficialsByState } from "../services/openStatesService";
-
+import { fetchOfficialsByState } from "../../services/openStatesService";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import './Officials.css'
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -14,7 +15,7 @@ const Officials: React.FC = () => {
       .finally(() => setLoading(false));
   }, [state]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div>
