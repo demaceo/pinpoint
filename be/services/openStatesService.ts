@@ -73,3 +73,17 @@ export const fetchCommitteesByState = async (jurisdiction: string) => {
         throw new Error("Failed to fetch committees");
     }
 };
+/**
+ * Fetch an official by ID, Name, or Jurisdiction
+ */
+// export const fetchOfficialById = async (id?: string, name?: string, jurisdiction?: string) => {
+//     const queryParams = new URLSearchParams();
+
+//     if (id) queryParams.append("id", id);
+//     if (name) queryParams.append("name", name);
+//     if (jurisdiction) queryParams.append("jurisdiction", jurisdiction);
+
+//     const response = await apiClient.get(`/people?${queryParams.toString()}`);
+
+//     return response.data.results.length ? response.data.results[0] : null;
+// };

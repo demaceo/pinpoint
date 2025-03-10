@@ -1,0 +1,61 @@
+.official-card {
+  width: 300px;
+  min-height: 180px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  font-family: "Times New Roman", serif; /* For a classic "business card" look */
+}
+
+.official-card:hover {
+  transform: scale(1.02);
+}
+
+/* 🪪 Business Card (American Psycho) */
+.business-card {
+  background-color: #f2f2f2; /* Light "Eggshell" color */
+  color: #111;
+  border: 1px solid #e2e2e2; /* subtle border */
+}
+
+/* 🤡 Joker Card (The Dark Knight) */
+.joker-card {
+  background: linear-gradient(120deg, #4f2f70 40%, #2e7211 60%);
+  color: #fff;
+  border: 2px solid #000;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* 🖼 Official Photo */
+.official-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  float: right;
+  margin-left: 8px;
+}
+
+/* 🔤 Text Styles */
+.official-name {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.official-role,
+.official-party,
+.official-contact {
+  margin: 2px 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* Make Joker text a bit more chaotic if you want! */
+.joker-card .official-name {
+  font-family: "JokerMan", cursive;
+  letter-spacing: 1px;
+  color: #ffe600;
+}

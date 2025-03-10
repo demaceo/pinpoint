@@ -3,7 +3,8 @@ import {
     fetchOfficialsByState,
     fetchOfficialsByGeo,
     fetchBillsByState,
-    fetchCommitteesByState
+    fetchCommitteesByState,
+    // fetchOfficialById
 } from "../services/openStatesService.js";
 
 /**
@@ -41,3 +42,10 @@ export const getCommitteesByState = async (req: Request) => {
     if (!jurisdiction) throw new Error("Jurisdiction is required");
     return await fetchCommitteesByState(jurisdiction as string);
 };
+/**
+ *Fetch an official by ID, name, or jurisdiction
+ */
+// export const getOfficialById = async (id?: string, name?: string, jurisdiction?: string) => {
+//     if (!id && !name && !jurisdiction) throw new Error("Must provide id, name, or jurisdiction.");
+//     return fetchOfficialById(id, name, jurisdiction);
+// };
