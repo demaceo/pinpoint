@@ -1,23 +1,22 @@
 .official-card {
   width: 300px;
   min-height: 180px;
-  margin: 20px auto;
+  margin: 20px;
   padding: 16px;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  /* font-family: "Times New Roman", serif; */
+  outline: invert;
 }
 
 /* .official-card:hover {
   transform: scale(1.02);
 } */
 
-/* 🪪 Business Card (American Psycho) */
 .business-card {
-  background-color: #f2f2f2; /* Light "Eggshell" color */
-  /* color: #111; */
-  border: 1px solid #e2e2e2; /* subtle border */
+  /* outline: tomato; */
+  background-color: #f2f2f2;
+  border: 1px solid #e2e2e2;
   padding: 1em;
   border-radius: 0.5em;
   max-width: 500px;
@@ -35,9 +34,11 @@
   width: 35em;
 }
 
-/* 🤡 Joker Card (The Dark Knight) */
+.flag-gif {
+  width: 10%;
+  height: 10%;
+}
 
-/* 🖼 Official Photo */
 .official-photo {
   width: 100px;
   height: 100px;
@@ -53,7 +54,6 @@
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: capitalize;
-  /* text-align: center; */
   transition: font-family 0.3s ease-in-out;
 }
 
@@ -65,13 +65,16 @@
   font-size: 1.2rem;
 }
 
-.span-wrapper{
+.span-wrapper {
   display: inline-block;
   margin-right: 8px;
+  color: #444;
+  /* font-family: "'Cinzel', serif"; */
 }
 
 .card-span {
   font-family: "Raleway";
+  color: #232323;
 }
 
 .joker-card {
@@ -134,7 +137,6 @@
   font-weight: bold;
 }
 
-/* 🖼 Official Photo inside the Card */
 .joker-card .official-photo {
   width: 80px;
   height: 80px;
@@ -145,7 +147,6 @@
   display: block;
 }
 
-/* 🃏 Hover Effect to add a bit of playfulness */
 .joker-card:hover {
   transform: scale(1.05) rotate(2deg);
   transition: transform 0.3s ease-in-out;

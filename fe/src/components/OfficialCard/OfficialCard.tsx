@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./OfficialCard.css";
 import { OfficialCardProps } from "../../assets/types";
+import AmericanFlag from "../../assets/american-flag.gif";
 
 const elegantFonts = [
   "'Garamond', serif",
   "'Playfair Display', serif",
   "'Cormorant Garamond', serif",
-  "'Cinzel', serif",
+  "'Cinzel', serif" /*! randomFont*/,
   "'Bodoni Moda', serif",
   "'Merriweather', serif",
   "'Lora', serif",
@@ -28,8 +30,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({
   useEffect(() => {
     const font = elegantFonts[Math.floor(Math.random() * elegantFonts.length)];
     setRandomFont(font);
-    console.log("font: ", font);
-  }, []);
+  }, [setRandomFont]);
 
   const partyInitial = official.party?.charAt(0) || "N/A";
 
@@ -46,11 +47,13 @@ const OfficialCard: React.FC<OfficialCardProps> = ({
             className="official-photo"
           />
         )}
-        <h2
-          className="official-name"
-          style={{ fontFamily: `${randomFont} !important` }}
-        >
+        <h2 className="official-name" style={{ fontFamily: randomFont }}>
           {official.name}
+          <img
+            src={AmericanFlag}
+            alt="American Flag"
+            className="flag-gif"
+          />
         </h2>
         <p className="official-role span-wrapper">
           {official.current_role?.title},{" "}
@@ -60,13 +63,13 @@ const OfficialCard: React.FC<OfficialCardProps> = ({
         </p>
         <p className="official-party span-wrapper">
           Party:{" "}
-          <span className="card-span">
+          <span className="card-span" style={{ fontFamily: randomFont }}>
             {official.party || "Unknown"} ({partyInitial})
           </span>
         </p>
         <p className="official-contact span-wrapper">
           Email:{" "}
-          <span className="card-span">
+          <span className="card-span" style={{ fontFamily: randomFont }}>
             {official.email || "No email available"}
           </span>
         </p>
