@@ -1,27 +1,27 @@
 import React, { useState } from "react";
-import './ContactForm.css'
+import "./ContactForm.css";
 const ContactForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   return (
-    <form className="p-4 border rounded">
+    <form className="contact-form">
       <input
-        className="border p-2 w-full"
+        className="contact-email"
         placeholder="Your Email"
+        type="email"
+        required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <textarea
-        className="border p-2 w-full mt-2"
+        className="contact-message"
         placeholder="Your Message"
         value={message}
+        required
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button
-        className="bg-blue-600 text-white p-2 mt-2 rounded"
-        disabled={!email || !message}
-      >
+      <button className="contact-button" disabled={!email || !message}>
         Send
       </button>
     </form>
