@@ -4,9 +4,9 @@ export interface Official {
     party?: string;
     current_role?: {
         title: string;
-        org_classification: string;
-        district: string;
-        division_id: string;
+        org_classification?: string;
+        district: string | number;
+        division_id?: string;
     };
     jurisdiction?: {
         id: string;

@@ -24,7 +24,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/officials"
+          path="/yourofficials"
           element={
             <div className="app-container">
               <NavBar />
@@ -35,7 +35,7 @@ const App: React.FC = () => {
             </div>
           }
         />
-        {/* <Route path="/official/:id" element={<OfficialDetails />} /> */}
+
         <Route
           path="/contact"
           element={

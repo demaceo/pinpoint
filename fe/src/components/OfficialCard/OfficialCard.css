@@ -6,7 +6,7 @@
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  outline: invert;
+  margin-right: 20vw;
 }
 
 .business-card {
@@ -96,6 +96,16 @@
   font-weight: 500;
   font-style: oblique;
   color: blue;
+}
+#I {
+  font-weight: 500;
+  font-style: oblique;
+  color: purple;
+}
+#G {
+  font-weight: 500;
+  font-style: oblique;
+  color: green;
 }
 
 .joker-card {

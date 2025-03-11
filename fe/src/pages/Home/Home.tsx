@@ -10,7 +10,7 @@ const Home: React.FC = () => {
         <p className="home-welcome">
           Engage with your elected officials and make your voice heard.
         </p>
-        <Link to="/officials" className="link-officials">
+        <Link to="/yourofficials" className="link-officials">
           Find Your Representatives
         </Link>
       </div>

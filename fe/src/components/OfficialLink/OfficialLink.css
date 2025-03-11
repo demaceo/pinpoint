@@ -8,6 +8,7 @@
   color: #e78533;
   font-weight: 600;
   text-decoration: underline !important;
+  cursor: pointer;
 }
 
 .card-wrapper {
