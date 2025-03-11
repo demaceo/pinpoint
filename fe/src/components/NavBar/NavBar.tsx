@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 // import pinpoint from "../../assets/pinpoint5.avif";
-
 import React, { useState, useEffect } from "react";
 import "./NavBar.css";
 

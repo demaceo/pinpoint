@@ -6,7 +6,6 @@ import Contact from "./pages/Contact/Contact.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import "./App.css";
-// import OfficialDetails from "./pages/OfficialDetails/OfficialDetails.tsx";
 const App: React.FC = () => {
   return (
     <Router>

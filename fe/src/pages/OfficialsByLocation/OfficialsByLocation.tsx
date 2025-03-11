@@ -27,10 +27,8 @@ const OfficialsByLocation: React.FC = () => {
   if (error) return <p>{error}</p>;
   if (loading) return <LoadingSpinner />;
   if (!location) return <p>Fetching location...</p>;
-  // if (!officials) return <p>No officials found for this location.</p>;
   if (!officials || officials.length === 0) {
     setOfficials(mockOfficials);
-    // console.log('mockOfficials', mockOfficials);
   }
   // const randomIndex = Math.floor(Math.random() * officials.length);
 

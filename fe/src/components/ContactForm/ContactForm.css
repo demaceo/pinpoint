@@ -36,6 +36,7 @@ textarea {
   font-size: larger;
   transition: all 1s ease-in-out;
 }
+
 .contact-button:enabled {
   background-color: #0fd615;
   color: white;
