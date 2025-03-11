@@ -1,27 +1,6 @@
-// import React from "react";
 import { Link } from "react-router-dom";
-// import "./NavBar.css";
-// const NavBar: React.FC = () => {
-//   return (
-//     <nav className="nav-wrapper">
-//       <div className="nav-container">
-//         <Link to="/" className="link nav-links-left link-home">
-//           Pinpoint
-//         </Link>
-//         <div className="nav-links-right">
-//           <Link to="/officials" className="link link-officials">
-//             Officials
-//           </Link>
-//           <Link to="/contact" className="link link-contact">
-//             Contact
-//           </Link>
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// };
+// import pinpoint from "../../assets/pinpoint5.avif";
 
-// export default NavBar;
 
 import React, { useState, useEffect } from "react";
 import "./NavBar.css";
@@ -31,7 +10,6 @@ const NavBar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Change navbar styles on scroll
     const handleScroll = () => {
       setScrolled(window.scrollY >= 100);
     };
@@ -47,8 +25,8 @@ const NavBar: React.FC = () => {
           menuOpen ? "menu-open" : ""
         }`}
       >
-        {/* Logo */}
         <Link to="/" className="logo">
+        {/* <img src={pinpoint} /> */}
           <span>Pin</span>point
         </Link>
 
@@ -77,12 +55,6 @@ const NavBar: React.FC = () => {
             Contact
           </Link>
         </div>
-
-        {/* {[...Array(6)].map((_, index) => (
-          <div key={index} className="drop-down-container">
-            <div className="drop-down-item"></div>
-          </div>
-        ))} */}
       </div>
     </>
   );

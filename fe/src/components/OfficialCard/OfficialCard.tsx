@@ -49,11 +49,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({
         )}
         <h2 className="official-name" style={{ fontFamily: randomFont }}>
           {official.name}
-          <img
-            src={AmericanFlag}
-            alt="American Flag"
-            className="flag-gif"
-          />
+          <img src={AmericanFlag} alt="American Flag" className="flag-gif" />
         </h2>
         <p className="official-role span-wrapper">
           {official.current_role?.title},{" "}
@@ -64,13 +60,28 @@ const OfficialCard: React.FC<OfficialCardProps> = ({
         <p className="official-party span-wrapper">
           Party:{" "}
           <span className="card-span" style={{ fontFamily: randomFont }}>
-            {official.party || "Unknown"} ({partyInitial})
+            {official.party || "Unknown"}{" "}
+            <span id={partyInitial}>({partyInitial})</span>
           </span>
         </p>
         <p className="official-contact span-wrapper">
           Email:{" "}
           <span className="card-span" style={{ fontFamily: randomFont }}>
-            {official.email || "No email available"}
+            {official.email ? (
+              official.email.startsWith("http") ? (
+                <a
+                  href={official.email}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open Contact Page
+                </a>
+              ) : (
+                official.email
+              )
+            ) : (
+              "No email available"
+            )}
           </span>
         </p>
       </div>

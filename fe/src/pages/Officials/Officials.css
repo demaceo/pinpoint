@@ -1,8 +1,7 @@
-
- .officials-header {
+.officials-header {
   display: flex;
   align-items: center; /* Align dropdown and SVG on the same row */
-  gap: 12px; 
+  gap: 12px;
 }
 
 .states-dropdown {
@@ -10,7 +9,6 @@
   font-size: 1rem;
   padding: 10px;
 }
-
 
 /* AL – Alabama: sample style */
 .xstyles-al {
@@ -147,7 +145,7 @@
 
 /* MN – Minnesota */
 .xstyles-mn {
-  background-color: #dfb2f4; 
+  background-color: #dfb2f4;
   color: #111;
 }
 

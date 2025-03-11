@@ -36,9 +36,7 @@ const Officials: React.FC = () => {
     setOfficials(mockOfficials);
   }
 
-  const selectedObj = usStates.find(
-    (obj) => obj.abbr === selectedState
-  );
+  const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
 
   return (
@@ -56,13 +54,13 @@ const Officials: React.FC = () => {
             </option>
           ))}
         </select>{" "}
-
-        {selectedState
-          ? usStates.find((item) => item.abbr === selectedState)?.state && ( // Find the state object
-              <StateDisplay selectedAbbr={selectedState} />
-            )
-          : <p>...</p>}
-
+        {selectedState ? (
+          usStates.find((item) => item.abbr === selectedState)?.state && ( // Find the state object
+            <StateDisplay selectedAbbr={selectedState} />
+          )
+        ) : (
+          <p>{"  "}...</p>
+        )}
       </h1>
 
       <ul>
