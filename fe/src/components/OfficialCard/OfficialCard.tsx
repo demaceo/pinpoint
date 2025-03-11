@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./OfficialCard.css";
 import { OfficialCardProps } from "../../assets/types";

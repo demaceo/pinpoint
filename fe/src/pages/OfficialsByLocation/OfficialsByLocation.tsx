@@ -31,7 +31,6 @@ const OfficialsByLocation: React.FC = () => {
     setOfficials(mockOfficials);
   }
   // const randomIndex = Math.floor(Math.random() * officials.length);
-
   return (
     <div className="yourofficials-container">
       <h1>Officials Near You</h1>

@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-interface Location {
-    lat: number;
-    lng: number;
-}
+import { Location } from "../assets/types";
 
 export const useUserLocation = () => {
     const [location, setLocation] = useState<Location | null>(null);

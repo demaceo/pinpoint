@@ -43,3 +43,10 @@ export interface UsStateEntry {
     state: string;
     xstyles: string;
 }
+
+
+export
+    interface Location {
+    lat: number;
+    lng: number;
+}
