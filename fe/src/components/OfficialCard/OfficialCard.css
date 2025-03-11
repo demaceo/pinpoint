@@ -6,24 +6,23 @@
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  font-family: "Times New Roman", serif; 
+  /* font-family: "Times New Roman", serif; */
 }
 
-.official-card:hover {
+/* .official-card:hover {
   transform: scale(1.02);
-}
+} */
 
 /* 🪪 Business Card (American Psycho) */
 .business-card {
   background-color: #f2f2f2; /* Light "Eggshell" color */
   /* color: #111; */
   border: 1px solid #e2e2e2; /* subtle border */
-  /* background: #fff; */
   padding: 1em;
   border-radius: 0.5em;
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: text-yo 3.5s ease-in-out;
+  animation: text-yo 2.5s ease-in-out;
   animation-fill-mode: backwards;
   height: 15em;
   color: #232323;
@@ -37,43 +36,119 @@
 }
 
 /* 🤡 Joker Card (The Dark Knight) */
-.joker-card {
-  background: linear-gradient(120deg, #4f2f70 40%, #2e7211 60%);
-  color: #fff;
-  border: 2px solid #000;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-}
 
 /* 🖼 Official Photo */
 .official-photo {
-  width: 60px;
-  height: 60px;
-  border-radius: 4px;
+  width: 100px;
+  height: 100px;
+  border-radius: 7px;
   object-fit: cover;
   float: right;
   margin-left: 8px;
 }
 
-/* 🔤 Text Styles */
 .official-name {
-  font-size: 1.4rem;
-  margin-bottom: 4px;
+  font-size: 2rem;
+  margin-bottom: 30px;
   font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  /* text-align: center; */
+  transition: font-family 0.3s ease-in-out;
 }
 
 .official-role,
 .official-party,
 .official-contact {
-  margin: 2px 0;
-  font-weight: 400;
-  font-size: 0.9rem;
+  margin: 8px 5px;
+  font-weight: 100;
+  font-size: 1.2rem;
 }
 
-/* Make Joker text a bit more chaotic if you want! */
+.span-wrapper{
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.card-span {
+  font-family: "Raleway";
+}
+
+.joker-card {
+  background: #ffffff;
+  color: #d90429;
+  border: 4px solid #222;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  font-family: "Jokerman", cursive;
+  max-width: 250px;
+  aspect-ratio: 2.5 / 3.5; /* Standard playing card ratio */
+}
+
+/* 🃏 Add the Jester's Hat Icon */
+.joker-card::before {
+  content: "";
+  background: url("../../assets/jester-hat.png") no-repeat center/contain;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: purple;
+}
+
+/* 🎭 Add a mirrored Jester Hat at the bottom for symmetry */
+.joker-card::after {
+  content: "";
+  background: url("../../assets/jester-hat.png") no-repeat center/contain;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  transform: rotate(180deg);
+}
+
 .joker-card .official-name {
-  font-family: "JokerMan", cursive;
-  letter-spacing: 1px;
-  color: #ffe600;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #222;
+  margin-top: 6vh;
+  text-align: left;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.joker-card .official-role {
+  font-size: 1rem;
+  font-style: italic;
+  color: #444;
+}
+
+.joker-card .official-party {
+  color: #d90429;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* 🖼 Official Photo inside the Card */
+.joker-card .official-photo {
+  width: 80px;
+  height: 80px;
+  /* border-radius: 50%; */
+  object-fit: cover;
+  border: 2px solid #222;
+  margin: 10px auto;
+  display: block;
+}
+
+/* 🃏 Hover Effect to add a bit of playfulness */
+.joker-card:hover {
+  transform: scale(1.05) rotate(2deg);
+  transition: transform 0.3s ease-in-out;
 }
 
 @keyframes text-yo {

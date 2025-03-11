@@ -4,59 +4,78 @@ import { fetchOfficialsByState } from "../../services/openStatesService";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
-// import "./Officials.css";
+import "./Officials.css";
 import mockOfficials from "../../assets/mockOfficials.json";
+import { UsStateEntry } from "../../assets/types.ts";
+import usStatesData from "../../assets/statesData.json";
+import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
 
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const state = "Colorado"; // Replace with user input later
+  const [selectedState, setSelectedState] = useState<string>("");
   const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
+  const usStates: UsStateEntry[] = usStatesData;
 
   useEffect(() => {
-    fetchOfficialsByState(state)
+    if (!selectedState) {
+      setOfficials([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    fetchOfficialsByState(selectedState)
       .then(setOfficials)
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, [state]);
+  }, [selectedState]);
 
   if (loading) return <LoadingSpinner />;
-  if (!officials) {
+
+  if (!officials || officials.length === 0) {
     setOfficials(mockOfficials);
-    console.log(officials);
   }
-  // !console.log(officials[0]);
-  // const queryParams = new URLSearchParams();
-  // if (id) queryParams.append("id", id);
-  // if (name) queryParams.append("name", name);
-  // if (jurisdiction) queryParams.append("jurisdiction", jurisdiction);
-  // const randomIndex = Math.floor(Math.random() * officials.length);
+
+  const selectedObj = usStates.find(
+    (obj) => obj.abbr === selectedState
+  );
+  const xstylesClass = selectedObj?.xstyles || "";
 
   return (
-    <div>
-      <h1>Officials in {state}</h1>
+    <div className="officials-page-container">
+      <h1 className="officials-header">
+        Officials in{" "}
+        <select
+          className={`states-dropdown ${xstylesClass}`}
+          value={selectedState}
+          onChange={(e) => setSelectedState(e.target.value)}
+        >
+          {usStates.map((item) => (
+            <option key={item.abbr} value={item.abbr}>
+              {item.abbr}
+            </option>
+          ))}
+        </select>{" "}
+
+        {selectedState
+          ? usStates.find((item) => item.abbr === selectedState)?.state && ( // Find the state object
+              <StateDisplay selectedAbbr={selectedState} />
+            )
+          : <p>...</p>}
+
+      </h1>
+
       <ul>
-        {officials.length > 0
-          ? officials.map((official, index) => {
-              return (
-                <OfficialLink
-                  official={official}
-                  index={index}
-                  onSelect={() => setSelectedOfficial(official)}
-                />
-              );
-            })
-          : mockOfficials.map((official, index) => {
-              return (
-                <OfficialLink
-                  official={official}
-                  index={index}
-                  onSelect={() => setSelectedOfficial(official)}
-                />
-              );
-            })}
+        {officials.map((official, index) => (
+          <OfficialLink
+            key={index}
+            official={official}
+            index={index}
+            onSelect={() => setSelectedOfficial(official)}
+          />
+        ))}
       </ul>
-      {/* Modal overlay + content */}
+
       {selectedOfficial && (
         <OfficialCard
           official={selectedOfficial}

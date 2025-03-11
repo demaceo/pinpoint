@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./OfficialCard.css";
 import { OfficialCardProps } from "../../assets/types";
+
+const elegantFonts = [
+  "'Garamond', serif",
+  "'Playfair Display', serif",
+  "'Cormorant Garamond', serif",
+  "'Cinzel', serif",
+  "'Bodoni Moda', serif",
+  "'Merriweather', serif",
+  "'Lora', serif",
+  "'Libre Baskerville', serif",
+  "'Della Respira', serif",
+  "'Prata', serif",
+  "'EB Garamond', serif",
+  "'Times New Roman', serif",
+  "'Georgia', serif",
+];
 
 const OfficialCard: React.FC<OfficialCardProps> = ({
   official,
   isJoker = false,
   onClose,
 }) => {
+  const [randomFont, setRandomFont] = useState<string>("");
+
+  useEffect(() => {
+    const font = elegantFonts[Math.floor(Math.random() * elegantFonts.length)];
+    setRandomFont(font);
+    console.log("font: ", font);
+  }, []);
+
   const partyInitial = official.party?.charAt(0) || "N/A";
 
   return (
@@ -22,16 +46,29 @@ const OfficialCard: React.FC<OfficialCardProps> = ({
             className="official-photo"
           />
         )}
-        <h2 className="official-name">{official.name}</h2>
-        <p className="official-role">
-          {official.current_role?.title}, District{" "}
-          {official.current_role?.district}{" "}
+        <h2
+          className="official-name"
+          style={{ fontFamily: `${randomFont} !important` }}
+        >
+          {official.name}
+        </h2>
+        <p className="official-role span-wrapper">
+          {official.current_role?.title},{" "}
+          <span className="card-span">
+            District {official.current_role?.district}{" "}
+          </span>
         </p>
-        <p className="official-party">
-          Party: {official.party || "Unknown"} ({partyInitial})
+        <p className="official-party span-wrapper">
+          Party:{" "}
+          <span className="card-span">
+            {official.party || "Unknown"} ({partyInitial})
+          </span>
         </p>
-        <p className="official-contact">
-          Email: {official.email || "No email available"}
+        <p className="official-contact span-wrapper">
+          Email:{" "}
+          <span className="card-span">
+            {official.email || "No email available"}
+          </span>
         </p>
       </div>
     </div>
