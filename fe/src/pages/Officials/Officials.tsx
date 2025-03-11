@@ -57,14 +57,16 @@ const Officials: React.FC = () => {
           ))}
         </select>{" "}
         {selectedState ? (
-          usStates.find((item) => item.abbr === selectedState)?.state && ( 
-            <StateDisplay selectedAbbr={selectedState} />
+          usStates.find((item) => item.abbr === selectedState)?.state && (
+            <StateDisplay
+              selectedAbbr={selectedState}
+              xstylesClass={xstylesClass}
+            />
           )
         ) : (
           <p>{"  "}</p>
         )}
       </h1>
-
       <ul>
         {officials.map((official, index) => (
           <OfficialLink
