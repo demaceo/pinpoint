@@ -1,27 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from "react";
+// import { useLocation } from "react-router-dom";
 // import { fetchOfficialById } from "../../services/openStatesService"; 
-import OfficialCard from "../../components/OfficialCard/OfficialCard";
+// import OfficialCard from "../../components/OfficialCard/OfficialCard";
 import "./OfficialDetails.css";
-import { fetchOfficialsByGeo } from "../../services/openStatesService";
+// import { fetchOfficialsById } from "../../services/openStatesService";
 
 const OfficialDetails: React.FC = () => {
   // const { id } = useParams();
-  const [official, setOfficial] = useState<any | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const location = useLocation();
+  // const [official, setOfficial] = useState<any | null>(null);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const location = useLocation();
   // const official = location.state?.official;
-  const isJoker = location.state?.isJoker;
+  // const isJoker = location.state?.isJoker;
 
-  // useEffect(() => {
-  //   if (location) {
-  //     fetchOfficialById()
-  //       .then(setOfficial)
-  //       .catch(console.error)
-  //       .finally(() => setLoading(false));
-  //   }
-  // }, [location]);
+  
   // if (!official) return <p>Official not found.</p>;
 
   // useEffect(() => {
@@ -39,7 +32,7 @@ const OfficialDetails: React.FC = () => {
    <div className="p-6">
      <h1 className="text-2xl font-bold">Official Details</h1>
      {/* Pass isJoker down to OfficialCard */}
-     <OfficialCard official={official} isJoker={isJoker} />
+     {/* <OfficialCard official={official} isJoker={isJoker} /> */}
    </div>
  );
   // return (

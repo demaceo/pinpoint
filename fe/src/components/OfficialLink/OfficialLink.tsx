@@ -1,19 +1,22 @@
 import "./OfficialLink.css";
-import { Official } from "../../assets/types";
-import { Link } from "react-router-dom";
-// import OfficialCard from "../OfficialCard/OfficialCard";
+import { OfficialLinkProps } from "../../assets/types";
 
-const OfficialLink: React.FC<{ official: Official; index: number }> = ({
+const OfficialLink: React.FC<OfficialLinkProps> = ({
   index,
   official,
+  onSelect,
 }) => {
+
   const partyInitial = official.party?.charAt(0) || "N/A";
+
+  const handleClick = () => {
+    onSelect();
+  };
+
   return (
     <li key={index} className="list-item">
-      <Link to={`/official/${official.id}`} state={{ official }}>
-        <span>{official.name}</span>
-      </Link>{" "}
-      - {official.current_role?.title} ({partyInitial}){" "}
+      <span onClick={handleClick}>{official.name}</span> -{" "}
+      {official.current_role?.title} ({partyInitial})
     </li>
   );
 };

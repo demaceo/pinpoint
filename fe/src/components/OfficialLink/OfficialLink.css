@@ -7,44 +7,34 @@
 .list-item span {
   color: #e78533;
   font-weight: 600;
-  text-decoration: none !important;
+  text-decoration: underline !important;
 }
-
 
 .card-wrapper {
-  color: #232323; 
-  font-family: 'Droid Sans', sans-serif;
+  color: #232323;
+  font-family: "Droid Sans", sans-serif;
   overflow: hidden;
   text-align: justify;
 }
 
-.business-card {
-  animation: text-yo 3s 1s ease-in-out; 
-  animation-fill-mode: backwards;
-  color: #ccc;
-  height: 25em;
-  left: 50%;
-  overflow: hidden;
-  position: absolute;
-  text-align: justify;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 25em;
-} 
-
-@keyframes text-yo {
-  from {
-    color: #232323; 
-    height: 100%;
-    letter-spacing: 1em;
-    transform: translate(-50%, -50%);
-    width: 100%;
-  }
-  
-  to {
-    letter-spacing: 0;
-    height: 25em;
-    transform: translate(-50%, -50%) rotate(45deg);
-    width: 25em;
-  }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
+
+/* .modal-content {
+  background: #fff;
+  padding: 1em;
+  border-radius: 0.5em;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */

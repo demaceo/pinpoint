@@ -2,14 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { fetchOfficialsByState } from "../../services/openStatesService";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-// import OfficialCard  from "../../components/OfficialCard/OfficialCard";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
-import "./Officials.css";
+import OfficialCard from "../../components/OfficialCard/OfficialCard";
+// import "./Officials.css";
 import mockOfficials from "../../assets/mockOfficials.json";
+
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const state = "Colorado"; // Replace with user input later
+  const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
 
   useEffect(() => {
     fetchOfficialsByState(state)
@@ -19,6 +21,10 @@ const Officials: React.FC = () => {
   }, [state]);
 
   if (loading) return <LoadingSpinner />;
+  if (!officials) {
+    setOfficials(mockOfficials);
+    console.log(officials);
+  }
   // !console.log(officials[0]);
   // const queryParams = new URLSearchParams();
   // if (id) queryParams.append("id", id);
@@ -32,12 +38,31 @@ const Officials: React.FC = () => {
       <ul>
         {officials.length > 0
           ? officials.map((official, index) => {
-              return <OfficialLink official={official} index={index} />;
+              return (
+                <OfficialLink
+                  official={official}
+                  index={index}
+                  onSelect={() => setSelectedOfficial(official)}
+                />
+              );
             })
           : mockOfficials.map((official, index) => {
-              return <OfficialLink official={official} index={index} />;
+              return (
+                <OfficialLink
+                  official={official}
+                  index={index}
+                  onSelect={() => setSelectedOfficial(official)}
+                />
+              );
             })}
       </ul>
+      {/* Modal overlay + content */}
+      {selectedOfficial && (
+        <OfficialCard
+          official={selectedOfficial}
+          onClose={() => setSelectedOfficial(null)}
+        />
+      )}
     </div>
   );
 };

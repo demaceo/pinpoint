@@ -25,3 +25,15 @@ export interface Official {
     updated_at?: string;
     openstates_url?: string;
 }
+
+export interface OfficialLinkProps {
+    official: Official;
+    index: number;
+    onSelect: () => void;
+}
+
+export interface OfficialCardProps {
+    official: Official;
+    isJoker?: boolean;
+    onClose: () => void;
+}
