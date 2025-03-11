@@ -9,7 +9,7 @@ import "./Officials.css";
 import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
-import {mockOfficials} from "../../utils/mockDataGenerator";
+import { mockOfficials } from "../../utils/mockDataGenerator";
 
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
@@ -17,7 +17,7 @@ const Officials: React.FC = () => {
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
   const usStates: UsStateEntry[] = usStatesData;
-  const mockData: Official[] = mockOfficials
+  const mockData: Official[] = mockOfficials;
 
   useEffect(() => {
     if (!selectedState) {
@@ -57,11 +57,11 @@ const Officials: React.FC = () => {
           ))}
         </select>{" "}
         {selectedState ? (
-          usStates.find((item) => item.abbr === selectedState)?.state && ( // Find the state object
+          usStates.find((item) => item.abbr === selectedState)?.state && ( 
             <StateDisplay selectedAbbr={selectedState} />
           )
         ) : (
-          <p>{"  "}...</p>
+          <p>{"  "}</p>
         )}
       </h1>
 
