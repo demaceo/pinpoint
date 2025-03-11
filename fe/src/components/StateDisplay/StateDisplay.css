@@ -1,0 +1,45 @@
+
+
+.stateDisplay-container {
+  display: inline-block; /* Shrink to fit image */
+  vertical-align: middle; /* Align with dropdown */
+  overflow: hidden;
+}
+
+.stateDisplay-container img {
+  width: 80px; 
+  height: auto; 
+  display: block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.stateDisplay-container img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.stateDisplay-container p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444;
+  background: #ffe4e4;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ffaaaa;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.stateDisplay-container img {
+  animation: fadeIn 0.4s ease-in-out;
+}
