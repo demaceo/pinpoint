@@ -37,3 +37,9 @@ export interface OfficialCardProps {
     isJoker?: boolean;
     onClose: () => void;
 }
+
+export interface UsStateEntry {
+    abbr: string;
+    state: string;
+    xstyles: string;
+}
