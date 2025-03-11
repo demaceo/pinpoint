@@ -5,8 +5,9 @@ import { fetchOfficialsByGeo } from "../../services/openStatesService";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import "./OfficialsByLocation.css";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
-import mockOfficials from "../../assets/mockOfficials.json";
+// import mockOfficials from "../../assets/mockOfficials.json";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
+import { mockOfficials } from "../../utils/mockDataGenerator";
 
 const OfficialsByLocation: React.FC = () => {
   const { location, error } = useUserLocation();
@@ -26,33 +27,33 @@ const OfficialsByLocation: React.FC = () => {
   if (error) return <p>{error}</p>;
   if (loading) return <LoadingSpinner />;
   if (!location) return <p>Fetching location...</p>;
-  if (!officials) return <p>No officials found for this location.</p>;
-
+  // if (!officials) return <p>No officials found for this location.</p>;
+  if (!officials || officials.length === 0) {
+    setOfficials(mockOfficials);
+    // console.log('mockOfficials', mockOfficials);
+  }
   // const randomIndex = Math.floor(Math.random() * officials.length);
 
   return (
-    <div>
+    <div className="yourofficials-container">
       <h1>Officials Near You</h1>
       <ul>
-        {officials.length > 0
-          ? officials.map((official, index) => {
+        {
+          officials.length > 0 ? (
+            officials.map((official, index) => {
               return (
                 <OfficialLink
+                  key={index}
                   official={official}
                   index={index}
                   onSelect={() => setSelectedOfficial(official)}
                 />
               );
             })
-          : mockOfficials.map((official, index) => {
-              return (
-                <OfficialLink
-                  official={official}
-                  index={index}
-                  onSelect={() => setSelectedOfficial(official)}
-                />
-              );
-            })}
+          ) : (
+            <p>No officials found for this location.</p>
+          )
+        }
       </ul>
       {/* Modal overlay + content */}
       {selectedOfficial && (

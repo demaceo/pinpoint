@@ -5,10 +5,11 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
 import "./Officials.css";
-import mockOfficials from "../../assets/mockOfficials.json";
-import { UsStateEntry } from "../../assets/types.ts";
+// import mockOfficials from "../../assets/mockOfficials.json";
+import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
+import {mockOfficials} from "../../utils/mockDataGenerator";
 
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
@@ -16,6 +17,7 @@ const Officials: React.FC = () => {
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
   const usStates: UsStateEntry[] = usStatesData;
+  const mockData: Official[] = mockOfficials
 
   useEffect(() => {
     if (!selectedState) {
@@ -33,7 +35,7 @@ const Officials: React.FC = () => {
   if (loading) return <LoadingSpinner />;
 
   if (!officials || officials.length === 0) {
-    setOfficials(mockOfficials);
+    setOfficials(mockData);
   }
 
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
