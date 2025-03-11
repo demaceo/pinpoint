@@ -1,50 +1,19 @@
-/* nav {
-  width: 100%;
-  margin-top:1vh;
-}
-
-.nav-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-links-left {
-  margin-left: 20px;
-}
-
-.nav-links-right {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  gap: 50px;
-  margin-right: 50px;
-}
-
- */
-
-/* 🛠️ General Navbar Styles */
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
-/* $deerBackground = url('https://40.media.tumblr.com/c51b58b12eea0fdb6ef1322c8c6089fb/tumblr_mo4hnpJ1D51r20af2o1_500.jpg') no-repeat center; */
-/* $hipsterBackground = url('https://kccsecurity.com/wp-content/uploads/2018/01/Hipster-Wallpaper-9956.jpg') no-repeat center; */
-/* $whiteWoodBackground = url('http://avvs.co/wp-content/uploads/2015/11/white-washed-wood-furniture-minimalist-decor-on-white-design-ideas.jpg') no-repeat center; */
-/* $conceptBackground = url('https://4.bp.blogspot.com/-1UHmmr4AumQ/T-QwGJwJduI/AAAAAAAAKRE/6Vgq1WmrEzM/s1600/photoshops+(81).jpg') fixed center; */
-/* $skyBackground = url('http://www.pixelstalk.net/wp-content/uploads/2016/05/Hipster-Wallpapers-High-Quality-Free-Download.jpg') fixed center; */
 
-* {
+/* * {
   transition: 0.4s ease;
-}
+} */
 
 .navbar {
-  position: fixed;
+  position: absolute;
   font-family: "Raleway";
   letter-spacing: 4px;
   font-weight: 400;
   top: 0;
-  left: 0;
-  right: 0;
+  /* left: 0; */
+  /* right: 0; */
+  width: 100%;
   min-height: 100px;
   padding: 0 25px;
   background-color: rgba(255, 255, 255, 0.02);
@@ -57,17 +26,15 @@
   align-items: center;
 }
 
-/* 🖥️ Scrolled Navbar */
 .navbar.scrolled {
   min-height: 60px;
   background-color: #fdfdfd;
   box-shadow: 0 0 30px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* 🔹 Logo */
 .logo {
   position: absolute;
-  left: 40px;
+  left: 50px;
   top: 50%;
   text-decoration: none;
   transform: translateY(-50%);
@@ -88,7 +55,6 @@
   color: black;
 }
 
-/* 🍔 Menu Button */
 .menu-button {
   position: absolute;
   height: 48px;
@@ -102,7 +68,6 @@
   justify-content: center;
   gap: 5px;
   transition: 0.4s ease;
-  /* transition: 0.4s ease, width 0.3s ease; */
 }
 
 .white-bar {
@@ -112,27 +77,30 @@
   transition: 0.4s ease;
 }
 
+.red {
+  background-color: #f70606;
+}
+.blue {
+  background-color: #1403f9;
+}
+
 .navbar.scrolled .white-bar {
   background-color: black;
 }
 
-/* 🍔 Menu Opened State */
 .menu-open .white-bar:nth-child(1),
 .menu-open .white-bar:nth-child(4) {
   width: 0;
 }
 
 .menu-open .white-bar:nth-child(2) {
-  /* transform: rotate(45deg) translate(5px, 5px); */
   transform: translateX(0%) rotate(90deg);
 }
 
 .menu-open .white-bar:nth-child(3) {
-  /* transform: rotate(-45deg) translate(5px, -5px); */
   transform: translateX(0%) rotate(0deg);
 }
 
-/* 📜 Dropdown Menu */
 .the-bass {
   position: fixed;
   height: 0;
@@ -154,17 +122,11 @@
   padding: 5px 0;
 }
 
-/* 🎴 Dropdown Items */
 .drop-down-container {
   display: flex;
-  /* flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content:center; */
   height: 25%;
   width: 90%;
   left: 160%;
-  /* padding-top: 10px; */
   margin-top: 10px;
   transform: translateX(-50%);
   transition: 0.3s ease;
