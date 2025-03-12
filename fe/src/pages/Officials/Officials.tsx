@@ -11,27 +11,16 @@ import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
 import { mockOfficials } from "../../utils/mockDataGenerator";
 import Modal from "../../components/Modal/Modal.tsx";
+import Filters from "../../components/Filter/Filter.tsx";
 
-const applyDynamicShadow = () => {
-  document.querySelectorAll("[class^='xstyles-']").forEach((el) => {
-    const element = el as HTMLElement;
-    const bgColor = window.getComputedStyle(element).backgroundColor;
-
-    if (bgColor.startsWith("rgb")) {
-      // Convert 'rgb(r, g, b)' to 'rgba(r, g, b, 0.95)'
-      const rgbaColor = bgColor.replace("rgb", "rgba").replace(")", ", 0.95)");
-
-      // Apply drop-shadow using extracted background color
-      element.style.filter = `drop-shadow(2px 4px 6px ${rgbaColor})`;
-    }
-  });
-};
 
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
+  const [selectedParty, setSelectedParty] = useState<string>(""); // 🏛 Filter by party
+  const [selectedRole, setSelectedRole] = useState<string>(""); // 🏛 Filter by role
   const usStates: UsStateEntry[] = usStatesData;
   const mockData: Official[] = mockOfficials;
 
@@ -48,10 +37,6 @@ const Officials: React.FC = () => {
       .finally(() => setLoading(false));
   }, [selectedState]);
 
-  useEffect(() => {
-    applyDynamicShadow();
-  }, []);
-
   if (loading) return <LoadingSpinner />;
 
   if (!officials || officials.length === 0) {
@@ -61,8 +46,28 @@ const Officials: React.FC = () => {
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
 
+  // 🏛 Function to handle filter changes
+  const handleFilterChange = (filterType: string, value: string) => {
+    if (filterType === "party") setSelectedParty(value);
+    if (filterType === "role") setSelectedRole(value);
+  };
+
+  // 🏛 Apply filters to officials list
+  const filteredOfficials = officials.filter((official) => {
+    return (
+      (selectedParty ? official.party === selectedParty : true) &&
+      (selectedRole ? official.current_role.title === selectedRole : true)
+    );
+  });
+
+
   return (
     <div className="officials-page-container">
+      <Filters
+        selectedParty={selectedParty}
+        selectedRole={selectedRole}
+        onFilterChange={handleFilterChange}
+      />
       <h1 className="officials-header">
         Officials in{" "}
         <select
@@ -85,7 +90,7 @@ const Officials: React.FC = () => {
         )}
       </h1>
       <ul>
-        {officials.map((official, index) => (
+        {filteredOfficials.map((official, index) => (
           <OfficialLink
             key={index}
             official={official}

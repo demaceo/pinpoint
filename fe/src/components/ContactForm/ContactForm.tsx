@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContactForm.css";
-const ContactForm: React.FC = () => {
+import { ContactFormProps } from "../../assets/types";
+
+const ContactForm: React.FC<ContactFormProps> = ({ official, onClose }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [receiver, setReceiver] = useState("");
+
+  useEffect(() => {
+    setReceiver(official.email || "");
+  }, [official]);
+  
+  console.log(receiver);
 
   return (
     <form className="contact-form">
@@ -21,7 +30,11 @@ const ContactForm: React.FC = () => {
         required
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button className="contact-button" disabled={!email || !message}>
+      <button
+        className="contact-button"
+        disabled={!email || !message}
+        onClick={onClose}
+      >
         Send
       </button>
     </form>

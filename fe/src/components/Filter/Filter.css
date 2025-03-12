@@ -1,0 +1,34 @@
+/* 🎛 Sidebar Styling */
+.filters-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50%;
+  margin: 15vh 0vw 10vh 2vw;
+  width: 250px;
+  background: white;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 🏛 Dropdown Styling */
+.filters-container select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* 🏛 Filter Labels */
+.filters-container label {
+  font-weight: bold;
+}
+
+/* 🏛 Space for the main content to avoid overlap */
+.officials-content {
+  margin-left: 270px; /* Push content to the right so it doesn't overlap */
+}
