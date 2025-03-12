@@ -45,8 +45,11 @@ export interface UsStateEntry {
 }
 
 
-export
-    interface Location {
+export interface Location {
     lat: number;
     lng: number;
+}
+export interface ContactFormProps {
+    official: Official;
+    onClose: () => void;
 }
