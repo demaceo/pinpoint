@@ -2,10 +2,7 @@
   width: 300px;
   min-height: 180px;
   margin: 20px;
-  padding: 16px;
-  border-radius: 8px;
   transition: transform 0.3s ease-in-out;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   margin-right: 20vw;
 }
 
@@ -16,7 +13,7 @@
   border-radius: 0.5em;
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: text-yo 2.5s ease-in-out;
+  animation: text-yo .9s ease-in-out;
   animation-fill-mode: backwards;
   height: 15em;
   color: #121111;
@@ -39,13 +36,13 @@
   background-image: url("../../assets/grain-texture.avif");
   background-repeat: repeat;
   background-size: 200px 200px;
-  opacity: 0.2;
+  opacity: 0.25;
   /* Adjust grain intensity */
   pointer-events: none;
 }
+
 .flag-gif {
-  width: 10%;
-  height: 10%;
+  width: 7%;
   margin-left: 0.9vw;
 }
 
@@ -58,9 +55,15 @@
   margin-left: 8px;
 }
 
+.official-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .official-name {
   font-size: 2rem;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   font-weight: 600;
   /* letter-spacing: 3px; */
   text-transform: capitalize;
@@ -73,6 +76,8 @@
   margin: 8px 5px;
   font-weight: 100;
   font-size: 1.2rem;
+  margin-left: 0.5vw;
+  letter-spacing: 1px;
 }
 
 .span-wrapper {
@@ -107,6 +112,22 @@
   font-style: oblique;
   color: green;
 }
+
+/* .contact-form-container {
+  position: absolute;
+  top: 0;
+  right: -420px; 
+  width: 300px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s ease-in-out;
+  padding: 20px;
+}
+
+.contact-form-container.show {
+  right: 0px; 
+} */
 
 .joker-card {
   background: #ffffff;
@@ -185,7 +206,7 @@
 @keyframes text-yo {
   from {
     color: #ccc;
-    height: 100%;
+    height: 40%;
     letter-spacing: 0.3em;
     transform: translate(-150%, -50%) rotate(-45deg);
     width: 100%;

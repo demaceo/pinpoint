@@ -46,7 +46,7 @@ const Filters: React.FC<FiltersProps> = ({
         <option value="Secretary of State">Secretary of State</option>
       </select>
       {/* additional Filters:
-      age (slider scale), name (search bar input), district */}
+      age (slider scale), name (search bar input), district, select all box, batch contact button */}
     </div>
   );
 };

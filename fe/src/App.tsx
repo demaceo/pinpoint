@@ -5,6 +5,7 @@ import OfficialsByLocation from "./pages/OfficialsByLocation/OfficialsByLocation
 // import Contact from "./pages/Contact/Contact.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
+
 import "./App.css";
 const App: React.FC = () => {
   return (
