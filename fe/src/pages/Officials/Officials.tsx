@@ -10,6 +10,22 @@ import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
 import { mockOfficials } from "../../utils/mockDataGenerator";
+import Modal from "../../components/Modal/Modal.tsx";
+
+const applyDynamicShadow = () => {
+  document.querySelectorAll("[class^='xstyles-']").forEach((el) => {
+    const element = el as HTMLElement;
+    const bgColor = window.getComputedStyle(element).backgroundColor;
+
+    if (bgColor.startsWith("rgb")) {
+      // Convert 'rgb(r, g, b)' to 'rgba(r, g, b, 0.95)'
+      const rgbaColor = bgColor.replace("rgb", "rgba").replace(")", ", 0.95)");
+
+      // Apply drop-shadow using extracted background color
+      element.style.filter = `drop-shadow(2px 4px 6px ${rgbaColor})`;
+    }
+  });
+};
 
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
@@ -31,6 +47,10 @@ const Officials: React.FC = () => {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [selectedState]);
+
+  useEffect(() => {
+    applyDynamicShadow();
+  }, []);
 
   if (loading) return <LoadingSpinner />;
 
@@ -58,10 +78,7 @@ const Officials: React.FC = () => {
         </select>{" "}
         {selectedState ? (
           usStates.find((item) => item.abbr === selectedState)?.state && (
-            <StateDisplay
-              selectedAbbr={selectedState}
-              xstylesClass={xstylesClass}
-            />
+            <StateDisplay selectedAbbr={selectedState} />
           )
         ) : (
           <p>{"  "}</p>
@@ -79,10 +96,16 @@ const Officials: React.FC = () => {
       </ul>
 
       {selectedOfficial && (
-        <OfficialCard
-          official={selectedOfficial}
-          onClose={() => setSelectedOfficial(null)}
-        />
+        <Modal onClose={() => setSelectedOfficial(null)}>
+          <OfficialCard
+            official={selectedOfficial}
+            onClose={() => setSelectedOfficial(null)}
+          />
+        </Modal>
+        // <OfficialCard
+        //   official={selectedOfficial}
+        //   onClose={() => setSelectedOfficial(null)}
+        // />
       )}
     </div>
   );

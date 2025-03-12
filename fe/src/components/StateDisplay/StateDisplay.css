@@ -1,17 +1,21 @@
 .stateDisplay-container {
-  /* display: inline-block; Shrink to fit image */
+  /* display: inline-block;  */
   vertical-align: middle; /* Align with dropdown */
+  overflow: hidden;
+  padding: 10px;
+  /* background-color: rgba(255, 255, 255, 0); */
 }
 
 .stateDisplay-container img {
   width: 80px;
-  /* height: 50px; */
   height: auto;
   display: block;
   transition: transform 0.2s ease-in-out;
-  animation: fadeIn 0.4s ease-in-out;
-  background-color: rgba(255, 255, 255, 0) !important;
+  /* animation: fadeIn 0.4s ease-in-out; */
+  /* background-color: rgba(255, 255, 255, 0) !important; */
+  /* background-color: rgba(255, 255, 255, 0); */
   /* filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.422)); */
+  /* filter: none; */
 }
 
 .stateDisplay-container img:hover {
