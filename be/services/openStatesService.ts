@@ -20,7 +20,7 @@ const apiClient = axios.create({
 export const fetchOfficialsByState = async (jurisdiction: string) => {
     try {
         const response = await apiClient.get("/people", {
-            params: { jurisdiction },
+            params: { jurisdiction, per_page: 50 },
         });
         return response.data.results;
     } catch (error: any) {
