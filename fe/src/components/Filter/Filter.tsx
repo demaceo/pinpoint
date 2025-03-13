@@ -1,22 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Filter.css";
-
-interface FiltersProps {
-  selectedParty: string;
-  selectedRole: string;
-  onFilterChange: (filterType: string, value: string) => void;
-}
-
+import { FiltersProps } from "../../assets/types";
+import Button from "../Button/Button";
 const Filters: React.FC<FiltersProps> = ({
   selectedParty,
   selectedRole,
+  searchQuery,
   onFilterChange,
+  onSearchChange,
+  onSelectAll,
+  onContactClick,
+  onChatClick,
+  hasSelectedOfficials,
 }) => {
+  const [selectAll, setSelectAll] = useState<boolean>(false);
+
+  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setSelectAll(isChecked);
+    onSelectAll(isChecked);
+  };
+
   return (
     <div className="filters-container">
       <h2>Filters</h2>
 
-      {/* 🏛 Filter by Party */}
+      <label>Search Official:</label>
+      <input
+        type="text"
+        placeholder="Enter name..."
+        value={searchQuery}
+        onChange={(e) => onSearchChange(e.target.value)}
+        className="search-bar"
+      />
+
       <label>Party:</label>
       <select
         value={selectedParty}
@@ -30,7 +47,6 @@ const Filters: React.FC<FiltersProps> = ({
         <option value="Green">Green</option>
       </select>
 
-      {/* 🏛 Filter by Role */}
       <label>Role:</label>
       <select
         value={selectedRole}
@@ -45,8 +61,26 @@ const Filters: React.FC<FiltersProps> = ({
         <option value="Council Member">Council Member</option>
         <option value="Secretary of State">Secretary of State</option>
       </select>
-      {/* additional Filters:
-      age (slider scale), name (search bar input), district, select all box, batch contact button */}
+
+      {/* Select All checkbox */}
+      <label className="select-all-label">
+        <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
+        Select All Officials
+      </label>
+
+      {/* Contact & Chat Buttons */}
+      <Button
+        label="contact"
+        className="contact-button"
+        onClick={onContactClick}
+        disabled={!hasSelectedOfficials}
+      />
+      <Button
+        label="chat"
+        className="chat-button"
+        onClick={onChatClick}
+        disabled={!hasSelectedOfficials}
+      />
     </div>
   );
 };
