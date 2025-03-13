@@ -22,3 +22,30 @@
   min-width: 35vw;
   margin: 10vh 0vw;
 }
+
+#R {
+  font-weight: 500;
+  font-style: oblique;
+  color: red;
+}
+#D {
+  font-weight: 500;
+  font-style: oblique;
+  color: blue;
+}
+#I {
+  font-weight: 500;
+  font-style: oblique;
+  color: black;
+}
+#G {
+  font-weight: bolder;
+  font-style: oblique;
+  color: green;
+}
+
+#L {
+  font-weight: bolder;
+  font-style: oblique;
+  color: purple;
+}
