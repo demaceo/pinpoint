@@ -1,11 +1,12 @@
 import React from "react";
 // import ContactForm from "../../components/ContactForm/ContactForm";
 // import "./Contact.css";
+import USMap from "../../components/USMap/USMap";
 const Contact: React.FC = () => {
   return (
     <div className="contact-container">
       <h1 className="">Contact an Official</h1>
-      {/* <ContactForm /> */}
+      <USMap />
     </div>
   );
 };

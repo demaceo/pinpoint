@@ -19,8 +19,9 @@ const Officials: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
-  const [selectedParty, setSelectedParty] = useState<string>(""); // 🏛 Filter by party
-  const [selectedRole, setSelectedRole] = useState<string>(""); // 🏛 Filter by role
+
+  const [selectedParty, setSelectedParty] = useState<string>(""); 
+  const [selectedRole, setSelectedRole] = useState<string>(""); 
   const usStates: UsStateEntry[] = usStatesData;
   const mockData: Official[] = mockOfficials;
 
@@ -46,20 +47,17 @@ const Officials: React.FC = () => {
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
 
-  // 🏛 Function to handle filter changes
   const handleFilterChange = (filterType: string, value: string) => {
     if (filterType === "party") setSelectedParty(value);
     if (filterType === "role") setSelectedRole(value);
   };
 
-  // 🏛 Apply filters to officials list
   const filteredOfficials = officials.filter((official) => {
     return (
       (selectedParty ? official.party === selectedParty : true) &&
       (selectedRole ? official.current_role.title === selectedRole : true)
     );
   });
-
 
   return (
     <div className="officials-page-container">
@@ -107,10 +105,6 @@ const Officials: React.FC = () => {
             onClose={() => setSelectedOfficial(null)}
           />
         </Modal>
-        // <OfficialCard
-        //   official={selectedOfficial}
-        //   onClose={() => setSelectedOfficial(null)}
-        // />
       )}
     </div>
   );

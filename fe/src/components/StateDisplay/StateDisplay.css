@@ -20,7 +20,7 @@
 
 .stateDisplay-container img:hover {
   transform: scale(1.05);
-  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.951));
+  /* filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.951)); */
 }
 
 .stateDisplay-container p {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./OfficialCard.css";
 import { OfficialCardProps } from "../../assets/types";
-import AmericanFlag from "../../assets/american-flag.gif";
+import AmericanFlag from "/american-flag.gif";
 // import ContactForm from "../ContactForm/ContactForm";
 import Button from "../Button/Button"; // Import Button
 // import Modal from "../Modal/Modal";
