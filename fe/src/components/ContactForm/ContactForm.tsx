@@ -1,51 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContactForm.css";
-
-interface ContactFormProps {
-  selectedEmails: string[];
-  onClose: () => void;
-  onRemoveEmail: (email: string) => void;
-}
+import { Official, ContactFormProps } from "../../assets/types";
+import Button from "../Button/Button";
 
 const ContactForm: React.FC<ContactFormProps> = ({
   selectedEmails,
+  selectedOfficials,
   onClose,
   onRemoveEmail,
 }) => {
   const [message, setMessage] = useState("");
+  const [filteredOfficials, setFilteredOfficials] =
+    useState<Official[]>(selectedOfficials);
 
-  // Auto-generate greeting for selected officials
-  const generateGreeting = () => {
-    return selectedEmails
-      .map((email) => {
-        const name = email.split("@")[0].replace(".", " "); // Extract name from email
-        return `Dear ${name.charAt(0).toUpperCase() + name.slice(1)},`;
-      })
-      .join("\n\n");
+  // Function to format the greeting
+  const generateGreeting = (officials: Official[]) => {
+    const formattedOfficials = officials.map(
+      (official) => `${official.current_role.title} ${official.name}`
+    );
+
+    if (formattedOfficials.length === 0) return "";
+
+    if (formattedOfficials.length === 1)
+      return `Dear ${formattedOfficials[0]},\n\n`;
+
+    return `Dear ${formattedOfficials
+      .slice(0, -1)
+      .join(", ")}, and ${formattedOfficials.slice(-1)},\n\n`;
   };
 
-  // Initialize message when form opens
-  useState(() => {
-    setMessage(generateGreeting() + "\n\n");
-  });
+  useEffect(() => {
+    setMessage(generateGreeting(filteredOfficials));
+  }, [filteredOfficials]);
+
+  // Handle email removal
+  const handleRemoveEmail = (email: string) => {
+    onRemoveEmail(email);
+
+    // Update officials list by removing the corresponding official
+    const updatedOfficials = filteredOfficials.filter(
+      (official) => official.email !== email
+    );
+    setFilteredOfficials(updatedOfficials); // ✅ Update state
+  };
 
   return (
-    <div className="contact-form-container">
+    <>
       <button className="close-btn" onClick={onClose}>
         X
       </button>
       <h2>Compose Email</h2>
-
-      {/* Display Selected Emails with 'X' Button */}
       <div className="email-list">
         {selectedEmails.map((email, index) => (
           <span key={index} className="email-tag">
-            {email} <button onClick={() => onRemoveEmail(email)}>✖</button>
+            {email} <button onClick={() => handleRemoveEmail(email)}>✖</button>
           </span>
         ))}
       </div>
 
       {/* Message Input */}
+      <h3>Your Drafted Message:</h3>
       <textarea
         className="message-box"
         value={message}
@@ -54,10 +68,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
       />
 
       {/* Send Button */}
-      <button className="send-btn" disabled={selectedEmails.length === 0}>
-        Send Email
-      </button>
-    </div>
+      <Button
+        label="send email"
+        className="send-btn"
+        onClick={() => console.log("send email clicked")}
+        disabled={message === ""}
+      />
+    </>
   );
 };
 

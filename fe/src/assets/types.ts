@@ -2,7 +2,7 @@ export interface Official {
     id: string;
     name: string;
     party?: string;
-    current_role?: {
+    current_role: {
         title: string;
         org_classification?: string;
         district: string | number;
@@ -50,10 +50,10 @@ export interface Location {
     lat: number;
     lng: number;
 }
-export interface ContactFormProps {
-    official: Official;
-    onClose: () => void;
-}
+// export interface ContactFormProps {
+//     official: Official;
+//     onClose: () => void;
+// }
 
 export interface FiltersProps {
     selectedParty: string;
@@ -68,9 +68,16 @@ export interface FiltersProps {
 }
 
 export interface ButtonProps {
-  label: string;
-  className?: string;
-  disabled?: boolean;  
-  onClick: (e: React.MouseEvent<HTMLElement>) => void;
+    label: string;
+    className?: string;
+    disabled?: boolean;
+    onClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
+
+export interface ContactFormProps {
+    selectedEmails: string[];
+    selectedOfficials: Official[];
+    onClose: () => void;
+    onRemoveEmail: (email: string) => void;
+}
