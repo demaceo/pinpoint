@@ -1,4 +1,4 @@
-.list-item {
+/* .list-item {
   font-family: "Raleway";
   margin-top: 1vh;
   font-weight: 300;
@@ -9,7 +9,7 @@
   font-weight: 600;
   text-decoration: underline !important;
   cursor: pointer;
-}
+} */
 
 .card-wrapper {
   color: #232323;
@@ -18,4 +18,24 @@
   text-align: justify;
 }
 
+/* 🎯 Styling for Checkbox List */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Raleway";
+  margin-top: 1vh;
+  font-weight: 300;
+}
+
+.checkbox-container span {
+  color: #e78533;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  transform: scale(1.2); /* Make checkboxes slightly larger */
+  cursor: pointer;
+}
 
