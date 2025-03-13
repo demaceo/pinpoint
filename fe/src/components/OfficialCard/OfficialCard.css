@@ -13,7 +13,7 @@
   border-radius: 0.5em;
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: text-yo .9s ease-in-out;
+  animation: text-yo 0.9s ease-in-out;
   animation-fill-mode: backwards;
   height: 15em;
   color: #121111;
@@ -92,26 +92,7 @@
   color: #232323;
 }
 
-#R {
-  font-weight: 500;
-  font-style: oblique;
-  color: red;
-}
-#D {
-  font-weight: 500;
-  font-style: oblique;
-  color: blue;
-}
-#I {
-  font-weight: 500;
-  font-style: oblique;
-  color: purple;
-}
-#G {
-  font-weight: 500;
-  font-style: oblique;
-  color: green;
-}
+
 
 /* .contact-form-container {
   position: absolute;

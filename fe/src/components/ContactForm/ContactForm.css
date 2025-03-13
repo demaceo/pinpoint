@@ -1,14 +1,14 @@
-.contact-form-container {
-  /* width: 100%; */
-  /* min-width: 500px; */
-  /* height: 100%; */
-  /* overflow: hidden; */
-  background: rgba(255, 255, 255, 0.95);
-  /* box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2); */
-  /* border: 20px solid red; */
-  transition: height 0.4s ease-in-out, padding 0.4s ease-in-out;
-  /* padding: 0 20px; */
-}
+/* .contact-form-container { */
+/* width: 100%; */
+/* min-width: 500px; */
+/* height: 100%; */
+/* overflow: hidden; */
+/* background: rgba(255, 255, 255, 0.95); */
+/* box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2); */
+/* border: 20px solid red; */
+/* transition: height 0.4s ease-in-out, padding 0.4s ease-in-out; */
+/* padding: 0 20px; */
+/* } */
 
 /* .contact-form-container {
   position: absolute;
@@ -26,7 +26,7 @@
   right: 0px; 
 }  */
 
-.contact-form {
+/* .contact-form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -36,7 +36,7 @@
   overflow: scroll;
   height: 100%;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.681);
-}
+} */
 
 /* 📩 Show Contact Form */
 /* .contact-form-container.show {
@@ -69,9 +69,87 @@ textarea {
   transition: all 1s ease-in-out;
 } */
 
-.contact-button:enabled {
+/* .contact-button:enabled {
   background-color: #0fd615;
   color: white;
   cursor: pointer;
   letter-spacing: 10px;
+} */
+
+.contact-form-container {
+  position: fixed;
+  top: 0;
+  right: -420px; /* Initially hidden */
+  width: 400px;
+  height: 100%;
+  background: white;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.4s ease-in-out;
+}
+
+.contact-form-container.show {
+  right: 0px; /* Slide in */
+}
+
+.email-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.email-tag {
+  background: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.email-tag button {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.message-box {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.send-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.send-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.close-btn {
+  background: red;
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 50%;
+  float: right;
+  cursor: pointer;
 }
