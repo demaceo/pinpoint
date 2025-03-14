@@ -1,17 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import {
-  //   Feature,
-  FeatureCollection,
-  //   GeoJsonProperties,
-  //   Geometry,
-} from "geojson";
+import { FeatureCollection } from "geojson";
 import geoJsonData from "./geoJSON.json";
 import OfficialLink from "../OfficialLink/OfficialLink";
-// import { fetchOfficialsByState } from "../../services/openStatesService";
+import "./USMap.css";
 
 const API_KEY = import.meta.env.VITE_OPENSTATES_API_KEY;
+const stateSvgs = import.meta.glob("/src/StateSVGs/*.svg", { eager: true });
+
+const getStateSvg = (stateName?: string) => {
+  if (!stateName) return "";
+  const fileName = stateName.replace(/\s+/g, "_") + ".svg";
+  return (
+    (stateSvgs[`/src/StateSVGs/${fileName}`] as { default: string })?.default ||
+    ""
+  );
+};
 
 const USMap: React.FC = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -21,14 +26,13 @@ const USMap: React.FC = () => {
 
   useEffect(() => {
     if (!svgRef.current) return;
-
-    const width = 960;
-    const height = 600;
+    const width = 1300;
+    const height = 750;
 
     // Define projection
     const projection = d3
       .geoAlbersUsa()
-      .scale(1000)
+      .scale(1500)
       .translate([width / 2, height / 2]);
     const pathGenerator = d3.geoPath().projection(projection);
 
@@ -52,9 +56,9 @@ const USMap: React.FC = () => {
       .append("path")
       .attr("class", "state")
       .attr("d", pathGenerator)
-      .attr("fill", "#ccc")
-      .attr("stroke", "#333")
-      .attr("stroke-width", 1)
+      .attr("fill", "transparent")
+      // .attr("stroke", "#333")
+      // .attr("stroke-width", 0)
       .on("mouseover", function (_, d) {
         tooltip
           .style("visibility", "visible")
@@ -69,8 +73,9 @@ const USMap: React.FC = () => {
         tooltip.style("visibility", "hidden");
       });
 
-    // Place state SVGs at centroid positions
     geoJson.features.forEach((state) => {
+      const stateName = state.properties?.name;
+      if (!stateName) return;
       const [x, y] = projection(d3.geoCentroid(state)) || [0, 0];
 
       svg
@@ -78,17 +83,20 @@ const USMap: React.FC = () => {
         .attr("class", "state-svg")
         .attr("x", x - 20)
         .attr("y", y - 20)
-        .attr("width", 40)
-        .attr("height", 40)
-        .attr(
-          "xlink:href",
-          `/StateSVGs/${state?.properties?.name.replace(/\s+/g, "_")}.svg`
-        )
-        .style("cursor", "pointer") // Add pointer cursor on hover
+        .attr("width", 70)
+        .attr("height", 70)
+        // .attr("fill", "#fff")
+        // .attr("stroke", "#000")
+        // .attr("stroke-width", 1)
+        .attr("xlink:href", getStateSvg(stateName))
+        .attr("key", (_d: any, i: number) => `state-svg-${i}`)
+        .style("cursor", "pointer")
         .on("mouseover", function () {
           d3.select(this).style("filter", "brightness(1.5)");
           tooltip
+            .text("")
             .style("visibility", "visible")
+            .style("display", "")
             .text(state.properties?.name || "Unknown State");
         })
         .on("mousemove", function (event) {
@@ -99,15 +107,14 @@ const USMap: React.FC = () => {
         .on("mouseout", function () {
           d3.select(this).style("filter", "none");
           tooltip.style("visibility", "hidden");
+          tooltip.style("display", "none").text("");
         })
         .on("click", function () {
           const stateName = state.properties?.name;
           setSelectedState(stateName);
           fetchStateRepresentatives(stateName);
-
-          // Highlight the selected SVG while resetting others
-          svg.selectAll(".state-svg").style("filter", "none"); // Reset all
-          d3.select(this).style("filter", "drop-shadow(0px 0px 10px yellow)"); // Highlight selected
+          svg.selectAll(".state-svg").style("filter", "none");
+          d3.select(this).style("filter", "drop-shadow(0px 0px 10px yellow)");
         });
     });
   }, [selectedState]);
@@ -115,9 +122,6 @@ const USMap: React.FC = () => {
   // Fetch representatives from OpenStates API
   const fetchStateRepresentatives = async (stateName: string) => {
     try {
-      // fetchOfficialsByState(stateName)
-      //   .then(setRepresentatives)
-      //   .catch(console.error);
       const response = await fetch(
         `https://v3.openstates.org/people?jurisdiction=${stateName}&apikey=${API_KEY}&per_page=50`
       );
@@ -133,20 +137,17 @@ const USMap: React.FC = () => {
   }
 
   return (
-    <div>
-      {/* <div ref={tooltipRef} style={tooltipStyles}></div>
-      <svg ref={svgRef}></svg> */}
+    <div className="usmap-page">
+      <div ref={tooltipRef} style={tooltipStyles}></div>
+      <svg className="usmap-container" ref={svgRef}></svg>
       {selectedState && (
-        <div>
+        <div className="usmap-results-container">
           <h2>Elected Officials for {selectedState}</h2>
           <ul>
             {representatives.length > 0 ? (
               representatives.map((rep, index) => (
                 <>
                   {" "}
-                  {/* <li key={index}>
-                    {rep.name} - {rep.party}
-                  </li> */}
                   <OfficialLink
                     key={index}
                     official={rep}
@@ -162,8 +163,6 @@ const USMap: React.FC = () => {
           <button onClick={() => setSelectedState(null)}>Reset</button>
         </div>
       )}
-      <div ref={tooltipRef} style={tooltipStyles}></div>
-      <svg ref={svgRef}></svg>
     </div>
   );
 };
@@ -178,7 +177,8 @@ const tooltipStyles: React.CSSProperties = {
   fontSize: "12px",
   visibility: "hidden",
   pointerEvents: "none",
-//   display: "none",
+  content: "",
+  //   display: "none",
 };
 
 export default USMap;

@@ -1,0 +1,9 @@
+.usmap-page {
+  /* background-color: transparent; */
+}
+.usmap-container {
+  background-color: rgba(255, 166, 0, 0.497);
+  width: fit-content;
+  border-radius: 15px;
+  padding: 10px;
+}
