@@ -1,0 +1,112 @@
+.ticker-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background: #121212d4;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  cursor: grab; /* Default cursor */
+
+}
+
+.ticker-wrapper {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overflow: hidden;
+  width: 100vw;
+  cursor: grab;
+  user-select: none; /* Prevents text selection while dragging */
+}
+
+.ticker-content {
+  display: flex;
+  gap: 30px;
+  animation: tickerScroll 50s linear infinite;
+  min-width: 100%;
+}
+
+.ticker-content:hover,
+.ticker-content.dragging {
+  animation-play-state: paused;
+  cursor: grabbing;
+}
+
+.ticker-item {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 16px;
+  color: #f9c74f;
+  transition: transform 0.3s ease-out, font-size 0.3s ease-out;
+}
+
+/* .ticker-content:hover {
+  animation-play-state: paused;
+} */
+
+.ticker-item:hover {
+  transform: scale(1.2);
+  font-size: 18px;
+  color: #ffeb3b;
+}
+
+/* Continuous Scrolling Effect */
+@keyframes tickerScroll {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* 🔹 Loading and No Results Styles */
+.ticker-loading,
+.ticker-no-results {
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+}
+
+
+/* 🔹 Tooltip Bubble */
+.bubble-tooltip {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  width: 250px;
+  /* z-index: 10000; */
+  transform: scale(0.5);
+  opacity: 0;
+  transition: transform 0.2s ease-out, opacity 0.5s ease-out;
+  pointer-events: none;
+}
+
+/* 🔹 Show the Tooltip with Inflation Effect */
+.bubble-tooltip.show {
+  transform: scale(1);
+  opacity: .7;
+}
+
+/* 🔹 Tooltip Text */
+.bubble-tooltip p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.bubble-tooltip strong {
+  font-size: 15px;
+  color: #121212;
+}
