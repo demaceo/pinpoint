@@ -7,89 +7,53 @@ import { fetchBillDetails } from "../../services/OpenStates/fetchBillDetails";
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const tickerRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
   const [hoveredBill, setHoveredBill] = useState<BillDetails | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!jurisdiction) return;
+
     setLoading(true);
     fetchBills({
       jurisdiction,
-      perPage: 5, // Limit to 5 recent bills for display
+      perPage: 5,
       sort: "latest_action_desc",
     })
-      .then((data) => setBills(data.results || []))
+      .then((data) => {
+        setBills(data.results || []);
+        console.log("Fetched Bills:", data.results); // Debugging
+      })
       .catch((error) => console.error("Error fetching bills:", error))
       .finally(() => setLoading(false));
   }, [jurisdiction]);
 
-  // const handleMouseEnter = (event: React.MouseEvent, bill: Bill) => {
-  //   setHoveredBill(bill);
+  const handleMouseEnter = async (event: React.MouseEvent, bill: Bill) => {
+    try {
+      const billDetails = await fetchBillDetails(bill.id);
+      setHoveredBill(billDetails);
+      console.log("Fetched Bill Details:", billDetails); // Debugging
 
-  //   const tooltipWidth = tooltipRef.current?.offsetWidth || 250;
-  //   const tooltipHeight = tooltipRef.current?.offsetHeight || 100;
+      // Ensure tooltip stays inside viewport
+      const tooltipWidth = tooltipRef.current?.offsetWidth || 280;
+      const tooltipHeight = tooltipRef.current?.offsetHeight || 150;
+      const newX = Math.min(
+        event.clientX + 15,
+        window.innerWidth - tooltipWidth - 10
+      );
+      const newY = Math.min(
+        event.clientY + 15,
+        window.innerHeight - tooltipHeight - 10
+      );
 
-  //   const newX = Math.min(
-  //     event.clientX + 15,
-  //     window.innerWidth - tooltipWidth - 10
-  //   );
-  //   const newY = Math.min(
-  //     event.clientY + 15,
-  //     window.innerHeight - tooltipHeight - 10
-  //   );
-
-  //   setTooltipPosition({ x: newX, y: newY });
-  // };
-
-    const handleMouseEnter = async (event: React.MouseEvent, bill: Bill) => {
-      try {
-        const billDetails = await fetchBillDetails(bill.id); // Fetch full details
-        setHoveredBill(billDetails);
-        console.log('hoverBill', hoveredBill)
-        // Ensure tooltip stays inside viewport
-        const tooltipWidth = tooltipRef.current?.offsetWidth || 250;
-        const tooltipHeight = tooltipRef.current?.offsetHeight || 100;
-        const newX = Math.min(
-          event.clientX + 15,
-          window.innerWidth - tooltipWidth - 10
-        );
-        const newY = Math.min(
-          event.clientY + 15,
-          window.innerHeight - tooltipHeight - 10
-        );
-
-        setTooltipPosition({ x: newX, y: newY });
-      } catch (error) {
-        console.error("Error loading bill details:", error);
-      }
-    };
+      setTooltipPosition({ x: newX, y: newY });
+    } catch (error) {
+      console.error("Error loading bill details:", error);
+    }
+  };
 
   const handleMouseLeave = () => {
     setHoveredBill(null);
-  };
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    setStartX(e.pageX - (tickerRef.current?.offsetLeft || 0));
-    setScrollLeft(tickerRef.current?.scrollLeft || 0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging || !tickerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - (tickerRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 2; // Speed factor
-    tickerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
   };
 
   if (loading)
@@ -99,68 +63,20 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
 
   return (
     <div className="ticker-container">
-      <div
-        className="ticker-wrapper"
-        ref={tickerRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-      >
-        <div className={`ticker-content ${isDragging ? "dragging" : ""}`}>
+      <div className="ticker-wrapper">
+        <div className="ticker-content">
           {bills.map((bill, index) => (
             <span
               key={index}
               className="ticker-item"
               onMouseEnter={(e) => handleMouseEnter(e, bill)}
               onMouseLeave={handleMouseLeave}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
             >
               <strong>{bill.identifier}</strong>: {bill.title} {" | "}
             </span>
           ))}
         </div>
       </div>
-      {/* ✅ Show tooltip only if hoveredBill exists */}
-      {/* {hoveredBill && (
-        <div
-          ref={tooltipRef}
-          className="bubble-tooltip show"
-          style={{
-            top: `${tooltipPosition.y}px`,
-            left: `${tooltipPosition.x}px`,
-          }}
-        >
-          <strong>{hoveredBill.identifier}</strong>
-          <p>{hoveredBill.title}</p>
-          {hoveredBill.session && (
-            <p>
-              <em>Session:</em> {hoveredBill.session}
-            </p>
-          )}
-          {hoveredBill.latest_action_description && (
-            <p>
-              <em>Last Action:</em> {hoveredBill.latest_action_description} (
-              {hoveredBill.latest_action_date})
-            </p>
-          )}
-          {hoveredBill.abstracts && hoveredBill.abstracts.length > 0 && (
-            <p>
-              <em>Summary:</em> {hoveredBill.abstracts[0].abstract}
-            </p>
-          )}
-          {hoveredBill.sponsorships && hoveredBill.sponsorships.length > 0 && (
-            <p>
-              <em>Sponsored by:</em>{" "}
-              {hoveredBill.sponsorships.map((s) => s.name).join(", ")}
-            </p>
-          )}
-        </div>
-      )} */}
-
-      {/* ✅ Expanded Tooltip with More Details */}
       {hoveredBill && (
         <div
           ref={tooltipRef}
@@ -172,24 +88,46 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
         >
           <strong>{hoveredBill.identifier}</strong>
           <p>{hoveredBill.title}</p>
-          {hoveredBill.session && hoveredBill.jurisdiction && (
+
+          {/* ✅ Ensure Session & Jurisdiction Exist */}
+          {hoveredBill.session && hoveredBill.jurisdiction?.name ? (
             <p>
               <em>Session:</em> {hoveredBill.session} (
               {hoveredBill.jurisdiction.name})
             </p>
+          ) : (
+            <p>
+              <em>Session:</em> Not available
+            </p>
           )}
-          {hoveredBill.latest_action_description && (
+
+          {/* ✅ Ensure Latest Action Exists */}
+          {hoveredBill.latest_action_description &&
+          hoveredBill.latest_action_date ? (
             <p>
               <em>Last Action:</em> {hoveredBill.latest_action_description} (
               {hoveredBill.latest_action_date})
             </p>
-          )}
-          {hoveredBill.abstracts && hoveredBill.abstracts.length > 0 && (
+          ) : (
             <p>
-              <em>Summary:</em> {hoveredBill.abstracts[0].abstract}
+              <em>Last Action:</em> Not available
             </p>
           )}
-          {hoveredBill.sponsorships && hoveredBill.sponsorships.length > 0 && (
+
+          {/* ✅ Ensure Abstract Exists */}
+          {hoveredBill.abstracts && hoveredBill.abstracts.length > 0 ? (
+            <p>
+              <em>Summary:</em>{" "}
+              {hoveredBill.abstracts[0]?.abstract || "No summary available."}
+            </p>
+          ) : (
+            <p>
+              <em>Summary:</em> Not available
+            </p>
+          )}
+
+          {/* ✅ Ensure Sponsors Exist */}
+          {hoveredBill.sponsorships && hoveredBill.sponsorships.length > 0 ? (
             <p>
               <em>Sponsored by:</em>{" "}
               {hoveredBill.sponsorships
@@ -201,20 +139,31 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
                 )
                 .join(", ")}
             </p>
+          ) : (
+            <p>
+              <em>Sponsored by:</em> No sponsors listed
+            </p>
           )}
-          {hoveredBill.related_bills &&
-            hoveredBill.related_bills.length > 0 && (
-              <p>
-                <em>Related Bills:</em>{" "}
-                {hoveredBill.related_bills
-                  .map(
-                    (b) =>
-                      `${b.identifier} (${b.relation_type}, ${b.legislative_session})`
-                  )
-                  .join(", ")}
-              </p>
-            )}
-          {hoveredBill.documents && hoveredBill.documents.length > 0 && (
+
+          {/* ✅ Ensure Related Bills Exist */}
+          {hoveredBill.related_bills && hoveredBill.related_bills.length > 0 ? (
+            <p>
+              <em>Related Bills:</em>{" "}
+              {hoveredBill.related_bills
+                .map(
+                  (b) =>
+                    `${b.identifier} (${b.relation_type}, ${b.legislative_session})`
+                )
+                .join(", ")}
+            </p>
+          ) : (
+            <p>
+              <em>Related Bills:</em> None found
+            </p>
+          )}
+
+          {/* ✅ Ensure Documents Exist */}
+          {hoveredBill.documents && hoveredBill.documents.length > 0 ? (
             <p>
               <em>Documents:</em>{" "}
               {hoveredBill.documents.map((doc, i) => (
@@ -224,12 +173,18 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {doc.note}
+                  {doc.note || "View Document"}
                 </a>
               ))}
             </p>
+          ) : (
+            <p>
+              <em>Documents:</em> None available
+            </p>
           )}
-          {hoveredBill.versions && hoveredBill.versions.length > 0 && (
+
+          {/* ✅ Ensure Bill Versions Exist */}
+          {hoveredBill.versions && hoveredBill.versions.length > 0 ? (
             <p>
               <em>Versions:</em>{" "}
               {hoveredBill.versions.map((ver, i) => (
@@ -239,9 +194,13 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {ver.note}
+                  {ver.note || "View Version"}
                 </a>
               ))}
+            </p>
+          ) : (
+            <p>
+              <em>Versions:</em> None available
             </p>
           )}
         </div>
