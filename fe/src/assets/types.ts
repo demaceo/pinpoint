@@ -81,3 +81,42 @@ export interface ContactFormProps {
     onClose: () => void;
     onRemoveEmail: (email: string) => void;
 }
+
+export interface FetchBillsParams {
+    jurisdiction: string;
+    session?: string;
+    chamber?: string;
+    identifiers?: string[];
+    classification?: string;
+    sponsor?: string;
+    sort?: string;
+    page?: number;
+    perPage?: number;
+}
+
+export interface Bill {
+    id: string;
+    latest_action_date: string;
+    identifier: string;
+    title: string;
+    legislative_session: { identifier: string };
+    classification: string[];
+}
+
+export interface BillTickerProps {
+    jurisdiction: string;
+}
+
+export interface BillDetails {
+    identifier: string;
+    title: string;
+    session?: string;
+    jurisdiction?: { name: string };
+    latest_action_description?: string;
+    latest_action_date?: string;
+    abstracts?: { abstract: string }[];
+    sponsorships?: { name: string; party?: string; current_role?: { title: string } }[];
+    related_bills?: { identifier: string; legislative_session: string; relation_type: string }[];
+    documents?: { note: string; links: { url: string }[] }[];
+    versions?: { note: string; links: { url: string }[] }[];
+}

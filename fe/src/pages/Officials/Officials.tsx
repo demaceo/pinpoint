@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { fetchOfficialsByState } from "../../services/openStatesService";
+import { fetchOfficialsByState } from "../../services/OpenStates/openStatesService.ts";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
@@ -12,6 +12,7 @@ import { mockOfficials } from "../../utils/mockDataGenerator";
 import Modal from "../../components/Modal/Modal.tsx";
 import Filters from "../../components/Filter/Filter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
+import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 
 const Officials: React.FC = () => {
   const [officials, setOfficials] = useState<any[]>([]);
@@ -177,17 +178,19 @@ const Officials: React.FC = () => {
           <u>placeholder dummy data below:</u>
         </div>
       )} */}
-      <ul>
-        {filteredOfficials.map((official, index) => (
-          <OfficialLink
-            key={index}
-            official={official}
-            index={index}
-            isChecked={selectedOfficials.has(official.name)}
-            onSelect={() => handleSelectOfficial(official)}
-          />
-        ))}
-      </ul>
+      <div className="officials-container">
+        <ul className="officials-list">
+          {filteredOfficials.map((official, index) => (
+            <OfficialLink
+              key={index}
+              official={official}
+              index={index}
+              isChecked={selectedOfficials.has(official.name)}
+              onSelect={() => handleSelectOfficial(official)}
+            />
+          ))}
+        </ul>
+      </div>
 
       {selectedOfficial && (
         <Modal onClose={() => setSelectedOfficial(null)}>
@@ -197,21 +200,6 @@ const Officials: React.FC = () => {
           />
         </Modal>
       )}
-      {/* {showContactForm && (
-        <div
-          className={`contact-form-container ${showContactForm ? "show" : ""}`}
-        >
-          <ContactForm
-            selectedEmails={selectedEmails}
-            selectedOfficials={filteredOfficials.filter(
-              (official) => official.email
-            )}
-            onClose={() => setShowContactForm(false)}
-            onRemoveEmail={handleRemoveEmail}
-          />
-        </div>
-      )} */}
-      {/* 🔹 Background Blur Effect */}
       {showContactForm && (
         <div
           className={`form-overlay ${showContactForm ? "show" : ""}`}
@@ -219,7 +207,6 @@ const Officials: React.FC = () => {
         ></div>
       )}
 
-      {/* 🔹 Sliding Contact Form */}
       {showContactForm && (
         <div className={`contact-form-container ${closing ? "hide" : "show"}`}>
           <ContactForm
@@ -227,11 +214,14 @@ const Officials: React.FC = () => {
             selectedOfficials={filteredOfficials.filter(
               (official) => official.email
             )}
-            onClose={handleToggleContactForm} // ✅ Smooth transition when closing
+            onClose={handleToggleContactForm}
             onRemoveEmail={handleRemoveEmail}
           />
         </div>
       )}
+
+      {/* Display Bill Ticker at Bottom when a State is Selected */}
+      {selectedState && <BillTicker jurisdiction={selectedState} />}
     </div>
   );
 };

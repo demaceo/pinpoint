@@ -44,7 +44,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
   return (
     <>
       <button className="close-btn" onClick={onClose}>
-        X
+        {/* X */}
+        close
       </button>
       <h2>Compose Email</h2>
       <div className="email-list">
@@ -55,7 +56,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
         ))}
       </div>
 
-      {/* Message Input */}
       <h3>Your Drafted Message:</h3>
       <textarea
         className="message-box"
@@ -64,7 +64,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
         placeholder="Type your message..."
       />
 
-      {/* Send Button */}
       <Button
         label="send email"
         className="send-btn"

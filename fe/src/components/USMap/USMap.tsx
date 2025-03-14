@@ -92,7 +92,8 @@ const USMap: React.FC = () => {
         .attr("key", (_d: any, i: number) => `state-svg-${i}`)
         .style("cursor", "pointer")
         .on("mouseover", function () {
-          d3.select(this).style("filter", "brightness(1.5)");
+          // d3.select(this).style("filter", "brightness(2.5)");
+          d3.select(this).style("filter", "drop-shadow(0px 2px 7px teal)");
           tooltip
             .text("")
             .style("visibility", "visible")
@@ -143,18 +144,15 @@ const USMap: React.FC = () => {
       {selectedState && (
         <div className="usmap-results-container">
           <h2>Elected Officials for {selectedState}</h2>
-          <ul>
+          <ul className="officials-list">
             {representatives.length > 0 ? (
               representatives.map((rep, index) => (
-                <>
-                  {" "}
-                  <OfficialLink
-                    key={index}
-                    official={rep}
-                    index={index}
-                    onSelect={() => setSelectedOfficial(rep)}
-                  />
-                </>
+                <OfficialLink
+                  key={index}
+                  official={rep}
+                  index={index}
+                  onSelect={() => setSelectedOfficial(rep)}
+                />
               ))
             ) : (
               <p>Loading representatives...</p>

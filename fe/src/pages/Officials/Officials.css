@@ -6,7 +6,12 @@
   display: flex;
   align-items: center; /* Align dropdown and SVG on the same row */
   gap: 12px;
-  margin-bottom: 3vh;
+  margin-bottom: 1vh;
+  /* margin-left: 4vw; */
+}
+
+.select-all-message {
+  /* margin-left: 4.5vw; */
 }
 
 .states-dropdown {
@@ -16,6 +21,39 @@
   border-radius: 5px;
   margin-right: 2vw;
   font-weight: bold;
+}
+
+/* .officials-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; 
+  justify-content: flex-start; 
+  padding: 10px;
+} */
+
+/* 🔹 Center the List Container */
+.officials-container {
+  /* position: fixed;
+  right: 0;
+  left: 0; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  /* min-height: 60vh;  */
+}
+
+/* 🔹 OfficialLinks Wrapper */
+.officials-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  padding: 5px;
+  width: 90%;
+  max-width: 900px;
 }
 
 /* AL – Alabama: sample style */

@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: space-between;
   min-height: 100vh;
+  /* background-color: aliceblue; */
+  background-color: rgb(49, 43, 40);
 }
 
 .main-content {

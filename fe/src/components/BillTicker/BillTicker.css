@@ -13,7 +13,6 @@
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
   z-index: 9999;
   cursor: grab; /* Default cursor */
-
 }
 
 .ticker-wrapper {
@@ -21,10 +20,15 @@
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 100vw;
   cursor: grab;
   user-select: none; /* Prevents text selection while dragging */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.ticker-wrapper::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
 }
 
 .ticker-content {
@@ -46,11 +50,8 @@
   font-size: 16px;
   color: #f9c74f;
   transition: transform 0.3s ease-out, font-size 0.3s ease-out;
+  cursor: pointer;
 }
-
-/* .ticker-content:hover {
-  animation-play-state: paused;
-} */
 
 .ticker-item:hover {
   transform: scale(1.2);
@@ -76,31 +77,30 @@
   font-size: 16px;
 }
 
-
 /* 🔹 Tooltip Bubble */
 .bubble-tooltip {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  background: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
   color: #333;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   font-size: 14px;
-  width: 250px;
-  /* z-index: 10000; */
-  transform: scale(0.5);
+  width: max-content;
+  height:max-content;
+  z-index: 10000;
   opacity: 0;
-  transition: transform 0.2s ease-out, opacity 0.5s ease-out;
-  pointer-events: none;
+  transform: scale(0.8);
+  pointer-events: none; /* Prevents interference with hover events */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
-/* 🔹 Show the Tooltip with Inflation Effect */
 .bubble-tooltip.show {
-  transform: scale(1);
-  opacity: .7;
+  opacity: 1;
+  transform: scale(1); /* Expands like a bubble */
+  /* margin-bottom: 50vh; */
 }
 
-/* 🔹 Tooltip Text */
 .bubble-tooltip p {
   margin: 5px 0;
   font-size: 13px;
@@ -109,4 +109,16 @@
 .bubble-tooltip strong {
   font-size: 15px;
   color: #121212;
+}
+
+/* 🔹 Arrow Effect for Tooltip */
+.bubble-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -10px; /* Position below the tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
 }

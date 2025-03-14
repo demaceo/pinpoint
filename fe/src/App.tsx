@@ -19,7 +19,7 @@ const App: React.FC = () => {
               <div className="main-content">
                 <Home />
               </div>
-              <Footer />
+              {/* <Footer /> */}
             </div>
           }
         />

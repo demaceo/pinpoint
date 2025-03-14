@@ -1,15 +1,23 @@
-/* .list-item {
+/* /* 🔹 Individual Official Checkboxes */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: "Raleway";
-  margin-top: 1vh;
-  font-weight: 300;
+  font-size: 16px;
+  background: #f9f9f9;
+  padding: 5px  10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  flex: 1 1 250px; /* ✅ Allows flexibility while wrapping */
 }
 
-.list-item span {
-  color: #e78533;
-  font-weight: 600;
-  text-decoration: underline !important;
+/* 🔹 Checkbox Styling */
+.checkbox-container input[type="checkbox"] {
+  transform: scale(1.2);
   cursor: pointer;
-} */
+}
 
 .card-wrapper {
   color: #232323;
@@ -19,14 +27,14 @@
 }
 
 /* 🎯 Styling for Checkbox List */
-.checkbox-container {
+/* .checkbox-container {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: "Raleway";
   margin-top: 1vh;
   font-weight: 300;
-}
+} */
 
 .checkbox-container span {
   color: #e78533;

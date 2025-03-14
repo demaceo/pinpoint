@@ -9,7 +9,7 @@ const API_KEY = process.env.OPENSTATES_API_KEY;
 const apiClient = axios.create({
     baseURL: OPENSTATES_API_URL,
     headers: {
-        "x-api-key": API_KEY, 
+        "x-api-key": API_KEY,
         "Content-Type": "application/json",
     },
 });
@@ -33,10 +33,9 @@ export const fetchOfficialsByState = async (jurisdiction: string) => {
  * Fetch elected officials by geolocation.
  */
 export const fetchOfficialsByGeo = async (latitude: string, longitude: string) => {
-    console.log(latitude)
     try {
         const response = await apiClient.get("/people.geo", {
-            params: { lat: latitude, lng: longitude },
+            params: { lat: latitude, lng: longitude, per_page: 50 },
         });
         return response.data.results;
     } catch (error: any) {

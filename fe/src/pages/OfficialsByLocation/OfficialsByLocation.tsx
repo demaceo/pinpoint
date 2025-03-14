@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { useUserLocation } from "../../hooks/useUserLocation";
-import { fetchOfficialsByGeo } from "../../services/openStatesService";
+import { fetchOfficialsByGeo } from "../../services/OpenStates/openStatesService";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import "./OfficialsByLocation.css";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
@@ -35,22 +35,20 @@ const OfficialsByLocation: React.FC = () => {
     <div className="yourofficials-container">
       <h1>Officials Near You</h1>
       <ul>
-        {
-          officials.length > 0 ? (
-            officials.map((official, index) => {
-              return (
-                <OfficialLink
-                  key={index}
-                  official={official}
-                  index={index}
-                  onSelect={() => setSelectedOfficial(official)}
-                />
-              );
-            })
-          ) : (
-            <p>No officials found for this location.</p>
-          )
-        }
+        {officials.length > 0 ? (
+          officials.map((official, index) => {
+            return (
+              <OfficialLink
+                key={index}
+                official={official}
+                index={index}
+                onSelect={() => setSelectedOfficial(official)}
+              />
+            );
+          })
+        ) : (
+          <p>No officials found for this location.</p>
+        )}
       </ul>
       {/* Modal overlay + content */}
       {selectedOfficial && (
