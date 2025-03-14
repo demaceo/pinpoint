@@ -98,7 +98,6 @@
 .bubble-tooltip.show {
   opacity: 1;
   transform: scale(1); /* Expands like a bubble */
-  /* margin-bottom: 50vh; */
 }
 
 .bubble-tooltip p {
