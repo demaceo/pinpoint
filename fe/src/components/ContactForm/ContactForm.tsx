@@ -13,7 +13,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const [filteredOfficials, setFilteredOfficials] =
     useState<Official[]>(selectedOfficials);
 
-  // Function to format the greeting
   const generateGreeting = (officials: Official[]) => {
     const formattedOfficials = officials.map(
       (official) => `${official.current_role.title} ${official.name}`
@@ -33,15 +32,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
     setMessage(generateGreeting(filteredOfficials));
   }, [filteredOfficials]);
 
-  // Handle email removal
   const handleRemoveEmail = (email: string) => {
     onRemoveEmail(email);
 
-    // Update officials list by removing the corresponding official
     const updatedOfficials = filteredOfficials.filter(
       (official) => official.email !== email
     );
-    setFilteredOfficials(updatedOfficials); // ✅ Update state
+    setFilteredOfficials(updatedOfficials);
   };
 
   return (

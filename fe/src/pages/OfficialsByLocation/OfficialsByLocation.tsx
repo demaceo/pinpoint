@@ -5,7 +5,6 @@ import { fetchOfficialsByGeo } from "../../services/openStatesService";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import "./OfficialsByLocation.css";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
-// import mockOfficials from "../../assets/mockOfficials.json";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import { mockOfficials } from "../../utils/mockDataGenerator";
 // import Filters from "../../components/Filter/Filter";

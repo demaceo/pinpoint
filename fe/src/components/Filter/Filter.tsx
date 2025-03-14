@@ -65,7 +65,7 @@ const Filters: React.FC<FiltersProps> = ({
       {/* Select All checkbox */}
       <label className="select-all-label">
         <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
-        Select All Officials
+        Select All Results
       </label>
 
       {/* Contact & Chat Buttons */}

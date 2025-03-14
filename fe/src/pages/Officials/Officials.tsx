@@ -5,7 +5,6 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import OfficialCard from "../../components/OfficialCard/OfficialCard";
 import "./Officials.css";
-// import mockOfficials from "../../assets/mockOfficials.json";
 import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
@@ -25,7 +24,6 @@ const Officials: React.FC = () => {
   const [selectedOfficials, setSelectedOfficials] = useState<Set<string>>(
     new Set()
   );
-  // const [useMockData, setUseMockData] = useState<boolean>(false);
 
   // Filtered states:
   const [selectedParty, setSelectedParty] = useState<string>("");
@@ -37,12 +35,22 @@ const Officials: React.FC = () => {
 
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const [showContactForm, setShowContactForm] = useState<boolean>(false);
+  const [closing, setClosing] = useState<boolean>(false);
+
+  const handleToggleContactForm = () => {
+    setClosing(!closing);
+    setTimeout(() => {
+      setShowContactForm(!showContactForm);
+      setClosing(!closing);
+    }, 600);
+  };
 
   const handleContactClick = () => {
-    // Get only officials with valid emails
-    const validEmails = filteredOfficials
-      .filter((official) => official.email)
-      .map((official) => official.email);
+    const validOfficials = filteredOfficials.filter(
+      (official) => official.email
+    );
+
+    const validEmails = validOfficials.map((official) => official.email);
 
     setSelectedEmails(validEmails);
     setShowContactForm(true);
@@ -74,7 +82,6 @@ const Officials: React.FC = () => {
 
   if (!officials || officials.length === 0) {
     setOfficials(mockData);
-    // setUseMockData(true);
   }
 
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
@@ -89,16 +96,17 @@ const Officials: React.FC = () => {
     if (filterType === "role") setSelectedRole(value);
   };
 
-  const handleSelectOfficial = (officialName: string) => {
+  const handleSelectOfficial = (official: Official) => {
     setSelectedOfficials((prevSelected) => {
       const newSelected = new Set(prevSelected);
-      if (newSelected.has(officialName)) {
-        newSelected.delete(officialName);
+      if (newSelected.has(official.name)) {
+        newSelected.delete(official.name);
       } else {
-        newSelected.add(officialName);
+        newSelected.add(official.name);
       }
       return newSelected;
     });
+    setSelectedOfficial(official);
   };
 
   const handleSelectAll = (isChecked: boolean) => {
@@ -175,8 +183,8 @@ const Officials: React.FC = () => {
             key={index}
             official={official}
             index={index}
-            isChecked={selectedOfficials.has(official.name)} // ✅ Controls checkbox state
-            onSelect={() => handleSelectOfficial(official.name)}
+            isChecked={selectedOfficials.has(official.name)}
+            onSelect={() => handleSelectOfficial(official)}
           />
         ))}
       </ul>
@@ -189,13 +197,40 @@ const Officials: React.FC = () => {
           />
         </Modal>
       )}
-      {/* Sliding Contact Form */}
+      {/* {showContactForm && (
+        <div
+          className={`contact-form-container ${showContactForm ? "show" : ""}`}
+        >
+          <ContactForm
+            selectedEmails={selectedEmails}
+            selectedOfficials={filteredOfficials.filter(
+              (official) => official.email
+            )}
+            onClose={() => setShowContactForm(false)}
+            onRemoveEmail={handleRemoveEmail}
+          />
+        </div>
+      )} */}
+      {/* 🔹 Background Blur Effect */}
       {showContactForm && (
-        <ContactForm
-          selectedEmails={selectedEmails}
-          onClose={() => setShowContactForm(false)}
-          onRemoveEmail={handleRemoveEmail}
-        />
+        <div
+          className={`form-overlay ${showContactForm ? "show" : ""}`}
+          onClick={handleToggleContactForm}
+        ></div>
+      )}
+
+      {/* 🔹 Sliding Contact Form */}
+      {showContactForm && (
+        <div className={`contact-form-container ${closing ? "hide" : "show"}`}>
+          <ContactForm
+            selectedEmails={selectedEmails}
+            selectedOfficials={filteredOfficials.filter(
+              (official) => official.email
+            )}
+            onClose={handleToggleContactForm} // ✅ Smooth transition when closing
+            onRemoveEmail={handleRemoveEmail}
+          />
+        </div>
       )}
     </div>
   );

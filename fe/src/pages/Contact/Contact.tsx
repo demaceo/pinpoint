@@ -5,7 +5,7 @@ import USMap from "../../components/USMap/USMap";
 const Contact: React.FC = () => {
   return (
     <div className="contact-container">
-      <h1 className="">Contact an Official</h1>
+      {/* <h1 className="">US Map</h1> */}
       <USMap />
     </div>
   );
