@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { fetchOfficialsByState } from "../../services/OpenStates/openStatesService.ts";
@@ -15,6 +16,8 @@ import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 
 const Officials: React.FC = () => {
+  const [rateLimitExceeded, setRateLimitExceeded] = useState<boolean>(false);
+
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const usStates: UsStateEntry[] = usStatesData;
@@ -26,14 +29,14 @@ const Officials: React.FC = () => {
     new Set()
   );
 
-  // Filtered states:
+  // Filtering & Search
   const [selectedParty, setSelectedParty] = useState<string>("");
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedAll, setSelectedAll] = useState<boolean>(false);
-
   const hasSelectedOfficials = selectedOfficials.size > 0;
 
+  // Contact Form State
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const [showContactForm, setShowContactForm] = useState<boolean>(false);
   const [closing, setClosing] = useState<boolean>(false);
@@ -50,7 +53,6 @@ const Officials: React.FC = () => {
     const validOfficials = filteredOfficials.filter(
       (official) => official.email
     );
-
     const validEmails = validOfficials.map((official) => official.email);
 
     setSelectedEmails(validEmails);
@@ -66,18 +68,34 @@ const Officials: React.FC = () => {
     // TODO: Implement AI chat integration
   };
 
+  // ✅ Move officialCache outside component so it persists
+  const officialCache = new Map<string, any[]>();
+
   useEffect(() => {
     if (!selectedState) {
       setOfficials([]);
       setLoading(false);
       return;
     }
-    setLoading(true);
-    fetchOfficialsByState(selectedState)
-      .then(setOfficials)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [selectedState]);
+
+    if (officialCache.has(selectedState)) {
+      setOfficials(officialCache.get(selectedState)!);
+    } else {
+      setLoading(true);
+      fetchOfficialsByState(selectedState)
+        .then((data) => {
+          officialCache.set(selectedState, data); // ✅ Cache results
+          setOfficials(data);
+        })
+        .catch((error) => {
+          if (error.response?.status === 429) {
+            setRateLimitExceeded(true);
+            setTimeout(() => setRateLimitExceeded(false), 60000);
+          }
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [selectedState]); // ✅ Remove officialCache from dependencies
 
   if (loading) return <LoadingSpinner />;
 
@@ -112,25 +130,19 @@ const Officials: React.FC = () => {
 
   const handleSelectAll = (isChecked: boolean) => {
     setSelectedAll(isChecked);
-    if (isChecked) {
-      setSelectedOfficials(new Set(filteredOfficials.map((o) => o.name)));
-    } else {
-      setSelectedOfficials(new Set());
-    }
+    setSelectedOfficials(
+      isChecked ? new Set(filteredOfficials.map((o) => o.name)) : new Set()
+    );
   };
 
   const filteredOfficials = officials.filter((official) => {
-    const matchesSearch = searchQuery
-      ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
-      : true;
-    const matchesParty = selectedParty
-      ? official.party === selectedParty
-      : true;
-    const matchesRole = selectedRole
-      ? official.current_role.title === selectedRole
-      : true;
-
-    return matchesSearch && matchesParty && matchesRole;
+    return (
+      (searchQuery
+        ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
+        : true) &&
+      (selectedParty ? official.party === selectedParty : true) &&
+      (selectedRole ? official.current_role.title === selectedRole : true)
+    );
   });
 
   return (
@@ -158,26 +170,17 @@ const Officials: React.FC = () => {
               {item.abbr}
             </option>
           ))}
-        </select>{" "}
-        {selectedState ? (
-          usStates.find((item) => item.abbr === selectedState)?.state && (
-            <StateDisplay selectedAbbr={selectedState} />
-          )
-        ) : (
-          <p>{"  "}</p>
-        )}
+        </select>
+        {selectedState && <StateDisplay selectedAbbr={selectedState} />}
       </h1>
+
       {selectedAll && (
         <p className="select-all-message">
           ✅ All {filteredOfficials.length} officials selected for future
           actions...
         </p>
       )}
-      {/* {useMockData && (
-        <div className="mock-data-message">
-          <u>placeholder dummy data below:</u>
-        </div>
-      )} */}
+
       <div className="officials-container">
         <ul className="officials-list">
           {filteredOfficials.map((official, index) => (
@@ -200,6 +203,7 @@ const Officials: React.FC = () => {
           />
         </Modal>
       )}
+
       {showContactForm && (
         <div
           className={`form-overlay ${showContactForm ? "show" : ""}`}
@@ -220,7 +224,6 @@ const Officials: React.FC = () => {
         </div>
       )}
 
-      {/* Display Bill Ticker at Bottom when a State is Selected */}
       {selectedState && <BillTicker jurisdiction={selectedState} />}
     </div>
   );

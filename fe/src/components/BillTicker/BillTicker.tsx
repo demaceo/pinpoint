@@ -5,10 +5,12 @@ import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
 import { fetchBillDetails } from "../../services/OpenStates/fetchBillDetails";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
+  let hoverTimeout: NodeJS.Timeout | null = null;
+  const billCache = new Map<string, BillDetails>(); // ✅ Store fetched bill details
+
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hoveredBill, setHoveredBill] = useState<BillDetails | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -22,34 +24,27 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     })
       .then((data) => {
         setBills(data.results || []);
-        console.log("Fetched Bills:", data.results); // Debugging
       })
       .catch((error) => console.error("Error fetching bills:", error))
       .finally(() => setLoading(false));
   }, [jurisdiction]);
 
-  const handleMouseEnter = async (event: React.MouseEvent, bill: Bill) => {
-    try {
-      const billDetails = await fetchBillDetails(bill.id);
-      setHoveredBill(billDetails);
-      console.log("Fetched Bill Details:", billDetails); // Debugging
+  const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
+    if (hoverTimeout) clearTimeout(hoverTimeout);
 
-      // Ensure tooltip stays inside viewport
-      const tooltipWidth = tooltipRef.current?.offsetWidth || 280;
-      const tooltipHeight = tooltipRef.current?.offsetHeight || 150;
-      const newX = Math.min(
-        event.clientX + 15,
-        window.innerWidth - tooltipWidth - 10
-      );
-      const newY = Math.min(
-        event.clientY + 15,
-        window.innerHeight - tooltipHeight - 10
-      );
-
-      setTooltipPosition({ x: newX, y: newY });
-    } catch (error) {
-      console.error("Error loading bill details:", error);
-    }
+    hoverTimeout = setTimeout(async () => {
+      if (billCache.has(bill.id)) {
+        setHoveredBill(billCache.get(bill.id)!);
+      } else {
+        try {
+          const billDetails = await fetchBillDetails(bill.id);
+          billCache.set(bill.id, billDetails);
+          setHoveredBill(billDetails);
+        } catch (error) {
+          console.error("Error loading bill details:", error);
+        }
+      }
+    }, 300); // ✅ Throttle API requests (prevents spamming)
   };
 
   const handleMouseLeave = () => {
@@ -78,18 +73,11 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
         </div>
       </div>
       {hoveredBill && (
-        <div
-          ref={tooltipRef}
-          className="bubble-tooltip show"
-          style={{
-            top: `${tooltipPosition.y}px`,
-            left: `${tooltipPosition.x}px`,
-          }}
-        >
+        <div ref={tooltipRef} className="bubble-tooltip show">
           <strong>{hoveredBill.identifier}</strong>
           <p>{hoveredBill.title}</p>
 
-          {/* ✅ Ensure Session & Jurisdiction Exist */}
+          {/* ✅ Session & Jurisdiction */}
           {hoveredBill.session && hoveredBill.jurisdiction?.name ? (
             <p>
               <em>Session:</em> {hoveredBill.session} (
@@ -101,7 +89,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Ensure Latest Action Exists */}
+          {/* ✅ Latest Action */}
           {hoveredBill.latest_action_description &&
           hoveredBill.latest_action_date ? (
             <p>
@@ -114,8 +102,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Ensure Abstract Exists */}
-          {hoveredBill.abstracts && hoveredBill.abstracts.length > 0 ? (
+          {/* ✅ Bill Summary (Abstracts) */}
+          {hoveredBill.abstracts?.length ? (
             <p>
               <em>Summary:</em>{" "}
               {hoveredBill.abstracts[0]?.abstract || "No summary available."}
@@ -126,8 +114,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Ensure Sponsors Exist */}
-          {hoveredBill.sponsorships && hoveredBill.sponsorships.length > 0 ? (
+          {/* ✅ Sponsors */}
+          {hoveredBill.sponsorships?.length ? (
             <p>
               <em>Sponsored by:</em>{" "}
               {hoveredBill.sponsorships
@@ -145,8 +133,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Ensure Related Bills Exist */}
-          {hoveredBill.related_bills && hoveredBill.related_bills.length > 0 ? (
+          {/* ✅ Related Bills */}
+          {hoveredBill.related_bills?.length ? (
             <p>
               <em>Related Bills:</em>{" "}
               {hoveredBill.related_bills
@@ -162,8 +150,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Ensure Documents Exist */}
-          {hoveredBill.documents && hoveredBill.documents.length > 0 ? (
+          {/* ✅ Documents */}
+          {hoveredBill.documents?.length ? (
             <p>
               <em>Documents:</em>{" "}
               {hoveredBill.documents.map((doc, i) => (
@@ -183,8 +171,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Ensure Bill Versions Exist */}
-          {hoveredBill.versions && hoveredBill.versions.length > 0 ? (
+          {/* ✅ Bill Versions */}
+          {hoveredBill.versions?.length ? (
             <p>
               <em>Versions:</em>{" "}
               {hoveredBill.versions.map((ver, i) => (
