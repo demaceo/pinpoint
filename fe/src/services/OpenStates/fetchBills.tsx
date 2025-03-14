@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { FetchBillsParams } from "../../assets/types";
+// import { FetchBillsParams } from "../../assets/types";
 
 const API_KEY = import.meta.env.VITE_OPENSTATES_API_KEY; // Ensure API Key is set in env variables
 const BASE_URL = "https://v3.openstates.org/bills";
