@@ -37,7 +37,7 @@ const App: React.FC = () => {
         />
 
         <Route
-          path="/contact"
+          path="/map"
           element={
             <div className="app-container">
               <NavBar />

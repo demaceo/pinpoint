@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import pinpoint from "../../assets/pinpoint5.avif";
 import React, { useState, useEffect } from "react";
 import "./NavBar.css";
 
@@ -24,7 +23,6 @@ const NavBar: React.FC = () => {
         }`}
       >
         <Link to="/" className="logo">
-          {/* <img src={pinpoint} /> */}
           <span>Pin</span>point
         </Link>
 
@@ -45,12 +43,12 @@ const NavBar: React.FC = () => {
         </div>
         <div className="rela-block drop-down-container">
           <Link to="/yourofficials" className="drop-down-item">
-            Officials
+            Officials Near You
           </Link>
         </div>
         <div className="rela-block drop-down-container">
-          <Link to="/contact" className="drop-down-item">
-            Contact
+          <Link to="/map" className="drop-down-item">
+            Map
           </Link>
         </div>
       </div>
