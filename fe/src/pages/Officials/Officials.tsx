@@ -180,6 +180,12 @@ const Officials: React.FC = () => {
           actions...
         </p>
       )}
+      {/* ✅ Show Rate Limit Message If Exceeded */}
+      {rateLimitExceeded && (
+        <div className="rate-limit-warning">
+          🚨 API Rate Limit Exceeded. Please try again later. 🚨
+        </div>
+      )}
 
       <div className="officials-container">
         <ul className="officials-list">
