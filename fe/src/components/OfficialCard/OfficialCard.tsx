@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import webgazer from "webgazer";
+import React from "react";
+// import webgazer from "webgazer";
 import { Official } from "../../assets/types.ts";
 import "./OfficialCard.css";
 import Modal from "../Modal/Modal.tsx";
@@ -9,9 +9,9 @@ interface OfficialCardProps {
   onClose: () => void;
 }
 const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
-  const [isLooking, setIsLooking] = useState<boolean>(true);
-  const [imageSize, setImageSize] = useState<number>(130); // Default image size
-  const gazeTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  // const [isLooking, setIsLooking] = useState<boolean>(true);
+  // const [imageSize, setImageSize] = useState<number>(130); // Default image size
+  // const gazeTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
   const calculateAge = (birthDate?: string): number | null => {
     if (!birthDate) return null;
@@ -26,46 +26,44 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
 
   const age = calculateAge(official.birth_date);
 
-  useEffect(() => {
-    // Start WebGazer.js
-    webgazer
-      .setGazeListener(
-        (data: { x: number; y: number } | null) => {
-          if (data) {
-            setIsLooking(true);
-            if (gazeTimeout.current) clearTimeout(gazeTimeout.current);
-          } else {
-            setIsLooking(false);
-          }
-        }
-      )
-      .begin();
+  // useEffect(() => {
+  //   webgazer
+  //     .setGazeListener(
+  //       (data: { x: number; y: number } | null) => {
+  //         if (data) {
+  //           setIsLooking(true);
+  //           if (gazeTimeout.current) clearTimeout(gazeTimeout.current);
+  //         } else {
+  //           setIsLooking(false);
+  //         }
+  //       }
+  //     )
+  //     .begin();
 
-    // Hide WebGazer's debugging UI elements
-    webgazer.showPredictionPoints(false);
-    webgazer.showVideo(false);
-    webgazer.showFaceOverlay(false);
-    webgazer.showFaceFeedbackBox(false);
+  //   webgazer.showPredictionPoints(false);
+  //   webgazer.showVideo(false);
+  //   webgazer.showFaceOverlay(false);
+  //   webgazer.showFaceFeedbackBox(false);
 
-    return () => {
-      webgazer.end(); // Clean up WebGazer on unmount
-    };
-  }, []);
+  //   return () => {
+  //     webgazer?.end?.(); 
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (!isLooking) {
-      gazeTimeout.current = setInterval(() => {
-        setImageSize((prevSize) => (prevSize < 600 ? prevSize + 10 : prevSize)); // Max growth
-      }, 300);
-    } else {
-      setImageSize(130); // Reset image size when looking
-      if (gazeTimeout.current) clearInterval(gazeTimeout.current);
-    }
+  // useEffect(() => {
+  //   if (!isLooking) {
+  //     gazeTimeout.current = setInterval(() => {
+  //       setImageSize((prevSize) => (prevSize < 600 ? prevSize + 10 : prevSize)); // Max growth
+  //     }, 300);
+  //   } else {
+  //     setImageSize(130); // Reset image size when looking
+  //     if (gazeTimeout.current) clearInterval(gazeTimeout.current);
+  //   }
 
-    return () => {
-      if (gazeTimeout.current) clearInterval(gazeTimeout.current);
-    };
-  }, [isLooking]);
+  //   return () => {
+  //     if (gazeTimeout.current) clearInterval(gazeTimeout.current);
+  //   };
+  // }, [isLooking]);
 
   return (
     <Modal onClose={onClose}>
@@ -76,7 +74,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
             src={official.image}
             alt={official.name}
             className="official-photo"
-            style={{ width: `${imageSize}px`, height: `${imageSize}px` }}
+            // style={{ width: `${imageSize}px`, height: `${imageSize}px` }}
           />
         )}
 

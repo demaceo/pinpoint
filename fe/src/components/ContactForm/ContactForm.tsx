@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ContactForm.css";
 import { Official, ContactFormProps } from "../../assets/types";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 
 const ContactForm: React.FC<ContactFormProps> = ({
   selectedEmails,
@@ -50,8 +50,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
     return `mailto:${emailRecipients}?subject=${emailSubject}&body=${emailBody}`;
   };
-
-
   return (
     <>
       <button className="close-btn" onClick={onClose}>
