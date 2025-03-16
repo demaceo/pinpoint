@@ -77,9 +77,6 @@ export interface Pagination {
     max_page: number;
     total_items: number;
 }
-
-
-
 export interface Term {
     start_date: string; // Start date of the term (ISO format YYYY-MM-DD)
     end_date?: string; // End date (optional, for current term)
@@ -87,8 +84,6 @@ export interface Term {
     party?: string; // Party affiliation during the term
     state: string; // State associated with the term
 }
-
-
 export interface OfficialLinkProps {
     official: Official;
     index: number;
@@ -113,7 +108,6 @@ export interface Location {
     lat: number;
     lng: number;
 }
-
 
 export interface FiltersProps {
     selectedParty: string;

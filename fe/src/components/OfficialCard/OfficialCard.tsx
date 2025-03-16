@@ -1,5 +1,6 @@
 import React from "react";
 // import webgazer from "webgazer";
+import Button from "../Button/Button.tsx";
 import { Official } from "../../assets/types.ts";
 import "./OfficialCard.css";
 import Modal from "../Modal/Modal.tsx";
@@ -7,11 +8,14 @@ import Modal from "../Modal/Modal.tsx";
 interface OfficialCardProps {
   official: Official;
   onClose: () => void;
+  onContactClick: () => void;
+  onChatClick: () => void;
 }
-const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
+const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose, onContactClick, onChatClick }) => {
   // const [isLooking, setIsLooking] = useState<boolean>(true);
   // const [imageSize, setImageSize] = useState<number>(130); // Default image size
   // const gazeTimeout = React.useRef<NodeJS.Timeout | null>(null);
+// const [selectedEmail, setSelectedEmail] = useState<string>("");
 
   const calculateAge = (birthDate?: string): number | null => {
     if (!birthDate) return null;
@@ -25,6 +29,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
   // };
 
   const age = calculateAge(official.birth_date);
+
 
   // useEffect(() => {
   //   webgazer
@@ -46,7 +51,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
   //   webgazer.showFaceFeedbackBox(false);
 
   //   return () => {
-  //     webgazer?.end?.(); 
+  //     webgazer?.end?.();
   //   };
   // }, []);
 
@@ -65,6 +70,10 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
   //   };
   // }, [isLooking]);
 
+
+  // function onChatClick(): void {
+  //   alert(`Starting chat with ${official.name}`);
+  // }
   return (
     <Modal onClose={onClose}>
       <div className="official-card">
@@ -86,7 +95,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
         {age !== null && <p className="official-age">Age: {age}</p>}
 
         {/* 📩 Contact Info */}
-        <p>Email: {official.email || "Not available"}</p>
+        {/* <p>Email: {official.email || "Not available"}</p> */}
         {official.offices?.[0]?.voice && (
           <p>Phone: {official.offices[0].voice}</p>
         )}
@@ -137,9 +146,38 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose }) => {
         )}
 
         {/* ❌ Close Button */}
-        <button className="close-button" onClick={onClose}>
-          Close
-        </button>
+        <div className="buttons-container">
+          <Button
+            label="@me"
+            className="contact-button c-btn"
+            onClick={onContactClick}
+          />
+          <Button
+            label="DM"
+            className="chat-button c-btn"
+            onClick={onChatClick}
+          />
+          {/* <button className="close-button" onClick={handleChatClick}>
+            DM
+          </button> */}
+          {/* <button onClick={() => setIsLooking(false)}>Stop Gazing</button> */}
+          {/* <button onClick={() => setImageSize(130)}>Reset Image Size</button> */}
+          {/* <button onClick={() => webgazer.stop()}>Stop Gazing</button> */}
+          {/* <button onClick={() => webgazer.reset()}>Reset Gaze</button> */}
+          {/* <button onClick={() => webgazer.resume()}>Resume Gazing</button> */}
+          {/* <button onClick={() => webgazer.pause()}>Pause Gazing</button> */}
+          {/* <button onClick={() => webgazer.showPredictionPoints(true)}>Show Prediction Points</button> */}
+          {/* <button onClick={() => webgazer.showVideo(true)}>Show Video</button> */}
+          {/* <button onClick={() => webgazer.showFaceOverlay(true)}>Show Face Overlay</button> */}
+          {/* <button onClick={() => webgazer.showFaceFeedbackBox(true)}>Show Face Feedback Box</button> */}
+          {/* <button onClick={() => webgazer.setGazeListener((data) => console.log(data))}>Set Gaze Listener</button> */}
+          {/* <a
+            href={createMailtoLink()}
+            className={`send-btn ${message === "" ? "disabled" : ""}`}
+          >
+            @me
+          </a> */}
+        </div>
       </div>
     </Modal>
   );

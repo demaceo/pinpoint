@@ -199,9 +199,9 @@
 /* !🎸 90s Retro-Themed Official Card */
 .official-card {
   /* background: linear-gradient(135deg, #ff0080, #ffbf00, #00e5ff); */
-  background-color: #615f5f;
+  background-color: #2b2a2a;
   border-radius: 12px;
-  border: 5px solid #222;
+  border: 5px solid #e1e1e1e0;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
   width: 320px;
   max-width: 90%;
@@ -233,11 +233,10 @@
   object-fit: cover;
   margin: 30px auto;
   display: block;
-  border: 4px solid #ffcc00;
+  border: 4px solid #ececec;
   background: white;
   text-shadow: 2px 2px #e3dfdf;
-  border-radius: 1%;
-  border: 4px solid #ffcc00;
+  border-radius: 3%;
   background: white;
   text-shadow: 2px 2px #e3dfdf;
 }
@@ -245,13 +244,15 @@
 .official-name {
   font-size: 1.3rem;
   font-weight: bold;
-  /* color: #ffbf00; */
-  text-shadow: 2px 2px #e3dfdf;
+  color: #e3dfdf;
+  text-shadow: 1px 1px #0c0c0c;
   text-transform: uppercase;
   margin: 10px 0;
 }
 
 .official-party {
+    color: #e3dfdf;
+  text-shadow: 1px 1px #0c0c0c;
   font-size: 1rem;
   font-weight: bold;
   /* color: #fff; */
@@ -264,6 +265,8 @@
 }
 
 .official-role {
+    color: #e3dfdf;
+  text-shadow: 1px 1px #0c0c0c;
   /* background: #ff0080; */
   /* color: white; */
   padding: 6px;
@@ -351,7 +354,8 @@
 .buttons-container {
   display: flex;
   flex-direction: row;
-  width: 95%;
+  width: 100%;
+  margin-top: 3vh;
   justify-content: space-between;
 }
 .contact-form-btn {
@@ -368,19 +372,32 @@
   transition: background 0.3s;
 }
 
-.close-button {
-  /* margin-top: 15px; */
-  padding: 10px 20px;
-  border: none;
+.contact-button {
   background-color: #ff0080;
+
+}
+
+.chat-button {
+  background-color: #ff9933;
+  padding: 0;
+}
+
+.c-btn{
+ padding: none;
+  width: 30%;
+    padding: 10px;
+
+    margin: 0;
+    height: 100%;
+  border: 3px solid rgb(255, 254, 254);
   color: white;
   text-shadow: 2px 2px #1d1d1d;
-  /* font-weight: bold; */
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s;
 }
+
 .close-button:hover {
   /* background-color: #d32f2f; */
 }

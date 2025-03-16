@@ -9,7 +9,7 @@ const Filters: React.FC<FiltersProps> = ({
   searchQuery,
   onFilterChange,
   onSearchChange,
-  onSelectAll,
+  onSelectAll, 
   onContactClick,
   onChatClick,
   onAgeRangeChange,
