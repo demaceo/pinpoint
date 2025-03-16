@@ -19,7 +19,7 @@
     "express": "^4.21.2",
     "nodemailer": "^6.10.0",
     "openai": "^4.87.3",
-    "vercel": "^41.4.1"
+    "vercel": "^41.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
