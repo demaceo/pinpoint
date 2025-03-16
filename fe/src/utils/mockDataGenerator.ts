@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Official } from "../assets/types";
+import { Official, Jurisdiction } from "../assets/types";
 
 const firstNames = ["John", "Jane", "Alex", "Emily", "Chris", "Katie", "Michael", "Sarah", "David", "Laura"];
 const lastNames = ["Smith", "Johnson", "Brown", "Taylor", "Anderson", "Thomas", "Harris", "Martin", "Lee", "Walker"];
@@ -43,9 +43,13 @@ export function generateMockOfficials(count: number = 20): Official[] {
             image: `https://randomuser.me/api/portraits/${i % 2 === 0 ? "men" : "women"}/${Math.floor(Math.random() * 99)}.jpg`,
             current_role: {
                 title: titles[Math.floor(Math.random() * titles.length)],
+                org_classification: Math.random() > 0.5 ? "upper" : "lower",
                 district: Math.floor(Math.random() * 50) + 1,
-                org_classification: state.state
-            }
+                division_id: ""
+            },
+            jurisdiction: state.state as unknown as Jurisdiction,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
         };
         officials.push(official);
     }
