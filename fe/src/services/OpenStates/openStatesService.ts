@@ -11,8 +11,6 @@ const officialsCache = new Map<string, any>();
 
 export const fetchOfficials = async (address: string) => {
     if (!address) throw new Error("Address is required");
-
-    // ✅ Check if officials for this address are already cached
     if (officialsCache.has(address)) {
         return officialsCache.get(address);
     }
@@ -21,8 +19,6 @@ export const fetchOfficials = async (address: string) => {
         const response = await axios.post(`${BASE_URL}/api/officials`, { address }, {
             headers: { "Content-Type": "application/json" },
         });
-
-        // ✅ Cache the response
         officialsCache.set(address, response.data);
 
         return response.data;
@@ -33,8 +29,6 @@ export const fetchOfficials = async (address: string) => {
 };
 export const fetchBillDetails = async (openstatesBillId: string) => {
     if (!openstatesBillId) throw new Error("Bill ID is required");
-
-    //  Check if data is already cached
     if (billDetailsCache.has(openstatesBillId)) {
         return billDetailsCache.get(openstatesBillId);
     }
@@ -55,8 +49,6 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
             },
             headers: { "x-api-key": API_KEY },
         });
-
-        // Cache the response
         billDetailsCache.set(openstatesBillId, response.data);
 
         return response.data;
@@ -79,7 +71,6 @@ const fetchWithRetry = async (fn: () => Promise<any>, retries = 3, delay = 2000)
     }
 };
 
-//  Fetch Officials (Cache Enabled)
 export const fetchOfficialsByState = async (stateAbbr: string) => {
     if (!stateAbbr) throw new Error("State abbreviation is required");
 
@@ -98,7 +89,6 @@ export const fetchOfficialsByState = async (stateAbbr: string) => {
     return response.data.results;
 };
 
-//  Fetch Bills (Cache Enabled)
 export const fetchBillsByJurisdiction = async (jurisdiction: string) => {
     if (!jurisdiction) throw new Error("Jurisdiction is required");
 
@@ -117,15 +107,31 @@ export const fetchBillsByJurisdiction = async (jurisdiction: string) => {
     return response.data.results;
 };
 
-export const fetchOfficialsByGeo = async (lat: number, lng: number) => {
-    if (!lat || !lng) throw new Error("Latitude and longitude are required");
+// export const fetchOfficialsByGeo = async (latitude: number, longitude: number) => {
+//     try {
+//         const response = await axios.post(
+//             `${BASE_URL}/api/officials/geo`,
+//             { latitude, longitude },
+//             {
+//                 headers: {
+//                     "Authorization": `Bearer ${API_KEY}`,
+//                     "Content-Type": "application/json",
+//                     "Accept": "application/json",
+//                 },
+//             }
+//         );
+//         return response.data;
+//     } catch (error) {
+//         console.error("Error fetching officials by geo:", error);
+//         throw error;
+//     }
+// };
 
+export const fetchOfficialsByGeo = async (latitude: number, longitude: number) => {
     try {
-        const response = await axios.post(`${BASE_URL}/api/officials/geo`, {
-            lat,
-            lng,
-        }, {
-            headers: { "Content-Type": "application/json" },
+        const response = await axios.post(`${BASE_URL}/proxy/officials/geo`, {
+            latitude,
+            longitude
         });
 
         return response.data;
