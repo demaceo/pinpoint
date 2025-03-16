@@ -1,4 +1,4 @@
-.ticker-container {
+/* .ticker-container {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -12,15 +12,44 @@
   font-weight: bold;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
   z-index: 9999;
-  cursor: grab; /* Default cursor */
+  cursor: grab; 
+} */
+
+.ticker-container {
+  position: fixed;
+  bottom: -100px; 
+  left: 0;
+  width: 100vw;
+  background: #121212d4;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  cursor: grab;
+  transition: bottom 0.6s ease-in-out; /* Smooth slide-in animation */
 }
+
+/* 🔥 BillTicker Slide-In Animation */
+.ticker-container.visible {
+  bottom: 0; /* Fully visible */
+}
+
+/* 🚫 Ensure it's hidden initially */
+.ticker-container.hidden {
+  bottom: -100px;
+}
+
 
 .ticker-wrapper {
   display: flex;
-  align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-  /* overflow: hidden; */
+  /* align-items: center; */
+  /* overflow-x: auto; */
+  /* overflow-y: hidden; */
+  overflow: hidden;
   width: 100vw;
   cursor: grab;
   user-select: none; /* Prevents text selection while dragging */
@@ -34,8 +63,18 @@
 .ticker-content {
   display: flex;
   gap: 30px;
-  animation: tickerScroll 50s linear infinite;
-  min-width: 100%;
+  animation: tickerScroll 20s linear infinite;
+  min-width: 200%;
+}
+
+/* 🌀 Continuous Scrolling Keyframe */
+@keyframes tickerScroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .ticker-content:hover,
@@ -60,14 +99,14 @@
 }
 
 /* Continuous Scrolling Effect */
-@keyframes tickerScroll {
+/* @keyframes tickerScroll {
   from {
     transform: translateX(100%);
   }
   to {
     transform: translateX(-100%);
   }
-}
+} */
 
 /* 🔹 Loading and No Results Styles */
 .ticker-loading,

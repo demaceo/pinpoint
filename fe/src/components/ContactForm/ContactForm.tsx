@@ -41,11 +41,21 @@ const ContactForm: React.FC<ContactFormProps> = ({
     setFilteredOfficials(updatedOfficials);
   };
 
+  const createMailtoLink = () => {
+    if (selectedEmails.length === 0) return "#";
+
+    const emailRecipients = selectedEmails.join(",");
+    const emailSubject = encodeURIComponent("Sincerely, A Concerned Voter");
+    const emailBody = encodeURIComponent(message);
+
+    return `mailto:${emailRecipients}?subject=${emailSubject}&body=${emailBody}`;
+  };
+
+
   return (
     <>
       <button className="close-btn" onClick={onClose}>
-        {/* X */}
-        close
+        X{/* close */}
       </button>
       <h2>Compose Email</h2>
       <div className="email-list">
@@ -64,12 +74,19 @@ const ContactForm: React.FC<ContactFormProps> = ({
         placeholder="Type your message..."
       />
 
-      <Button
+      {/* <Button
         label="send email"
         className="send-btn"
         onClick={() => console.log("send email clicked")}
         disabled={message === ""}
-      />
+      /> */}
+      {/* ✅ "Send Email" Button as a mailto: link */}
+      <a
+        href={createMailtoLink()}
+        className={`send-btn ${message === "" ? "disabled" : ""}`}
+      >
+        Send Email
+      </a>
     </>
   );
 };

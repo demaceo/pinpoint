@@ -1,17 +1,60 @@
-/* 🎛 Sidebar Styling */
 .filters-container {
   position: fixed;
   top: 0;
-  left: 0;
-  height: fit-content;
-  margin: 15vh 0vw 10vh 1vw;
+  left: -260px; /* Start hidden */
+  height: max-content;
+  height: 70vh;
+  margin: 12vh 0vw 0vh 1vw;
   width: 250px;
   background: white;
-  padding: 25px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: all 1s ease-in-out;
+  z-index: 999;
+}
+
+.filters-container.open {
+  left: 0;
+  padding: 25px;
+}
+
+.filters-container.closed {
+  left: -260px;
+  height: 0vh;
+}
+
+.filter-toggle-btn {
+  position: absolute;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 1s ease-in-out;
+}
+
+.filter-toggle-btn.open {
+  right: 20px;
+}
+
+.filter-toggle-btn.closed {
+  margin: 25px;
+  right: -45px;
+}
+
+.filter-toggle-btn:hover {
+  background: #0056b3;
+}
+
+.filters-content {
+  display: flex;
+  height: max-content;
+  margin-top: 3vh;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .filters-container select {
@@ -23,15 +66,16 @@
 }
 
 .filters-container label {
-  font-weight: bold;
+  /* font-weight: bold; */
+  padding: 15px 0px 5px;
 }
 
-.officials-content {
-  margin-left: 270px; /* Push content to the right so it doesn't overlap */
-}
+/* .officials-content {
+  margin-left: 270px;
+} */
 
 .search-bar {
-  width: 90%;
+  width: 95%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -46,7 +90,6 @@
   margin: 1.5vh 0 2vh;
 }
 
-/* 🔹 Age Slider Styles */
 .filters-container input[type="range"] {
   width: 100%;
   margin-top: 5px;

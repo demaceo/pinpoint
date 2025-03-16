@@ -17,32 +17,20 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [hoveredBill, setHoveredBill] = useState<BillDetails | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false); // Track visibility
 
-  useEffect(() => {
-    if (!jurisdiction) return;
+    useEffect(() => {
+      if (!jurisdiction) return;
 
-    setLoading(true);
-    fetchBillsByJurisdiction(jurisdiction)
-      .then(setBills)
-      .catch((error) => console.error("Error fetching bills:", error))
-      .finally(() => setLoading(false));
-  }, [jurisdiction]);
-
-  // useEffect(() => {
-  //   if (!jurisdiction) return;
-
-  //   setLoading(true);
-  //   fetchBills({
-  //     jurisdiction,
-  //     perPage: 5,
-  //     sort: "latest_action_desc",
-  //   })
-  //     .then((data) => {
-  //       setBills(data.results || []);
-  //     })
-  //     .catch((error) => console.error("Error fetching bills:", error))
-  //     .finally(() => setLoading(false));
-  // }, [jurisdiction]);
+      setLoading(true);
+      fetchBillsByJurisdiction(jurisdiction)
+        .then((data) => {
+          setBills(data);
+          setTimeout(() => setIsVisible(true), 500); // Trigger slide-in effect
+        })
+        .catch((error) => console.error("Error fetching bills:", error))
+        .finally(() => setLoading(false));
+    }, [jurisdiction]);
 
   const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
     if (hoverTimeout) clearTimeout(hoverTimeout);
@@ -72,7 +60,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     return <div className="ticker-no-results">No recent bills found.</div>;
 
   return (
-    <div className="ticker-container">
+    <div className={`ticker-container ${isVisible ? "visible" : "hidden"}`}>
       <div className="ticker-wrapper">
         <div className="ticker-content">
           {bills.map((bill, index) => (
@@ -91,8 +79,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
         <div ref={tooltipRef} className="bubble-tooltip show">
           <strong>{hoveredBill.identifier}</strong>
           <p>{hoveredBill.title}</p>
-
-          {/* Session & Jurisdiction */}
           {hoveredBill.session && hoveredBill.jurisdiction?.name ? (
             <p>
               <em>Session:</em> {hoveredBill.session} (

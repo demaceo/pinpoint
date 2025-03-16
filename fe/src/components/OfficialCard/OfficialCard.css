@@ -1,193 +1,394 @@
-.official-card {
-  width: 300px;
-  min-height: 180px;
-  margin: 20px;
-  transition: transform 0.3s ease-in-out;
-  margin-right: 20vw;
-}
-
-.business-card {
-  background-color: #f2f2f2;
-  border: 1px solid #e2e2e2;
-  padding: 1em;
-  border-radius: 0.5em;
-  max-width: 500px;
+/* .official-card {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: text-yo 0.9s ease-in-out;
-  animation-fill-mode: backwards;
-  height: 15em;
-  color: #121111;
-  left: 50%;
-  overflow: hidden;
-  position: absolute;
-  text-align: justify;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
-  width: 35em;
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
 }
 
-.business-card::before {
+.official-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.official-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.official-party {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.official-socials {
+  margin: 10px 0;
+}
+.official-socials a {
+  margin-right: 8px;
+  color: #007bff;
+  text-decoration: none;
+}
+.official-socials a:hover {
+  text-decoration: underline;
+}
+
+.official-terms h3 {
+  margin-top: 15px;
+  font-size: 1.2rem;
+}
+
+.close-button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #d9534f;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.close-button:hover {
+  background-color: #c9302c;
+}
+
+
+.official-terms ul {
+  list-style-type: none;
+  padding: 0;
+}
+.official-terms li {
+  font-size: 0.9rem;
+  padding: 5px 0;
+  color: #333;
+} */
+
+/* !🃏! Pokémon Card Style */
+/* .official-card {
+  background: linear-gradient(135deg, #f8d030, #ffcc00); 
+  border-radius: 12px;
+  border: 5px solid #2a75bb;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  width: 300px;
+  max-width: 90%;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  position: relative;
+}
+
+.official-photo {
+  width: 95%;
+  height: 70%;
+  border-radius: 15%;
+  object-fit: cover;
+  margin: 10px auto;
+  display: block;
+  border: 4px solid #ffcc00; 
+  background: white;
+}
+
+.official-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2a75bb; 
+  text-transform: uppercase;
+  margin: 10px 0;
+}
+
+.official-party {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: #d32f2f;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.official-age {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2a75bb; 
+  background: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.official-socials {
+  margin: 10px 0;
+}
+.official-socials a {
+  margin-right: 8px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.official-socials a:hover {
+  text-decoration: underline;
+}
+
+.official-role {
+  background: #2a75bb;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.official-terms {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.official-terms h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2a75bb;
+}
+.official-terms ul {
+  list-style: none;
+  padding: 0;
+}
+.official-terms li {
+  font-size: 0.9rem;
+  padding: 5px 0;
+  color: #333;
+}
+
+.close-button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+.close-button:hover {
+  background-color: #e5b700;
+}
+
+.official-card::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 3px solid white;
+  border-radius: 12px;
+} */
+
+/* !🎸 90s Retro-Themed Official Card */
+.official-card {
+  /* background: linear-gradient(135deg, #ff0080, #ffbf00, #00e5ff); */
+  background-color: #615f5f;
+  border-radius: 12px;
+  border: 5px solid #222;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  width: 320px;
+  max-width: 90%;
+  text-align: center;
+  /* font-family: "Press Start 2P", cursive;  */
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  animation-fill-mode: backwards;
+  animation: text-yo 0.9s ease-in-out;
+  /* transform: translate(-50%, -50%) rotate(0deg); */
+}
+
+.official-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/grain-texture.avif");
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  opacity: 0.25;
-  /* Adjust grain intensity */
-  pointer-events: none;
-}
-
-.flag-gif {
-  width: 7%;
-  margin-left: 0.9vw;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
+  opacity: 0.2;
+  z-index: -1;
 }
 
 .official-photo {
-  width: 100px;
-  height: 100px;
-  border-radius: 7px;
+  width: 65%;
+  height: 50%;
   object-fit: cover;
-  float: right;
-  margin-left: 8px;
-}
-
-.official-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin: 30px auto;
+  display: block;
+  border: 4px solid #ffcc00;
+  background: white;
+  text-shadow: 2px 2px #e3dfdf;
+  border-radius: 1%;
+  border: 4px solid #ffcc00;
+  background: white;
+  text-shadow: 2px 2px #e3dfdf;
 }
 
 .official-name {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  font-weight: 600;
-  /* letter-spacing: 3px; */
-  text-transform: capitalize;
-  transition: font-family 0.3s ease-in-out;
-}
-
-.official-role,
-.official-party,
-.official-contact {
-  margin: 8px 5px;
-  font-weight: 100;
-  font-size: 1.2rem;
-  margin-left: 0.5vw;
-  letter-spacing: 1px;
-}
-
-.span-wrapper {
-  display: inline-block;
-  margin-right: 8px;
-  color: #444;
-  /* font-family: "'Cinzel', serif"; */
-}
-
-.card-span {
-  font-family: "Raleway";
-  color: #232323;
-}
-
-
-
-/* .contact-form-container {
-  position: absolute;
-  top: 0;
-  right: -420px; 
-  width: 300px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
-  transition: right 0.4s ease-in-out;
-  padding: 20px;
-}
-
-.contact-form-container.show {
-  right: 0px; 
-} */
-
-.joker-card {
-  background: #ffffff;
-  color: #d90429;
-  border: 4px solid #222;
-  border-radius: 12px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  padding: 20px;
-  position: relative;
-  font-family: "Jokerman", cursive;
-  max-width: 250px;
-  aspect-ratio: 2.5 / 3.5; /* Standard playing card ratio */
-}
-
-/* 🃏 Add the Jester's Hat Icon */
-.joker-card::before {
-  content: "";
-  background: url("../../assets/jester-hat.png") no-repeat center/contain;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: purple;
-}
-
-/* 🎭 Add a mirrored Jester Hat at the bottom for symmetry */
-.joker-card::after {
-  content: "";
-  background: url("../../assets/jester-hat.png") no-repeat center/contain;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  transform: rotate(180deg);
-}
-
-.joker-card .official-name {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #222;
-  margin-top: 6vh;
-  text-align: left;
-  letter-spacing: 2px;
+  /* color: #ffbf00; */
+  text-shadow: 2px 2px #e3dfdf;
   text-transform: uppercase;
+  margin: 10px 0;
 }
 
-.joker-card .official-role {
+.official-party {
   font-size: 1rem;
-  font-style: italic;
-  color: #444;
+  font-weight: bold;
+  /* color: #fff; */
+  /* background: #d32f2f; */
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 5px 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-.joker-card .official-party {
-  color: #d90429;
+.official-role {
+  /* background: #ff0080; */
+  /* color: white; */
+  padding: 6px;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 10px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.official-age {
+  font-size: 1rem;
+  font-weight: bold;
+  /* color: #00e5ff; */
+  background: #222;
+  padding: 6px 12px;
+  color: white;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 8px 0;
+  box-shadow: 3px 3px 0px #ffbf00;
+  /* text-shadow: 2px 2px black; */
+}
+
+.official-card::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  /* background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 20px
+  ); */
+  z-index: -1;
+}
+
+.official-socials {
+  margin: 10px 0;
+}
+.official-socials a {
+  margin-right: 8px;
+  /* color: #00e5ff; */
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 2px 2px #e3dfdf;
+
+  /* text-shadow: 1px 1px #000; */
+}
+.official-socials a:hover {
+  text-decoration: underline;
+}
+
+.official-terms {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  /* text-shadow: 1px 1px black; */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.official-terms h3 {
   font-size: 1.1rem;
   font-weight: bold;
+  text-shadow: 2px 2px #e3dfdf;
+
+  /* color: #ffbf00; */
+  color: white;
+}
+.official-terms ul {
+  list-style: none;
+  padding: 0;
+}
+.official-terms li {
+  font-size: 0.9rem;
+  padding: 5px 0;
+  color: white;
+  /* text-shadow: 1px 1px black; */
 }
 
-.joker-card .official-photo {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border: 2px solid #222;
-  margin: 10px auto;
-  display: block;
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  justify-content: space-between;
+}
+.contact-form-btn {
+  /* .buttons-container button { */
+  padding: 10px 20px;
+  border: none;
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 2px 2px #e7e4e4;
+  font-size: 1rem;
+  transition: background 0.3s;
 }
 
-.joker-card:hover {
-  transform: scale(1.05) rotate(2deg);
-  transition: transform 0.3s ease-in-out;
+.close-button {
+  /* margin-top: 15px; */
+  padding: 10px 20px;
+  border: none;
+  background-color: #ff0080;
+  color: white;
+  text-shadow: 2px 2px #1d1d1d;
+  /* font-weight: bold; */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+.close-button:hover {
+  /* background-color: #d32f2f; */
 }
 
 @keyframes text-yo {
   from {
     color: #ccc;
-    height: 40%;
+    height: 20%;
     letter-spacing: 0.3em;
     transform: translate(-150%, -50%) rotate(-45deg);
     width: 100%;
@@ -195,8 +396,12 @@
   to {
     color: #232323;
     letter-spacing: 0;
-    height: 15em;
+    top: -10px;
+    left: -10px;
+    width: 100%;
+    height: 100%;
+    /* height: 15em; */
     /* transform: translate(-50%, -50%) rotate(0deg); */
-    width: 35em;
+    /* width: 35em; */
   }
 }

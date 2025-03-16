@@ -1,0 +1,52 @@
+/* 🔹 Tooltip Bubble */
+.bubble-tooltip {
+  position: fixed;
+  /* background: rgba(255, 255, 255, 0.95); / */
+  background: #121212d4;
+  /* color: #333; */
+  color: rgba(245, 245, 245, 0.924);
+  padding: 10px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  width: max-content;
+  height: max-content;
+  z-index: 10000;
+  margin-bottom: 7vh;
+  opacity: 0;
+  /* top: 0; */
+  bottom: 0;
+  right: 0;
+  /* left: 0; */
+  /* overflow-y: scroll; */
+  transform: scale(0.8);
+  pointer-events: none; /* Prevents interference with hover events */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.bubble-tooltip.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.bubble-tooltip p {
+  margin: 5px 0;
+  font-size: 13px;
+  overflow-y: scroll;
+}
+
+.bubble-tooltip strong {
+  font-size: 15px;
+  color: #121212;
+}
+
+.bubble-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+}

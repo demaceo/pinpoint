@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { fetchOfficialsByState } from "../../services/OpenStates/openStatesService.ts";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
-// import OfficialCard from "../../components/OfficialCard/OfficialCard";
 import "./Officials.css";
 import { useLocation } from "react-router-dom";
 import { UsStateEntry, Official } from "../../assets/types.ts";
@@ -14,7 +13,7 @@ import Modal from "../../components/Modal/Modal.tsx";
 import Filters from "../../components/Filter/Filter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
-import XOfficialCard from "../../components/OfficialCard/xOfficialCard.tsx";
+import XOfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
 
 interface OfficialsPageProps {
   location: boolean;
@@ -95,8 +94,8 @@ const Officials: React.FC<OfficialsPageProps> = () => {
     }
 
     setLoading(true);
-    // isYourOfficialsPage ? 
-    fetchOfficialsByState(selectedState)  
+    // isYourOfficialsPage ?
+    fetchOfficialsByState(selectedState)
       .then(setOfficials)
       .catch((error) => console.error("Error fetching officials:", error))
       .finally(() => setLoading(false));
@@ -140,19 +139,17 @@ const Officials: React.FC<OfficialsPageProps> = () => {
     );
   };
 
-const filteredOfficials = officials.filter((official) => {
-  const age = calculateAge(official.birth_date);
-  return (
-    (searchQuery
-      ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
-      : true) &&
-    (selectedParty ? official.party === selectedParty : true) &&
-    (selectedRole ? official.current_role.title === selectedRole : true) &&
-    (age ? age >= selectedAgeRange[0] && age <= selectedAgeRange[1] : true)
-  );
-});
-
-
+  const filteredOfficials = officials.filter((official) => {
+    const age = calculateAge(official.birth_date);
+    return (
+      (searchQuery
+        ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
+        : true) &&
+      (selectedParty ? official.party === selectedParty : true) &&
+      (selectedRole ? official.current_role.title === selectedRole : true) &&
+      (age ? age >= selectedAgeRange[0] && age <= selectedAgeRange[1] : true)
+    );
+  });
 
   return (
     <div className="officials-page-container">

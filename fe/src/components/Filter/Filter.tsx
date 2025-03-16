@@ -17,6 +17,11 @@ const Filters: React.FC<FiltersProps> = ({
   hasSelectedOfficials,
 }) => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const toggleFilter = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
@@ -40,99 +45,119 @@ const Filters: React.FC<FiltersProps> = ({
   };
 
   return (
-    <div className="filters-container">
-      <h2>Filters</h2>
-
-      <label>Search Official:</label>
-      <input
-        type="text"
-        placeholder="Enter name..."
-        value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
-        className="search-bar"
-      />
-
-      <label>Party:</label>
-      <select
-        value={selectedParty}
-        onChange={(e) => onFilterChange("party", e.target.value)}
+    <div className={`filters-container ${isOpen ? "open" : "closed"}`}>
+      {/* Button to toggle filter */}
+      <button
+        className={`filter-toggle-btn ${isOpen ? "open" : "closed"}`}
+        onClick={toggleFilter}
       >
-        <option value="">All</option>
-        <option value="Democratic">Democratic</option>
-        <option value="Republican">Republican</option>
-        <option value="Independent">Independent</option>
-        <option value="Libertarian">Libertarian</option>
-        <option value="Green">Green</option>
-      </select>
+        {isOpen ? "❮ Hide Filters" : "❯"}
+      </button>
 
-      <label>Role:</label>
-      <select
-        value={selectedRole}
-        onChange={(e) => onFilterChange("role", e.target.value)}
-      >
-        <option value="">All</option>
-        <option value="Governor">Governor</option>
-        <option value="Senator">Senator</option>
-        <option value="Mayor">Mayor</option>
-        <option value="Representative">Representative</option>
-        <option value="Attorney General">Attorney General</option>
-        <option value="Council Member">Council Member</option>
-        <option value="Secretary of State">Secretary of State</option>
-      </select>
+      {/* Filter Content */}
+      {isOpen && (
+        <div className="filters-content">
+          <h2>Filters</h2>
+          <label>Search Official:</label>
+          <input
+            type="text"
+            placeholder="Enter name..."
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="search-bar"
+          />
 
-      {/* 🔹 Improved Age Filter UI with One Range Slider */}
-      <label>
-        Age Range: {selectedAgeRange[0]} - {selectedAgeRange[1]}
-      </label>
-      <div className="age-slider-container">
-        <input
-          type="number"
-          min="18"
-          max="100"
-          value={selectedAgeRange[0]}
-          onChange={(e) =>
-            onAgeRangeChange([parseInt(e.target.value), selectedAgeRange[1]])
-          }
-          className="age-input"
-        />
-        <input
-          type="range"
-          min="18"
-          max="100"
-          step="1"
-          value={selectedAgeRange[1]}
-          onChange={handleAgeChange}
-          className="age-slider"
-        />
-        <input
-          type="number"
-          min="18"
-          max="100"
-          value={selectedAgeRange[1]}
-          onChange={(e) =>
-            onAgeRangeChange([selectedAgeRange[0], parseInt(e.target.value)])
-          }
-          className="age-input"
-        />
-      </div>
-      <label className="select-all-label">
-        <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
-        Select All Results
-      </label>
+          <label>Party:</label>
+          <select
+            value={selectedParty}
+            onChange={(e) => onFilterChange("party", e.target.value)}
+          >
+            <option value="">All</option>
+            <option value="Democratic">Democratic</option>
+            <option value="Republican">Republican</option>
+            <option value="Independent">Independent</option>
+            <option value="Libertarian">Libertarian</option>
+            <option value="Green">Green</option>
+          </select>
 
-      {/* Contact & Chat Buttons */}
-      <Button
-        label="contact"
-        className="contact-button"
-        onClick={onContactClick}
-        disabled={!hasSelectedOfficials}
-      />
-      <Button
-        label="chat"
-        className="chat-button"
-        onClick={onChatClick}
-        disabled={!hasSelectedOfficials}
-      />
+          <label>Role:</label>
+          <select
+            value={selectedRole}
+            onChange={(e) => onFilterChange("role", e.target.value)}
+          >
+            <option value="">All</option>
+            <option value="Governor">Governor</option>
+            <option value="Senator">Senator</option>
+            <option value="Mayor">Mayor</option>
+            <option value="Representative">Representative</option>
+            <option value="Attorney General">Attorney General</option>
+            <option value="Council Member">Council Member</option>
+            <option value="Secretary of State">Secretary of State</option>
+          </select>
+
+          <label>
+            Age Range: {selectedAgeRange[0]} - {selectedAgeRange[1]}
+          </label>
+          <div className="age-slider-container">
+            <input
+              type="number"
+              min="18"
+              max="100"
+              value={selectedAgeRange[0]}
+              onChange={(e) =>
+                onAgeRangeChange([
+                  parseInt(e.target.value),
+                  selectedAgeRange[1],
+                ])
+              }
+              className="age-input"
+            />
+            <input
+              type="range"
+              min="18"
+              max="100"
+              step="1"
+              value={selectedAgeRange[1]}
+              onChange={handleAgeChange}
+              className="age-slider"
+            />
+            <input
+              type="number"
+              min="18"
+              max="100"
+              value={selectedAgeRange[1]}
+              onChange={(e) =>
+                onAgeRangeChange([
+                  selectedAgeRange[0],
+                  parseInt(e.target.value),
+                ])
+              }
+              className="age-input"
+            />
+          </div>
+          <label className="select-all-label">
+            <input
+              type="checkbox"
+              checked={selectAll}
+              onChange={handleSelectAll}
+            />
+            Select All Results
+          </label>
+
+          <Button
+            label="contact"
+            className="contact-button"
+            onClick={onContactClick}
+            disabled={!hasSelectedOfficials}
+          />
+          <Button
+            label="chat"
+            className="chat-button"
+            onClick={onChatClick}
+            disabled={!hasSelectedOfficials}
+          />
+        </div>
+      )}
     </div>
   );
 };
