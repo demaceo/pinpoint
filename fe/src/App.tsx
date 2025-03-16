@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer.tsx";
 
 import "./App.css";
 const App: React.FC = () => {
+  
   return (
     <Router>
       <Routes>
@@ -31,7 +32,7 @@ const App: React.FC = () => {
               <div className="main-content">
                 <OfficialsByLocation />
               </div>
-              <Footer />
+              {/* <Footer /> */}
             </div>
           }
         />
