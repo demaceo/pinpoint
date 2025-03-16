@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { FeatureCollection } from "geojson";
 // import geoJsonData from "./geoJSON.json";
-import geoJsonData from "../../assets/geoJSON.json";
+import geoData from "../../assets/geoData.json";
 import OfficialLink from "../OfficialLink/OfficialLink";
 import "./USMap.css";
 
@@ -43,7 +43,7 @@ const USMap: React.FC = () => {
       .attr("width", width)
       .attr("height", height);
 
-    const geoJson: FeatureCollection = geoJsonData as FeatureCollection;
+    const geoJson: FeatureCollection = geoData as FeatureCollection;
 
     // Create tooltip
     const tooltip = d3.select(tooltipRef.current);
