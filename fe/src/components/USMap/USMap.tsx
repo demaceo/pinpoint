@@ -2,7 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { FeatureCollection } from "geojson";
-import geoJsonData from "./geoJSON.json";
+// import geoJsonData from "./geoJSON.json";
+import geoJsonData from "./geoJSON.json" assert { type: "json" };
 import OfficialLink from "../OfficialLink/OfficialLink";
 import "./USMap.css";
 
