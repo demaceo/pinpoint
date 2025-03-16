@@ -1,12 +1,17 @@
-import { fetchBills } from "../../services/OpenStates/fetchBills";
+// import { fetchBills } from "../../services/OpenStates/fetchBills";
+import {
+  fetchBillsByJurisdiction,
+  fetchBillDetails,
+} from "../../services/OpenStates/openStatesService";
+
 import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
-import { fetchBillDetails } from "../../services/OpenStates/fetchBillDetails";
+// import { fetchBillDetails } from "../../services/OpenStates/fetchBillDetails";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
-  const billCache = new Map<string, BillDetails>(); // ✅ Store fetched bill details
+  const billCache = new Map<string, BillDetails>();
 
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -17,17 +22,27 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     if (!jurisdiction) return;
 
     setLoading(true);
-    fetchBills({
-      jurisdiction,
-      perPage: 5,
-      sort: "latest_action_desc",
-    })
-      .then((data) => {
-        setBills(data.results || []);
-      })
+    fetchBillsByJurisdiction(jurisdiction)
+      .then(setBills)
       .catch((error) => console.error("Error fetching bills:", error))
       .finally(() => setLoading(false));
   }, [jurisdiction]);
+
+  // useEffect(() => {
+  //   if (!jurisdiction) return;
+
+  //   setLoading(true);
+  //   fetchBills({
+  //     jurisdiction,
+  //     perPage: 5,
+  //     sort: "latest_action_desc",
+  //   })
+  //     .then((data) => {
+  //       setBills(data.results || []);
+  //     })
+  //     .catch((error) => console.error("Error fetching bills:", error))
+  //     .finally(() => setLoading(false));
+  // }, [jurisdiction]);
 
   const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
     if (hoverTimeout) clearTimeout(hoverTimeout);
@@ -44,7 +59,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
           console.error("Error loading bill details:", error);
         }
       }
-    }, 300); // ✅ Throttle API requests (prevents spamming)
+    }, 300); // Throttle API requests (prevents spamming)
   };
 
   const handleMouseLeave = () => {
@@ -77,7 +92,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
           <strong>{hoveredBill.identifier}</strong>
           <p>{hoveredBill.title}</p>
 
-          {/* ✅ Session & Jurisdiction */}
+          {/* Session & Jurisdiction */}
           {hoveredBill.session && hoveredBill.jurisdiction?.name ? (
             <p>
               <em>Session:</em> {hoveredBill.session} (
@@ -89,7 +104,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Latest Action */}
+          {/* Latest Action */}
           {hoveredBill.latest_action_description &&
           hoveredBill.latest_action_date ? (
             <p>
@@ -102,7 +117,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Bill Summary (Abstracts) */}
+          {/* Bill Summary (Abstracts) */}
           {hoveredBill.abstracts?.length ? (
             <p>
               <em>Summary:</em>{" "}
@@ -114,7 +129,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Sponsors */}
+          {/* Sponsors */}
           {hoveredBill.sponsorships?.length ? (
             <p>
               <em>Sponsored by:</em>{" "}
@@ -133,7 +148,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Related Bills */}
+          {/* Related Bills */}
           {hoveredBill.related_bills?.length ? (
             <p>
               <em>Related Bills:</em>{" "}
@@ -150,7 +165,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Documents */}
+          {/*  Documents */}
           {hoveredBill.documents?.length ? (
             <p>
               <em>Documents:</em>{" "}
@@ -171,7 +186,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* ✅ Bill Versions */}
+          {/*  Bill Versions */}
           {hoveredBill.versions?.length ? (
             <p>
               <em>Versions:</em>{" "}
