@@ -5,12 +5,15 @@ import Button from "../Button/Button";
 const Filters: React.FC<FiltersProps> = ({
   selectedParty,
   selectedRole,
+  selectedAgeRange,
   searchQuery,
   onFilterChange,
   onSearchChange,
   onSelectAll,
   onContactClick,
   onChatClick,
+  onAgeRangeChange,
+
   hasSelectedOfficials,
 }) => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -19,6 +22,21 @@ const Filters: React.FC<FiltersProps> = ({
     const isChecked = e.target.checked;
     setSelectAll(isChecked);
     onSelectAll(isChecked);
+  };
+
+  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [minAge, maxAge] = selectedAgeRange;
+    const newValue = parseInt(e.target.value);
+
+    // Determine whether the change is closer to min or max
+    const updatedRange: [number, number] =
+      Math.abs(newValue - minAge) < Math.abs(newValue - maxAge)
+        ? [newValue, maxAge] // Adjust min age
+        : [minAge, newValue]; // Adjust max age
+
+    if (updatedRange[0] <= updatedRange[1]) {
+      onAgeRangeChange(updatedRange);
+    }
   };
 
   return (
@@ -62,7 +80,41 @@ const Filters: React.FC<FiltersProps> = ({
         <option value="Secretary of State">Secretary of State</option>
       </select>
 
-      {/* Select All checkbox */}
+      {/* 🔹 Improved Age Filter UI with One Range Slider */}
+      <label>
+        Age Range: {selectedAgeRange[0]} - {selectedAgeRange[1]}
+      </label>
+      <div className="age-slider-container">
+        <input
+          type="number"
+          min="18"
+          max="100"
+          value={selectedAgeRange[0]}
+          onChange={(e) =>
+            onAgeRangeChange([parseInt(e.target.value), selectedAgeRange[1]])
+          }
+          className="age-input"
+        />
+        <input
+          type="range"
+          min="18"
+          max="100"
+          step="1"
+          value={selectedAgeRange[1]}
+          onChange={handleAgeChange}
+          className="age-slider"
+        />
+        <input
+          type="number"
+          min="18"
+          max="100"
+          value={selectedAgeRange[1]}
+          onChange={(e) =>
+            onAgeRangeChange([selectedAgeRange[0], parseInt(e.target.value)])
+          }
+          className="age-input"
+        />
+      </div>
       <label className="select-all-label">
         <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
         Select All Results

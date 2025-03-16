@@ -45,3 +45,9 @@
   font-weight: bold;
   margin: 1.5vh 0 2vh;
 }
+
+/* 🔹 Age Slider Styles */
+.filters-container input[type="range"] {
+  width: 100%;
+  margin-top: 5px;
+}
