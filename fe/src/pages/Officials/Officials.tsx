@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { fetchOfficialsByState } from "../../services/OpenStates/openStatesService.ts";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
-import OfficialCard from "../../components/OfficialCard/OfficialCard";
+// import OfficialCard from "../../components/OfficialCard/OfficialCard";
 import "./Officials.css";
+import { useLocation } from "react-router-dom";
 import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
@@ -14,9 +14,14 @@ import Modal from "../../components/Modal/Modal.tsx";
 import Filters from "../../components/Filter/Filter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
+import XOfficialCard from "../../components/OfficialCard/xOfficialCard.tsx";
 
-const Officials: React.FC = () => {
-  const [rateLimitExceeded, setRateLimitExceeded] = useState<boolean>(false);
+interface OfficialsPageProps {
+  location: boolean;
+}
+const Officials: React.FC<OfficialsPageProps> = () => {
+  const location = useLocation();
+  const isYourOfficialsPage = location.pathname === "/yourofficials";
 
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -40,6 +45,17 @@ const Officials: React.FC = () => {
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const [showContactForm, setShowContactForm] = useState<boolean>(false);
   const [closing, setClosing] = useState<boolean>(false);
+
+  const [selectedAgeRange, setSelectedAgeRange] = useState<[number, number]>([
+    18, 100,
+  ]);
+
+  const calculateAge = (birthDate: string | undefined): number | null => {
+    if (!birthDate) return null;
+    const birthYear = new Date(birthDate).getFullYear();
+    const currentYear = new Date().getFullYear();
+    return currentYear - birthYear;
+  };
 
   const handleToggleContactForm = () => {
     setClosing(!closing);
@@ -69,7 +85,7 @@ const Officials: React.FC = () => {
   };
 
   // ✅ Move officialCache outside component so it persists
-  const officialCache = new Map<string, any[]>();
+  // const officialCache = React.useMemo(() => new Map<string, any[]>(), []);
 
   useEffect(() => {
     if (!selectedState) {
@@ -78,24 +94,13 @@ const Officials: React.FC = () => {
       return;
     }
 
-    if (officialCache.has(selectedState)) {
-      setOfficials(officialCache.get(selectedState)!);
-    } else {
-      setLoading(true);
-      fetchOfficialsByState(selectedState)
-        .then((data) => {
-          officialCache.set(selectedState, data); // ✅ Cache results
-          setOfficials(data);
-        })
-        .catch((error) => {
-          if (error.response?.status === 429) {
-            setRateLimitExceeded(true);
-            setTimeout(() => setRateLimitExceeded(false), 60000);
-          }
-        })
-        .finally(() => setLoading(false));
-    }
-  }, [selectedState]); // ✅ Remove officialCache from dependencies
+    setLoading(true);
+    // isYourOfficialsPage ? 
+    fetchOfficialsByState(selectedState)  
+      .then(setOfficials)
+      .catch((error) => console.error("Error fetching officials:", error))
+      .finally(() => setLoading(false));
+  }, [selectedState]);
 
   if (loading) return <LoadingSpinner />;
 
@@ -135,44 +140,52 @@ const Officials: React.FC = () => {
     );
   };
 
-  const filteredOfficials = officials.filter((official) => {
-    return (
-      (searchQuery
-        ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
-        : true) &&
-      (selectedParty ? official.party === selectedParty : true) &&
-      (selectedRole ? official.current_role.title === selectedRole : true)
-    );
-  });
+const filteredOfficials = officials.filter((official) => {
+  const age = calculateAge(official.birth_date);
+  return (
+    (searchQuery
+      ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
+      : true) &&
+    (selectedParty ? official.party === selectedParty : true) &&
+    (selectedRole ? official.current_role.title === selectedRole : true) &&
+    (age ? age >= selectedAgeRange[0] && age <= selectedAgeRange[1] : true)
+  );
+});
+
+
 
   return (
     <div className="officials-page-container">
       <Filters
         selectedParty={selectedParty}
         selectedRole={selectedRole}
+        selectedAgeRange={selectedAgeRange} // ✅ Correctly passes the [number, number] array
         searchQuery={searchQuery}
         onFilterChange={handleFilterChange}
         onSearchChange={handleSearchChange}
         onSelectAll={handleSelectAll}
+        onAgeRangeChange={setSelectedAgeRange} // ✅ Passes the setter function correctly
         onContactClick={handleContactClick}
         onChatClick={handleChatClick}
         hasSelectedOfficials={hasSelectedOfficials}
       />
-      <h1 className="officials-header">
-        Officials in{" "}
-        <select
-          className={`states-dropdown ${xstylesClass}`}
-          value={selectedState}
-          onChange={(e) => setSelectedState(e.target.value)}
-        >
-          {usStates.map((item) => (
-            <option key={item.abbr} value={item.abbr}>
-              {item.abbr}
-            </option>
-          ))}
-        </select>
-        {selectedState && <StateDisplay selectedAbbr={selectedState} />}
-      </h1>
+      {!isYourOfficialsPage && (
+        <h1 className="officials-header">
+          Officials in{" "}
+          <select
+            className={`states-dropdown ${xstylesClass}`}
+            value={selectedState}
+            onChange={(e) => setSelectedState(e.target.value)}
+          >
+            {usStates.map((item) => (
+              <option key={item.abbr} value={item.abbr}>
+                {item.abbr}
+              </option>
+            ))}
+          </select>
+          {selectedState && <StateDisplay selectedAbbr={selectedState} />}
+        </h1>
+      )}
 
       {selectedAll && (
         <p className="select-all-message">
@@ -180,12 +193,12 @@ const Officials: React.FC = () => {
           actions...
         </p>
       )}
-      {/* ✅ Show Rate Limit Message If Exceeded */}
-      {rateLimitExceeded && (
+      {/* Show Rate Limit Message If Exceeded */}
+      {/* {rateLimitExceeded && (
         <div className="rate-limit-warning">
           🚨 API Rate Limit Exceeded. Please try again later. 🚨
         </div>
-      )}
+      )} */}
 
       <div className="officials-container">
         <ul className="officials-list">
@@ -203,7 +216,7 @@ const Officials: React.FC = () => {
 
       {selectedOfficial && (
         <Modal onClose={() => setSelectedOfficial(null)}>
-          <OfficialCard
+          <XOfficialCard
             official={selectedOfficial}
             onClose={() => setSelectedOfficial(null)}
           />

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Officials from "../Officials/Officials";
+// import { useState } from "react";
 const Home: React.FC = () => {
   return (
     <>
@@ -11,10 +12,10 @@ const Home: React.FC = () => {
           Engage with your elected officials and make your voice heard.
         </p>
         <Link to="/yourofficials" className="link-officials">
-          Find Your Representatives
+          Find Elected Representatives Near You
         </Link>
       </div>
-      <Officials />
+      <Officials location={false} />
     </>
   );
 };
