@@ -1,15 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
 
-/* * {
-  transition: 0.4s ease;
-} */
 
 .navbar {
   position: fixed;
   font-family: "Raleway";
   letter-spacing: 4px;
-  /* border: 3px solid red; */
   font-weight: 400;
   top: 0;
   width: 100%;
@@ -17,13 +13,11 @@
   padding: 0px 25px;
   background-color: rgba(255, 255, 255, 0.02);
   box-shadow: 0px 0 15px 2px rgba(0, 0, 0, 0.5);
-  /* z-index: 999; */
   backface-visibility: hidden;
   transition: 0.35s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin-top: 0; */
   margin-bottom: 25vh;
 }
 
@@ -46,13 +40,11 @@
   font-weight: 300;
   cursor: pointer;
   transition: 0.3s ease;
-  
 }
 
 .logo span {
   color: #e78533;
   font-weight: 600;
-  
 }
 
 .navbar.scrolled .logo {
@@ -72,7 +64,6 @@
   justify-content: center;
   gap: 5px;
   transition: 0.4s ease;
-  
 }
 
 .white-bar {
