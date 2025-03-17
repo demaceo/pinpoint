@@ -66,6 +66,7 @@ const OfficialCard: React.FC<OfficialCardProps> = ({ official, onClose, onContac
             </a>
           )}
         </div>
+      
         {official.current_role && (
           <div className="official-role">
             <p>{official.current_role.title}</p>
