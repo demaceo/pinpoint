@@ -13,7 +13,6 @@ const Filters: React.FC<FiltersProps> = ({
   onContactClick,
   onChatClick,
   onAgeRangeChange,
-
   hasSelectedOfficials,
 }) => {
   const [selectAll, setSelectAll] = useState<boolean>(false);

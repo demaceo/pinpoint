@@ -5,6 +5,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
+import { mockBills, mockBillDetails } from "../../utils/mockBillGenerator";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
@@ -14,6 +15,9 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   const [hoveredBill, setHoveredBill] = useState<BillDetails | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  const dummyBills: Bill[] = mockBills;
+  const dummyBillDetail: BillDetails = mockBillDetails[0];
 
   useEffect(() => {
     if (!jurisdiction) return;
@@ -27,6 +31,11 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
       .catch((error) => console.error("Error fetching bills:", error))
       .finally(() => setLoading(false));
   }, [jurisdiction]);
+
+   if (!bills || bills.length === 0) {
+     setBills(dummyBills);
+     setHoveredBill(dummyBillDetail);
+   }
 
   const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
     if (hoverTimeout) clearTimeout(hoverTimeout);

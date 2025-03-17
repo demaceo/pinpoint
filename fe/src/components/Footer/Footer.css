@@ -4,8 +4,10 @@
   padding: 16px;
   border-radius: var(--border-radius);
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  position: sticky;
+  bottom: 0rem;
   font-family: "Raleway";
   background-color: #f9f9f9;
+  max-height: 5vh;
+  box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.2);
 }
