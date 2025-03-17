@@ -13,7 +13,7 @@ import Modal from "../../components/Modal/Modal.tsx";
 import Filters from "../../components/Filter/Filter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
-import XOfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
+import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
 
 interface OfficialsPageProps {
   location: boolean;
@@ -156,19 +156,19 @@ const Officials: React.FC<OfficialsPageProps> = () => {
       <Filters
         selectedParty={selectedParty}
         selectedRole={selectedRole}
-        selectedAgeRange={selectedAgeRange} // ✅ Correctly passes the [number, number] array
+        selectedAgeRange={selectedAgeRange}
         searchQuery={searchQuery}
         onFilterChange={handleFilterChange}
         onSearchChange={handleSearchChange}
         onSelectAll={handleSelectAll}
-        onAgeRangeChange={setSelectedAgeRange} // ✅ Passes the setter function correctly
+        onAgeRangeChange={setSelectedAgeRange} 
         onContactClick={handleContactClick}
         onChatClick={handleChatClick}
         hasSelectedOfficials={hasSelectedOfficials}
       />
       {!isYourOfficialsPage && (
         <h1 className="officials-header">
-          Officials in{" "}
+          Elected Representatives in{" "}
           <select
             className={`states-dropdown ${xstylesClass}`}
             value={selectedState}
@@ -213,9 +213,11 @@ const Officials: React.FC<OfficialsPageProps> = () => {
 
       {selectedOfficial && (
         <Modal onClose={() => setSelectedOfficial(null)}>
-          <XOfficialCard
+          <OfficialCard
             official={selectedOfficial}
             onClose={() => setSelectedOfficial(null)}
+            onContactClick={() => {}}
+            onChatClick={() => {}}
           />
         </Modal>
       )}

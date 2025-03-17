@@ -6,7 +6,7 @@
   display: flex;
   align-items: center; /* Align dropdown and SVG on the same row */
   gap: 12px;
-  margin-bottom: 1vh;
+  margin: 1vh 0;
   /* margin-left: 4vw; */
 }
 
@@ -31,7 +31,6 @@
   padding: 10px;
 } */
 
-/* 🔹 Center the List Container */
 .officials-container {
   /* position: fixed;
   right: 0;
@@ -357,4 +356,22 @@
 .xstyles-wy {
   background-color: #fff8dc; /* cornsilk */
   color: #111;
+}
+
+
+@media (max-width: 480px) {
+  .officials-header{
+    font-size: 25px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    color: #333;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 }

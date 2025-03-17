@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
+import "./App.css";
 import OfficialsByLocation from "./pages/OfficialsByLocation/OfficialsByLocation.tsx";
 import Contact from "./pages/Contact/Contact.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
+// import Webgaze from "./components/Webgaze/Webgaze.tsx";
 
-import "./App.css";
 const App: React.FC = () => {
   
   return (
@@ -18,8 +19,10 @@ const App: React.FC = () => {
             <div className="app-container">
               <NavBar />
               <div className="main-content">
+                {/* <Webgaze /> */}
                 <Home />
               </div>
+             
               {/* <Footer /> */}
             </div>
           }

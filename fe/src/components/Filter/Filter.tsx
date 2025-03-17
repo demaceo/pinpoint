@@ -9,7 +9,7 @@ const Filters: React.FC<FiltersProps> = ({
   searchQuery,
   onFilterChange,
   onSearchChange,
-  onSelectAll, 
+  onSelectAll,
   onContactClick,
   onChatClick,
   onAgeRangeChange,
@@ -57,8 +57,8 @@ const Filters: React.FC<FiltersProps> = ({
       {/* Filter Content */}
       {isOpen && (
         <div className="filters-content">
-          <h2>Filters</h2>
-          <label>Search Official:</label>
+          <h2 className="filters-title">Filters</h2>
+          <label>Search for Elected Representatives:</label>
           <input
             type="text"
             placeholder="Enter name..."
@@ -95,14 +95,15 @@ const Filters: React.FC<FiltersProps> = ({
             <option value="Secretary of State">Secretary of State</option>
           </select>
 
-          <label>
-            Age Range: {selectedAgeRange[0]} - {selectedAgeRange[1]}
+          <label className="age-range-label">
+            Age Range:
+            {/* {selectedAgeRange[0]} - {selectedAgeRange[1]} */}
           </label>
           <div className="age-slider-container">
             <input
               type="number"
               min="18"
-              max="100"
+              max="110"
               value={selectedAgeRange[0]}
               onChange={(e) =>
                 onAgeRangeChange([
@@ -110,17 +111,20 @@ const Filters: React.FC<FiltersProps> = ({
                   selectedAgeRange[1],
                 ])
               }
+              // onChange={handleAgeChange}
               className="age-input"
             />
+            
             <input
               type="range"
               min="18"
-              max="100"
+              max="110"
               step="1"
               value={selectedAgeRange[1]}
               onChange={handleAgeChange}
               className="age-slider"
             />
+          
             <input
               type="number"
               min="18"
@@ -134,6 +138,7 @@ const Filters: React.FC<FiltersProps> = ({
               }
               className="age-input"
             />
+            
           </div>
           <label className="select-all-label">
             <input
@@ -144,18 +149,20 @@ const Filters: React.FC<FiltersProps> = ({
             Select All Results
           </label>
 
-          <Button
-            label="contact"
-            className="contact-button"
-            onClick={onContactClick}
-            disabled={!hasSelectedOfficials}
-          />
-          <Button
-            label="chat"
-            className="chat-button"
-            onClick={onChatClick}
-            disabled={!hasSelectedOfficials}
-          />
+          <div className="filter-buttons-container">
+            <Button
+              label="contact"
+              className="filter-btn contact-btn"
+              onClick={onContactClick}
+              disabled={!hasSelectedOfficials}
+            />
+            <Button
+              label="chat"
+              className="filter-btn chat-btn"
+              onClick={onChatClick}
+              disabled={!hasSelectedOfficials}
+            />
+          </div>
         </div>
       )}
     </div>
