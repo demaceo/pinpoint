@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
-import { mockBills, mockBillDetails } from "../../utils/mockBillGenerator";
+import { mockBills } from "../../utils/mockBillGenerator";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
@@ -17,7 +17,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const dummyBills: Bill[] = mockBills;
-  const dummyBillDetail: BillDetails = mockBillDetails[0];
 
   useEffect(() => {
     if (!jurisdiction) return;
@@ -34,7 +33,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
 
    if (!bills || bills.length === 0) {
      setBills(dummyBills);
-     setHoveredBill(dummyBillDetail);
    }
 
   const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
@@ -52,7 +50,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
           console.error("Error loading bill details:", error);
         }
       }
-    }, 300); // Throttle API requests (prevents spamming)
+    }, 500); // Throttle API requests (prevents spamming)
   };
 
   const handleMouseLeave = () => {
