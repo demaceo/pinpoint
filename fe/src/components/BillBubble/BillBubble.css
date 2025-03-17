@@ -1,9 +1,6 @@
-/* 🔹 Tooltip Bubble */
-.bubble-tooltip {
+.bill-tooltip {
   position: fixed;
-  /* background: rgba(255, 255, 255, 0.95); / */
   background: #121212d4;
-  /* color: #333; */
   color: rgba(245, 245, 245, 0.924);
   padding: 10px 24px;
   border-radius: 12px;
@@ -14,33 +11,30 @@
   z-index: 10000;
   margin-bottom: 7vh;
   opacity: 0;
-  /* top: 0; */
   bottom: 0;
   right: 0;
-  /* left: 0; */
-  /* overflow-y: scroll; */
   transform: scale(0.8);
-  pointer-events: none; /* Prevents interference with hover events */
+  pointer-events: none;
   transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
-.bubble-tooltip.show {
+.bill-tooltip.show {
   opacity: 1;
   transform: scale(1);
 }
 
-.bubble-tooltip p {
+.bill-tooltip p {
   margin: 5px 0;
   font-size: 13px;
   overflow-y: scroll;
 }
 
-.bubble-tooltip strong {
+.bill-tooltip strong {
   font-size: 15px;
   color: #121212;
 }
 
-.bubble-tooltip::after {
+.bill-tooltip::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -49,4 +43,49 @@
   border-width: 10px;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+}
+
+
+
+/* .bill-tooltip {
+  position: fixed;
+  background: #121212d4;
+  color: rgba(245, 245, 245, 0.924);
+  padding: 10px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  width: max-content;
+  z-index: 10000;
+  opacity: 0;
+  bottom: 10vh;
+  right: 10px;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.bill-tooltip.show {
+  opacity: 1;
+  transform: scale(1);
+} */
+
+/*  Responsive Adjustments for Mobile */
+@media (max-width: 768px) {
+  .bill-tooltip {
+    font-size: 12px;
+    bottom: 5vh;
+    right: 5px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .bill-tooltip {
+    font-size: 11px;
+    bottom: 3vh;
+    right: 3px;
+    padding: 6px 12px;
+  }
 }

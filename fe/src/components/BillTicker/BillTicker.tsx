@@ -1,36 +1,32 @@
-// import { fetchBills } from "../../services/OpenStates/fetchBills";
 import {
   fetchBillsByJurisdiction,
   fetchBillDetails,
 } from "../../services/OpenStates/openStatesService";
-
 import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
-// import { fetchBillDetails } from "../../services/OpenStates/fetchBillDetails";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
   const billCache = new Map<string, BillDetails>();
-
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hoveredBill, setHoveredBill] = useState<BillDetails | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState<boolean>(false); // Track visibility
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    useEffect(() => {
-      if (!jurisdiction) return;
+  useEffect(() => {
+    if (!jurisdiction) return;
 
-      setLoading(true);
-      fetchBillsByJurisdiction(jurisdiction)
-        .then((data) => {
-          setBills(data);
-          setTimeout(() => setIsVisible(true), 500); // Trigger slide-in effect
-        })
-        .catch((error) => console.error("Error fetching bills:", error))
-        .finally(() => setLoading(false));
-    }, [jurisdiction]);
+    setLoading(true);
+    fetchBillsByJurisdiction(jurisdiction)
+      .then((data) => {
+        setBills(data);
+        setTimeout(() => setIsVisible(true), 300); // Trigger slide-in effect
+      })
+      .catch((error) => console.error("Error fetching bills:", error))
+      .finally(() => setLoading(false));
+  }, [jurisdiction]);
 
   const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
     if (hoverTimeout) clearTimeout(hoverTimeout);
@@ -90,7 +86,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* Latest Action */}
           {hoveredBill.latest_action_description &&
           hoveredBill.latest_action_date ? (
             <p>
@@ -103,7 +98,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* Bill Summary (Abstracts) */}
           {hoveredBill.abstracts?.length ? (
             <p>
               <em>Summary:</em>{" "}
@@ -115,7 +109,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* Sponsors */}
           {hoveredBill.sponsorships?.length ? (
             <p>
               <em>Sponsored by:</em>{" "}
@@ -134,7 +127,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/* Related Bills */}
           {hoveredBill.related_bills?.length ? (
             <p>
               <em>Related Bills:</em>{" "}
@@ -151,7 +143,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/*  Documents */}
           {hoveredBill.documents?.length ? (
             <p>
               <em>Documents:</em>{" "}
@@ -172,7 +163,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
             </p>
           )}
 
-          {/*  Bill Versions */}
           {hoveredBill.versions?.length ? (
             <p>
               <em>Versions:</em>{" "}

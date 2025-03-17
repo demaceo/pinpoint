@@ -15,7 +15,7 @@ const BubbleTooltip: React.FC<BubbleTooltipProps> = ({
   if (!visible) return null;
 
   return (
-    <div className="bubble-tooltip show" style={position}>
+    <div className="bill-tooltip show" style={position}>
       {content}
     </div>
   );

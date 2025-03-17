@@ -1,8 +1,7 @@
 import React from "react";
-// import ContactForm from "../../components/ContactForm/ContactForm";
-// import "./Contact.css";
+import "./Country.css";
 import USMap from "../../components/USMap/USMap";
-const Contact: React.FC = () => {
+const Country: React.FC = () => {
   return (
     <div className="contact-container">
       {/* <h1 className="">US Map</h1> */}
@@ -11,4 +10,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact;
+export default Country;
