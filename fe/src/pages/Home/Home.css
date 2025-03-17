@@ -1,5 +1,27 @@
+.home-officials-page {
+  margin-top: 1vh;
+  transition: all 1s ease-in-out;
+}
+
+.loading-page {
+  background-color: transparent;
+  position: fixed;
+  top: 6rem;
+  left: 0;
+  z-index: 9999;
+  margin: 0;
+  width: 100vw;
+  height: 100%;
+}
+
+.loading-container {
+  display: none;
+  opacity: 0.5;
+}
+
 .home-container {
-  margin-bottom: 5vh;
+  margin-bottom: 1vh;
+  transition: all 1s ease-in-out;
 }
 
 .home-welcome {

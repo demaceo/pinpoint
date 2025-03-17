@@ -7,6 +7,7 @@ import Contact from "./pages/Contact/Contact.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import NeonSmoke from "./components/LoadingSpinner/NeonSmoke.tsx";
+
 const App: React.FC = () => {
   return (
     <Router>

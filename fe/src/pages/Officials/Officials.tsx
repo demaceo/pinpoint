@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { fetchOfficialsByState } from "../../services/OpenStates/openStatesService.ts";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+// import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Breathe from "../../components/LoadingSpinner/Breathe.tsx";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import "./Officials.css";
 import { useLocation } from "react-router-dom";
@@ -17,13 +18,15 @@ import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
 
 interface OfficialsPageProps {
   location: boolean;
+  setLoading: (loading: boolean) => void; // ✅ Accept loading prop from Home
 }
-const Officials: React.FC<OfficialsPageProps> = () => {
+const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
   const location = useLocation();
   const isYourOfficialsPage = location.pathname === "/yourofficials";
+  // const [showResults, setShowResults] = useState<boolean>(false); // ✅ New state for delaying results
 
   const [officials, setOfficials] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLocalLoading] = useState<boolean>(true);
   const usStates: UsStateEntry[] = usStatesData;
   const mockData: Official[] = mockOfficials;
 
@@ -83,29 +86,33 @@ const Officials: React.FC<OfficialsPageProps> = () => {
     // TODO: Implement AI chat integration
   };
 
-  // ✅ Move officialCache outside component so it persists
-  // const officialCache = React.useMemo(() => new Map<string, any[]>(), []);
-
   useEffect(() => {
     if (!selectedState) {
       setOfficials([]);
+      setLocalLoading(false);
       setLoading(false);
       return;
     }
-
+    setLocalLoading(true);
     setLoading(true);
-    // isYourOfficialsPage ?
     fetchOfficialsByState(selectedState)
-      .then(setOfficials)
+      .then((data) => {
+        setOfficials(data);
+      })
       .catch((error) => console.error("Error fetching officials:", error))
-      .finally(() => setLoading(false));
-  }, [selectedState]);
-
-  if (loading) return <LoadingSpinner />;
+      .finally(() => {
+        setTimeout(() => {
+          setLocalLoading(false);
+          setLoading(false);
+        }, 3000); //! Keep Breathe active for 3 seconds
+      });
+  }, [selectedState, setLoading]);
 
   if (!officials || officials.length === 0) {
     setOfficials(mockData);
   }
+
+  if (loading) return <Breathe />;
 
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
@@ -161,7 +168,7 @@ const Officials: React.FC<OfficialsPageProps> = () => {
         onFilterChange={handleFilterChange}
         onSearchChange={handleSearchChange}
         onSelectAll={handleSelectAll}
-        onAgeRangeChange={setSelectedAgeRange} 
+        onAgeRangeChange={setSelectedAgeRange}
         onContactClick={handleContactClick}
         onChatClick={handleChatClick}
         hasSelectedOfficials={hasSelectedOfficials}
@@ -190,14 +197,8 @@ const Officials: React.FC<OfficialsPageProps> = () => {
           actions...
         </p>
       )}
-      {/* Show Rate Limit Message If Exceeded */}
-      {/* {rateLimitExceeded && (
-        <div className="rate-limit-warning">
-          🚨 API Rate Limit Exceeded. Please try again later. 🚨
-        </div>
-      )} */}
-
       <div className="officials-container">
+        {/* {loading || !showResults && (<Breathe />)}  */}
         <ul className="officials-list">
           {filteredOfficials.map((official, index) => (
             <OfficialLink

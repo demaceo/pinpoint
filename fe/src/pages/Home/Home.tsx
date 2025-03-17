@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Officials from "../Officials/Officials";
-// import { useState } from "react";
+
 const Home: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+
   return (
-    <>
-      <div className="home-container">
+    <div className={`${loading ? "loading-page" : "home-officials-page"}`}>
+      <div className={`${loading ? "loading-container" : "home-container"}`}>
         <h1 className="home-title">Welcome to Pinpoint</h1>
         <p className="home-welcome">
           Engage with your elected officials and make your voice heard.
@@ -15,8 +17,8 @@ const Home: React.FC = () => {
           Find Elected Representatives Near You
         </Link>
       </div>
-      <Officials location={false} />
-    </>
+      <Officials location={false} setLoading={setLoading} />
+    </div>
   );
 };
 

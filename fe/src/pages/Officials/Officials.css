@@ -1,5 +1,6 @@
 .officials-page-container {
-  padding-bottom: 25px;
+  padding: 25px 0;
+  /* margin-top: 15vh; */
 }
 
 .officials-header {
@@ -7,12 +8,9 @@
   align-items: center; /* Align dropdown and SVG on the same row */
   gap: 12px;
   margin: 1vh 0;
-  /* margin-left: 4vw; */
 }
 
-.select-all-message {
-  /* margin-left: 4.5vw; */
-}
+
 
 .states-dropdown {
   height: 40px;
@@ -23,28 +21,17 @@
   font-weight: bold;
 }
 
-/* .officials-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px; 
-  justify-content: flex-start; 
-  padding: 10px;
-} */
+
 
 .officials-container {
-  /* position: fixed;
-  right: 0;
-  left: 0; */
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
   padding: 0;
   margin: 0;
-  /* min-height: 60vh;  */
 }
 
-/* 🔹 OfficialLinks Wrapper */
 .officials-list {
   display: flex;
   flex-wrap: wrap;
@@ -361,7 +348,7 @@
 
 @media (max-width: 480px) {
   .officials-header{
-    font-size: 25px;
+    font-size: 20px;
     line-height: 24px;
     margin-bottom: 10px;
     padding: 10px;

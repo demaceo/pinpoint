@@ -2,11 +2,11 @@
 .filters-container {
   position: fixed;
   top: 0;
-  left: -260px; /* Start hidden */
+  left: -310px;
   height: max-content;
   height: 70vh;
   margin: 12vh 0vw 0vh 1vw;
-  width: 250px;
+  width: 300px;
   background: white;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -22,7 +22,7 @@
 }
 
 .filters-container.closed {
-  left: -260px;
+  left: -310px;
   height: 0vh;
 }
 
@@ -78,6 +78,28 @@
   padding: 25px 0px 5px;
 }
 
+.age-slider-container {
+  height: 5vh;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: center;
+  align-items: center;
+}
+
+.age-input {
+  padding: 0px 5px;
+  align-items: center;
+  text-align: center;
+  height: 4vh;
+}
+
+.age-slider {
+  width: 210px;
+}
+
 .select-all-label {
   display: flex;
   align-items: center;
@@ -86,17 +108,14 @@
   margin: 1.5vh 0 2vh;
 }
 
-
-.age-range-label{
+.age-range-label {
   font-weight: bold;
   margin: 5px 0;
-  /* width: 100%; */
 }
 
-.age-slider-container{
+.age-slider-container {
   width: 100vw;
   margin: 10px 0;
-  
 }
 .filter-buttons-container {
   display: flex;
@@ -123,19 +142,23 @@
 
 @media (max-width: 768px) {
   .filters-container {
-    width: 200px;
-    left: -210px;
-    height: 80vh;
+    /* width: 82%; */
+    /* width: 45%; */
+    /* left: -20px; */
   }
 
   .filters-container.open {
-    left: 0;
-    padding: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 20px;
+    height: 75vh;
+    width: 40%;
   }
 
   .filter-toggle-btn {
     padding: 12px;
     font-size: 14px;
+    
   }
 
   .filters-title {
@@ -151,13 +174,16 @@
     padding: 8px 18px;
     font-size: 0.9rem;
   }
+  .search-bar{
+    width: 90%;
+  }
 }
 
 /* 📌 Responsive Adjustments for Mobile (480px) */
 @media (max-width: 480px) {
   .filters-container {
-    width: 70%;
-    left: -100%;
+    width: 73%;
+    /* left: 1; */
     height: 90vh;
     position: fixed;
     bottom: 0;
@@ -187,12 +213,12 @@
     padding: 6px;
   }
 
-   .search-bar{
+  .search-bar {
     width: 90%;
     padding: 10px;
-   }
+  }
 
-   .age-slider-container{
+  .age-slider-container {
     width: 100vw;
     /* border: 1px solid black; */
     /* margin: 0 10px; */
@@ -204,20 +230,20 @@
     justify-content: flex-start;
     text-align: center;
     align-items: space-between;
-   }
+  }
 
-   .age-input{
+  /* .age-input{
     margin-right: 10px;
     margin-left: 10px;
     width: 30px;
     text-align: center;
     height: 4vh;
-   }
+   } */
 
-   .age-slider{
+  .age-slider {
     width: 60%;
     /* margin-top: 5px; */
-   }
+  }
 
   .filter-btn {
     padding: 15px 25px;
@@ -225,7 +251,7 @@
     font-size: 1rem;
   }
 
-  .select-all-label input{
+  .select-all-label input {
     /* margin-top: 5vh; */
     padding: 10px;
   }
