@@ -140,7 +140,6 @@ const getLocation = (
 const Breathe: React.FC = () => {
   const s = 200;
   const center = { x: s / 2, y: s / 2 };
-  // const circleColor = "#000";
   const circleSize = 3;
   const amp = 12;
   const crests = [
@@ -172,7 +171,6 @@ const Breathe: React.FC = () => {
             center={center}
             offset={offset}
             delay={(0.8 * (idx + 1)) / crests.length}
-            // fill={circleColor}
           />
         ))}
       </Canvas>
