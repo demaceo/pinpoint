@@ -30,7 +30,7 @@ const states = [
  * @param count Number of officials to generate
  * @returns An array of mock officials
  */
-export function generateMockOfficials(count: number = 20): Official[] {
+export function generateMockOfficials(count: number = 50): Official[] {
     const officials: Official[] = [];
 
     for (let i = 0; i < count; i++) {
