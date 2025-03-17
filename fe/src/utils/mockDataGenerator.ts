@@ -33,13 +33,21 @@ const states = [
 export function generateMockOfficials(count: number = 50): Official[] {
     const officials: Official[] = [];
 
+    const getRandomBirthDate = (): string => {
+        const year = Math.floor(Math.random() * (1994 - 1945 + 1)) + 1945; // Random year between 1945 and 1994
+        const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, "0"); // Random month 01-12
+        const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, "0"); // Random day 01-28 (to avoid invalid dates)
+        return `${year}-${month}-${day}`;
+    };
+
     for (let i = 0; i < count; i++) {
         const state = states[Math.floor(Math.random() * states.length)];
         const official: Official = {
             id: uuidv4(),
-            name: `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`,
+            name: `${firstNames[Math.floor(Math.random() * firstNames.length)]} x ${lastNames[Math.floor(Math.random() * lastNames.length)]}`,
             party: parties[Math.floor(Math.random() * parties.length)],
             email: `contact${Math.floor(Math.random() * 1000)}@gov.${state.abbr.toLowerCase()}`,
+            birth_date: getRandomBirthDate(),
             image: `https://randomuser.me/api/portraits/${i % 2 === 0 ? "men" : "women"}/${Math.floor(Math.random() * 99)}.jpg`,
             current_role: {
                 title: titles[Math.floor(Math.random() * titles.length)],
