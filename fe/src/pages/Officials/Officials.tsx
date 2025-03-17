@@ -104,7 +104,7 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
         setTimeout(() => {
           setLocalLoading(false);
           setLoading(false);
-        }, 3000); //! Keep Breathe active for 3 seconds
+        }, 1000); //! Keep Breathe active for 3 seconds
       });
   }, [selectedState, setLoading]);
 
