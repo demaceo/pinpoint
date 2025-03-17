@@ -264,3 +264,33 @@ export interface BillDetails {
         note?: string;
     }[];
 }
+
+
+export interface Point {
+    x: number;
+    y: number;
+}
+
+export interface CrestProps {
+    count: number;
+    circleSize: number;
+    radius: number;
+    center: Point;
+    offset: boolean;
+    delay: number;
+    fill?: string;
+}
+
+export interface NucleusProps {
+    x: number;
+    y: number;
+    r: number;
+    fill?: string;
+}
+
+export interface CanvasProps {
+  w: number;
+  h: number;
+  children: React.ReactNode;
+  bgColor?: string;
+}

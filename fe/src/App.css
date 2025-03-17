@@ -8,21 +8,15 @@
   align-items: center;
   justify-content: space-between;
   min-height: 100vh;
-  /* background-color: aliceblue; */
-  /* background-color: rgb(49, 43, 40); */
 }
 
 .main-content {
   overflow-y: scroll;
   padding: 25px;
-  /* border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease-in-out;
-  transform: translateY(15%); */
   height: 70vh;
   min-width: 35vw;
   margin: 10vh 0vw;
+  z-index: 2;
 }
 
 #R {

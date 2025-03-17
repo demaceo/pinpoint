@@ -6,13 +6,23 @@ import OfficialsByLocation from "./pages/OfficialsByLocation/OfficialsByLocation
 import Contact from "./pages/Contact/Contact.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
-// import Webgaze from "./components/Webgaze/Webgaze.tsx";
-
+import NeonSmoke from "./components/LoadingSpinner/NeonSmoke.tsx";
 const App: React.FC = () => {
-  
   return (
     <Router>
       <Routes>
+        <Route
+          path="*"
+          element={
+            <div className="app-container">
+              <NavBar />
+              <div className="main-content">
+                <NeonSmoke />
+              </div>
+              <Footer />
+            </div>
+          }
+        />
         <Route
           path="/"
           element={
@@ -22,7 +32,7 @@ const App: React.FC = () => {
                 {/* <Webgaze /> */}
                 <Home />
               </div>
-             
+
               {/* <Footer /> */}
             </div>
           }
