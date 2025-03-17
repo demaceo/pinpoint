@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import "./App.css";
@@ -7,25 +7,32 @@ import Country from "./pages/Country/Country.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import NeonSmoke from "./components/LoadingSpinner/NeonSmoke.tsx";
-// import Webgaze from "./components/WebGaze/Webgaze.tsx";
+import Breathe from "./components/LoadingSpinner/Breathe.tsx";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route
-          path="*"
-          element={
-            <div className="app-container">
-              <NavBar />
-              <div className="main-content">
-                <NeonSmoke />
-                {/* <Webgaze /> */}
-              </div>
-              <Footer />
+        <Suspense
+          fallback={
+            <div>
+              <Breathe />
             </div>
           }
-        />
+        >
+          <Route
+            path="*"
+            element={
+              <div className="app-container">
+                <NavBar />
+                <div className="main-content">
+                  <NeonSmoke />
+                </div>
+                <Footer />
+              </div>
+            }
+          />
+        </Suspense>
         <Route
           path="/"
           element={

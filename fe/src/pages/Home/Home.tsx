@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import Officials from "../Officials/Officials";
+const Officials = lazy(() => import("../Officials/Officials"));
 
 const Home: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -17,7 +17,10 @@ const Home: React.FC = () => {
           Find Elected Representatives Near You
         </Link>
       </div>
-      <Officials location={false} setLoading={setLoading} />
+      {/* <Officials location={false} setLoading={setLoading} /> */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Officials location={false} setLoading={setLoading} />
+      </Suspense>
     </div>
   );
 };

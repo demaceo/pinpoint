@@ -1,22 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import { fetchOfficialsByGeo } from "../../services/OpenStates/openStatesService";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import "./OfficialsByLocation.css";
-// import OfficialCard from "../../components/OfficialCard/OfficialCard";
-// import XOfficialCard from "../../components/OfficialCard/xOfficialCard";
-// import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import { mockOfficials } from "../../utils/mockDataGenerator";
-// import Filters from "../../components/Filter/Filter";
 import { Link } from "react-router-dom";
-import Officials from "../Officials/Officials";
+const Officials = lazy(() => import("../Officials/Officials"));
 
 const OfficialsByLocation: React.FC = () => {
   const { location, error } = useUserLocation();
   const [officials, setOfficials] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
 
   useEffect(() => {
     if (location) {
@@ -46,36 +41,11 @@ const OfficialsByLocation: React.FC = () => {
         </Link>
       </div>
       <h1 className="officials-header">Officials Near You </h1>
-      <Officials location={!location} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Officials location={!location} setLoading={setLoading} />
+      </Suspense>
     </>
   );
-  // return (
-  //   <div className="yourofficials-container">
-  //     <h1>Officials Near You</h1>
-  //     <ul>
-  //       {officials.length > 0 ? (
-  //         officials.map((official, index) => {
-  //           return (
-  //             <OfficialLink
-  //               key={index}
-  //               official={official}
-  //               index={index}
-  //               onSelect={() => setSelectedOfficial(official)}
-  //             />
-  //           );
-  //         })
-  //       ) : (
-  //         <p>No officials found for this location.</p>
-  //       )}
-  //     </ul>
-  //     {selectedOfficial && (
-  //       <XOfficialCard
-  //         official={selectedOfficial}
-  //         onClose={() => setSelectedOfficial(null)}
-  //       />
-  //     )}
-  //   </div>
-  // );
 };
 
 export default OfficialsByLocation;
