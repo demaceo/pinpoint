@@ -29,14 +29,18 @@
 
 .ticker-content {
   display: flex;
-  gap: 30px;
-  animation: tickerScroll 20s linear infinite;
+  gap: 55px;
+  animation: tickerScroll 30s linear infinite;
   min-width: 200%;
+}
+
+.ticker-content.paused {
+  animation-play-state: paused;
 }
 
 @keyframes tickerScroll {
   from {
-    transform: translateX(-10%);
+    transform: translateX(100%);
   }
   to {
     transform: translateX(-50%);
@@ -58,7 +62,7 @@
   color: #ffeb3b;
 }
 
-/* .bill-tooltip {
+.bill-tooltip {
   position: fixed;
   background: #121212d4;
   color: rgba(245, 245, 245, 0.924);
@@ -79,9 +83,8 @@
 .bill-tooltip.show {
   opacity: 1;
   transform: scale(1);
-} */
+}
 
-/* 📌 Responsive Adjustments for Mobile */
 @media (max-width: 768px) {
   .ticker-container {
     font-size: 14px;
@@ -106,7 +109,6 @@
   }
 }
 
-/* 📌 Further Adjustments for Extra Small Screens */
 @media (max-width: 480px) {
   .ticker-container {
     font-size: 10px;

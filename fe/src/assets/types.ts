@@ -294,3 +294,9 @@ export interface CanvasProps {
   children: React.ReactNode;
   bgColor?: string;
 }
+
+export interface BillTooltipProps {
+  content: React.ReactNode;
+  visible: boolean;
+  position?: { top?: number; left?: number; right?: number; bottom?: number };
+}

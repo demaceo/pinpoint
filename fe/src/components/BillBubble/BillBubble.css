@@ -45,32 +45,6 @@
   border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
 }
 
-
-
-/* .bill-tooltip {
-  position: fixed;
-  background: #121212d4;
-  color: rgba(245, 245, 245, 0.924);
-  padding: 10px 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  font-size: 14px;
-  width: max-content;
-  z-index: 10000;
-  opacity: 0;
-  bottom: 10vh;
-  right: 10px;
-  transform: scale(0.8);
-  pointer-events: none;
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-}
-
-.bill-tooltip.show {
-  opacity: 1;
-  transform: scale(1);
-} */
-
-/*  Responsive Adjustments for Mobile */
 @media (max-width: 768px) {
   .bill-tooltip {
     font-size: 12px;

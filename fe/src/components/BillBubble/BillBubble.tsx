@@ -1,13 +1,8 @@
 import React from "react";
-import "./BubbleTooltip.css";
+// import "./BillBubble.css";
+import { BillTooltipProps } from "../../assets/types";
 
-interface BubbleTooltipProps {
-  content: React.ReactNode;
-  visible: boolean;
-  position?: { top?: number; left?: number; right?: number; bottom?: number };
-}
-
-const BubbleTooltip: React.FC<BubbleTooltipProps> = ({
+const BubbleTooltip: React.FC<BillTooltipProps> = ({
   content,
   visible,
   position,

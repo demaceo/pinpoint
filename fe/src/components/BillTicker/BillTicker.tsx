@@ -10,11 +10,17 @@ import { mockBills } from "../../utils/mockBillGenerator";
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
   const billCache = new Map<string, BillDetails>();
+
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hoveredBill, setHoveredBill] = useState<BillDetails | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [scrollLeft, setScrollLeft] = useState<number>(0);
+  const tickerWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const dummyBills: Bill[] = mockBills;
 
@@ -31,11 +37,12 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
       .finally(() => setLoading(false));
   }, [jurisdiction]);
 
-   if (!bills || bills.length === 0) {
-     setBills(dummyBills);
-   }
+  if (!bills || bills.length === 0) {
+    setBills(dummyBills);
+  }
 
   const handleMouseEnter = (_event: React.MouseEvent, bill: Bill) => {
+    setIsPaused(true);
     if (hoverTimeout) clearTimeout(hoverTimeout);
 
     hoverTimeout = setTimeout(async () => {
@@ -54,8 +61,33 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   };
 
   const handleMouseLeave = () => {
+    setIsPaused(false);
     setHoveredBill(null);
   };
+
+  const pauseTicker = () => {
+    setIsPaused(true);
+  };
+
+  const playTicker = () => {
+    setIsPaused(false);
+  };
+
+  const startDrag = (e: React.MouseEvent) => {
+    if (!tickerWrapperRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - tickerWrapperRef.current.offsetLeft);
+    setScrollLeft(tickerWrapperRef.current.scrollLeft);
+  };
+
+  const onDragging = (e: React.MouseEvent) => {
+    if (!isDragging || !tickerWrapperRef.current) return;
+    const x = e.pageX - tickerWrapperRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Adjust speed
+    tickerWrapperRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const stopDrag = () => setIsDragging(false);
 
   if (loading)
     return <div className="ticker-loading">Loading latest bills...</div>;
@@ -63,9 +95,16 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     return <div className="ticker-no-results">No recent bills found.</div>;
 
   return (
-    <div className={`ticker-container ${isVisible ? "visible" : "hidden"}`}>
-      <div className="ticker-wrapper">
-        <div className="ticker-content">
+    <div
+      className={`ticker-container ${isVisible ? "visible" : "hidden"}`}
+      onMouseEnter={pauseTicker}
+      onMouseDown={startDrag}
+      onMouseMove={onDragging}
+      onMouseUp={stopDrag}
+      onMouseLeave={playTicker}
+    >
+      <div className="ticker-wrapper" ref={tickerWrapperRef}>
+        <div className={`ticker-content ${isPaused ? "paused" : ""}`}>
           {bills.map((bill, index) => (
             <span
               key={index}
@@ -79,7 +118,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
         </div>
       </div>
       {hoveredBill && (
-        <div ref={tooltipRef} className="bubble-tooltip show">
+        <div ref={tooltipRef} className="bill-tooltip show">
           <strong>{hoveredBill.identifier}</strong>
           <p>{hoveredBill.title}</p>
           {hoveredBill.session && hoveredBill.jurisdiction?.name ? (
