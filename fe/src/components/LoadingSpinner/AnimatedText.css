@@ -1,14 +1,12 @@
 .text-container {
   display: flex; /* Ensures letters appear in a single line */
-  gap: 1.5px; /* Small spacing between letters */
-  padding-right: 1vw;
+  gap: 0.5px; /* Small spacing between letters */
+  padding-right: 0.5vw;
 }
 
 .letter {
   display: inline-block;
   filter: blur(8px); /* Initial blur effect */
-    font-weight: lighter;
-
 }
 
 .space {

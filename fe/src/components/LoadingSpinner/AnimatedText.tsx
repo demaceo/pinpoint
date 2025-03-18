@@ -50,7 +50,7 @@ const RandomText: React.FC<TextProps> = ({
 const AnimatedText: React.FC<AnimatedTextProps> = ({
   text = "Welcome to Pinpoint!",
   animationSpeed = 20,
-  fontSize = 45,
+  fontSize = 35,
 }) => {
   return (
     <RandomText

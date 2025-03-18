@@ -3,6 +3,8 @@
 .home-officials-page {
   margin-top: 1vh;
   transition: all 1s ease-in-out;
+  padding-left: 2vw;
+  width: 90vw;
 }
 
 .loading-page {
