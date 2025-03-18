@@ -62,11 +62,10 @@ const Officials: React.FC<OfficialsPageProps> = ({
 
   useEffect(() => {
     if (isNearYouPage && location) {
-      getStateFromCoordinates(location.lat, location.lng).then((coords) => {
-        if (coords) {
-          console.log("coords", coords);
-          // setSelectedState(coords[name]);
-          // console.log("selected state", selectedState);
+      getStateFromCoordinates(location.lat, location.lng).then((state) => {
+        if (state) {
+          console.log("coords", state);
+          setSelectedState(state);
         }
       });
       fetchOfficialsByGeo(location.lat, location.lng)
@@ -78,7 +77,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
           setTimeout(() => {
             setLocalLoading(false);
             setLoading(false);
-          }, 1000); //! Keep Breathe active for 3 seconds
+          }, 1000); //! Keep Breathe active for 1 seconds
         });
     } else {
       if (!selectedState) {
@@ -100,7 +99,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
           setTimeout(() => {
             setLocalLoading(false);
             setLoading(false);
-          }, 1000); //! Keep Breathe active for 3 seconds
+          }, 1000); //! Keep Breathe active for 1 seconds
         });
     }
   }, [isNearYouPage, location, selectedState, setLoading]);
