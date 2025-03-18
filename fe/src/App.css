@@ -11,12 +11,13 @@
 }
 
 .main-content {
-  overflow-y: scroll;
-  padding: 25px;
-  height: 70vh;
-  min-width: 35vw;
-  margin: 10vh 0vw;
-  z-index: 2;
+  overflow-y: hidden;
+  padding: 0px 25px;
+  height: fit-content;
+  /* border: 1px solid blue; */
+  /* min-width: 35vw; */
+  margin: 10vh 0vw 0vh;
+  z-index: 1;
 }
 
 #R {

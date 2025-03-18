@@ -6,7 +6,8 @@ import OfficialsByLocation from "./pages/OfficialsByLocation/OfficialsByLocation
 import Country from "./pages/Country/Country.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Footer from "./components/Footer/Footer.tsx";
-import NeonSmoke from "./components/LoadingSpinner/NeonSmoke.tsx";
+// import NeonSmoke from "./components/LoadingSpinner/NeonSmoke.tsx";
+import RandomLetter from "./components/LoadingSpinner/RandomLetter.tsx";
 
 const App: React.FC = () => {
   return (
@@ -18,10 +19,10 @@ const App: React.FC = () => {
             <div className="app-container">
               <NavBar />
               <div className="main-content">
-                <NeonSmoke />
-              </div>
+                <RandomLetter />
+               </div>
               <Footer />
-            </div>
+            </div> 
           }
         />
         <Route

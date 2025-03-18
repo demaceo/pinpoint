@@ -10,8 +10,6 @@
   margin: 1vh 0;
 }
 
-
-
 .states-dropdown {
   height: 40px;
   font-size: 1rem;
@@ -21,25 +19,32 @@
   font-weight: bold;
 }
 
-
-
 .officials-container {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: start;
   width: 100%;
-  padding: 0;
-  margin: 0;
+  padding: 0px 5px 0px 0px;
+  margin: 0vh 0vw;
+  overflow-y: scroll;
+  height: 40vh;
+  /* border: 1px solid red; */
 }
 
 .officials-list {
   display: flex;
+    /* overflow-y: scroll; */
+
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 2px;
+  /* border: 1px solid greenyellow; */
   justify-content: center;
-  padding: 5px;
-  width: 90%;
-  max-width: 900px;
+  width: 110%;
+  max-width: 1200px;
+  height: 100%;
+  padding: 0;
+  padding-bottom: 0px;
 }
 
 /* AL – Alabama: sample style */
@@ -345,9 +350,8 @@
   color: #111;
 }
 
-
 @media (max-width: 480px) {
-  .officials-header{
+  .officials-header {
     font-size: 20px;
     line-height: 24px;
     margin-bottom: 10px;
