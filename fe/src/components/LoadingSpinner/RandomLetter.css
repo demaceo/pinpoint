@@ -1,0 +1,13 @@
+.text-container {
+  display: flex; /* Ensures letters appear in a single line */
+  gap: 2px; /* Small spacing between letters */
+}
+
+.letter {
+  display: inline-block;
+  filter: blur(8px); /* Initial blur effect */
+}
+
+.space {
+  width: 20px; /* Ensures spaces appear properly */
+}
