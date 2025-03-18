@@ -77,6 +77,7 @@ const Filters: React.FC<FiltersProps> = ({
             <option value="Independent">Independent</option>
             <option value="Libertarian">Libertarian</option>
             <option value="Green">Green</option>
+            <option value="Nonpartisan">Nonpartisan</option>
           </select>
 
           <label>Role:</label>
@@ -113,7 +114,7 @@ const Filters: React.FC<FiltersProps> = ({
               // onChange={handleAgeChange}
               className="age-input"
             />
-            
+
             <input
               type="range"
               min="18"
@@ -123,7 +124,7 @@ const Filters: React.FC<FiltersProps> = ({
               onChange={handleAgeChange}
               className="age-slider"
             />
-          
+
             <input
               type="number"
               min="18"
@@ -137,7 +138,6 @@ const Filters: React.FC<FiltersProps> = ({
               }
               className="age-input"
             />
-            
           </div>
           <label className="select-all-label">
             <input
@@ -150,15 +150,15 @@ const Filters: React.FC<FiltersProps> = ({
 
           <div className="filter-buttons-container">
             <Button
-              label="contact"
-              className="filter-btn contact-btn"
-              onClick={onContactClick}
-              disabled={!hasSelectedOfficials}
-            />
-            <Button
               label="chat"
               className="filter-btn chat-btn"
               onClick={onChatClick}
+              disabled={!hasSelectedOfficials}
+            />
+            <Button
+              label="contact"
+              className="filter-btn contact-btn"
+              onClick={onContactClick}
               disabled={!hasSelectedOfficials}
             />
           </div>

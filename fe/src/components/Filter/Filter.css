@@ -145,20 +145,17 @@
 }
 
 .filter-btn:disabled {
-  background-color: #39393820;
+  background: #39393820;
 }
 
-.contact-button {
-  background-color: #ff0080;
+.contact-btn {
+  background: #ff0080;
 }
 
-.chat-button {
-  background-color: #ff9933;
-  padding: 0;
+.chat-btn {
+  background: #ff9933;
+  /* padding: 0; */
 }
-
-
-
 
 @media (max-width: 768px) {
   .filters-container.open {
