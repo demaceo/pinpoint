@@ -15,10 +15,6 @@ const OfficialLink: React.FC<OfficialLinkProps> = ({
   };
 
   return (
-    // <li key={index} className="list-item">
-    //   <span onClick={handleClick}>{official.name}</span> -{" "}
-    //   {official.current_role?.title} ({partyInitial})
-    // </li>
     <div key={index} className="checkbox-container">
       <input
         type="checkbox"

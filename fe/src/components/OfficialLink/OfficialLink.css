@@ -2,21 +2,23 @@
 .checkbox-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: "Raleway";
-  font-size: 16px;
-  background: #f9f9f9;
-  padding: 5px  10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  font-size: 14px;
+  background-color: #ec373700 !important;
+  padding: 5px 10px;
+  /* border-radius: 5px; */
+  /* border: 1px solid #ddd; */
+  border-bottom: 1px solid #ddd !important;
   cursor: pointer;
   flex: 1 1 250px; /* ✅ Allows flexibility while wrapping */
 }
 
 /* 🔹 Checkbox Styling */
 .checkbox-container input[type="checkbox"] {
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
   cursor: pointer;
+  /* border-radius: 25%; */
 }
 
 .card-wrapper {
@@ -26,15 +28,6 @@
   text-align: justify;
 }
 
-/* 🎯 Styling for Checkbox List */
-/* .checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: "Raleway";
-  margin-top: 1vh;
-  font-weight: 300;
-} */
 
 .checkbox-container span {
   color: #e78533;
