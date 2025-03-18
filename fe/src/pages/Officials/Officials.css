@@ -1,7 +1,6 @@
 .officials-page-container {
-  padding: 25px 0;
+  padding: 15px 0;
   width: 100%;
-  /* margin-top: 15vh; */
 }
 
 .officials-header {
@@ -16,8 +15,9 @@
   font-size: 1rem;
   padding: 10px 15px;
   border-radius: 5px;
-  margin-right: 2vw;
+  margin-right: 1vw;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .officials-container {

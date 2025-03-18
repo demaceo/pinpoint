@@ -2,7 +2,7 @@
 .checkbox-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1px;
   font-family: "Raleway";
   font-size: 14px;
   background-color: #ec373700 !important;

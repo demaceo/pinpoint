@@ -24,7 +24,7 @@ const OfficialLink: React.FC<OfficialLinkProps> = ({
       />
       <label htmlFor={`official-${index}`}>
         <span onClick={handleClick}>{official.name}</span> {""}-{" "}
-        {official.current_role?.title}{" "}
+        {official.current_role?.title}
         <span id={partyInitial}>({partyInitial})</span>
       </label>
     </div>

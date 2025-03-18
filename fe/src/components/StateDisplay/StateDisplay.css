@@ -1,26 +1,23 @@
 .stateDisplay-container {
   /* display: inline-block;  */
-  vertical-align: middle; /* Align with dropdown */
-  overflow: hidden;
+  /* vertical-align: middle;  */
+  /* Align with dropdown */
+  vertical-align: center;
+  /* overflow: hidden; */
   padding: 10px;
-  /* background-color: rgba(255, 255, 255, 0); */
 }
 
 .stateDisplay-container img {
-  width: 60px;
-  height: auto;
+  max-width: 60px;
+  /* height: auto; */
   display: block;
   transition: transform 0.2s ease-in-out;
-  /* animation: fadeIn 0.4s ease-in-out; */
-  /* background-color: rgba(255, 255, 255, 0) !important; */
-  /* background-color: rgba(255, 255, 255, 0); */
-  /* filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.422)); */
-  /* filter: none; */
 }
 
 .stateDisplay-container img:hover {
-  transform: scale(1.05);
-  /* filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.951)); */
+  transform: scale(1.02);
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.951));
+  cursor:pointer;
 }
 
 .stateDisplay-container p {
@@ -28,7 +25,7 @@
   font-weight: 500;
   color: #444;
   background: #ffe4e4;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 6px;
   border: 1px solid #ffaaaa;
   text-align: center;
