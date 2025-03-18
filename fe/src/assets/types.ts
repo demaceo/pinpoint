@@ -300,3 +300,29 @@ export interface BillTooltipProps {
   visible: boolean;
   position?: { top?: number; left?: number; right?: number; bottom?: number };
 }
+
+export interface AnimatedPinpointProps {
+    width?: number;
+    height?: number;
+    fill?: string;
+    stroke?: string;
+}
+
+
+export interface LetterProps {
+    char: string;
+    animationDelay: number;
+    fontSize: number;
+}
+
+export interface TextProps {
+    text: string;
+    animationSpeed: number;
+    fontSize: number;
+}
+
+export interface AnimatedTextProps {
+    text?: string;
+    animationSpeed?: number;
+    fontSize?: number;
+}
