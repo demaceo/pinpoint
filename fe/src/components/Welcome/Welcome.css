@@ -1,0 +1,19 @@
+.home-container {
+  margin-bottom: 1vh;
+  transition: all 1s ease-in-out;
+}
+
+.home-welcome {
+  font-family: "Raleway";
+}
+
+.fancy-font {
+  font-family: "Playfair Display", "Libre Baskerville", "Cormorant Garamond",
+    serif;
+  font-weight: 100;
+  font-style: italic;
+  color: #b48867; /* rich gold/copper tone */
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  /* padding:0px 3px; */
+}
