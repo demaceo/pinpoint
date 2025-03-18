@@ -57,7 +57,7 @@ const Filters: React.FC<FiltersProps> = ({
       {isOpen && (
         <div className="filters-content">
           <h2 className="filters-title">Filters</h2>
-          <label>Search for Elected Representatives:</label>
+          <label>Search by Name:</label>
           <input
             type="text"
             placeholder="Enter name..."
@@ -66,7 +66,7 @@ const Filters: React.FC<FiltersProps> = ({
             className="search-bar"
           />
 
-          <label>Party:</label>
+          <label>Political Party:</label>
           <select
             value={selectedParty}
             onChange={(e) => onFilterChange("party", e.target.value)}
