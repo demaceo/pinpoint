@@ -42,7 +42,7 @@ const NavBar: React.FC = () => {
           </Link>
         </div>
         <div className="rela-block drop-down-container">
-          <Link to="/yourofficials" className="drop-down-item">
+          <Link to="/near-you" className="drop-down-item">
             Officials Near You
           </Link>
         </div>
