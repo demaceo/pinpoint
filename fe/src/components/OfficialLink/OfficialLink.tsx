@@ -1,5 +1,6 @@
 import "./OfficialLink.css";
 import { OfficialLinkProps } from "../../assets/types";
+// import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 
 const OfficialLink: React.FC<OfficialLinkProps> = ({
   index,
@@ -7,7 +8,6 @@ const OfficialLink: React.FC<OfficialLinkProps> = ({
   onSelect,
   isChecked,
 }) => {
-
   const partyInitial = official.party?.charAt(0) || "N/A";
 
   const handleClick = () => {
@@ -22,6 +22,11 @@ const OfficialLink: React.FC<OfficialLinkProps> = ({
         checked={isChecked} 
         onChange={onSelect}
       />
+      {/* <CustomCheckbox
+        label={`official-${index}`}
+        checked={isChecked}
+        onChange={onSelect}
+      /> */}
       <label htmlFor={`official-${index}`}>
         <span onClick={handleClick}>{official.name}</span> {""}-{" "}
         {official.current_role?.title}

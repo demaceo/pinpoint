@@ -326,3 +326,10 @@ export interface AnimatedTextProps {
     animationSpeed?: number;
     fontSize?: number;
 }
+
+
+export interface CustomCheckboxProps {
+    label: string;
+    checked?: boolean;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}

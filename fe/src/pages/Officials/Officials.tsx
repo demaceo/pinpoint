@@ -49,7 +49,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
   const [selectedParty, setSelectedParty] = useState<string>("");
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedAll, setSelectedAll] = useState<boolean>(false);
+  // const [selectedAll, setSelectedAll] = useState<boolean>(false);
   const hasSelectedOfficials = selectedOfficials.size > 0;
 
   // Contact Form State
@@ -172,7 +172,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
   };
 
   const handleSelectAll = (isChecked: boolean) => {
-    setSelectedAll(isChecked);
+    // setSelectedAll(isChecked);
     setSelectedOfficials(
       isChecked ? new Set(filteredOfficials.map((o) => o.name)) : new Set()
     );
@@ -235,12 +235,12 @@ const Officials: React.FC<OfficialsPageProps> = ({
         </h1>
       )}
 
-      {selectedAll && (
+      {/* {selectedAll && (
         <p className="select-all-message">
           ✅ All {filteredOfficials.length} officials selected for future
           actions...
         </p>
-      )}
+      )} */}
       <div className="officials-container">
         <ul className="officials-list">
           {filteredOfficials.map((official, index) => (

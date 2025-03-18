@@ -1,24 +1,49 @@
-/* /* 🔹 Individual Official Checkboxes */
+/* Individual Official Checkboxes */
 .checkbox-container {
   display: flex;
   align-items: center;
-  gap: 1px;
+  gap: 5px;
   font-family: "Raleway";
   font-size: 14px;
   background-color: #ec373700 !important;
   padding: 5px 10px;
-  /* border-radius: 5px; */
-  /* border: 1px solid #ddd; */
   border-bottom: 1px solid #ddd !important;
   cursor: pointer;
   flex: 1 1 250px; /* ✅ Allows flexibility while wrapping */
 }
 
-/* 🔹 Checkbox Styling */
+/* Hide the default checkbox */
 .checkbox-container input[type="checkbox"] {
-  /* transform: scale(1.2); */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   cursor: pointer;
-  /* border-radius: 25%; */
+  display: inline-block;
+  position: relative;
+  border: 1px solid #00000065;
+  transform: scale(0.7);
+  overflow: hidden;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+  background-color: #e73333;
+  border: none;
+}
+
+/* Custom checkmark */
+.checkbox-container input[type="checkbox"]:checked::after {
+  content: "✔";
+  font-size: 16px;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  accent-color: #e73333;
 }
 
 .card-wrapper {
@@ -28,15 +53,9 @@
   text-align: justify;
 }
 
-
 .checkbox-container span {
   color: #e78533;
   font-weight: 600;
   cursor: pointer;
+  width: fit-content;
 }
-
-.checkbox-container input[type="checkbox"] {
-  transform: scale(1.2); /* Make checkboxes slightly larger */
-  cursor: pointer;
-}
-
