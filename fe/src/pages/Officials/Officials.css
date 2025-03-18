@@ -22,23 +22,18 @@
 .officials-container {
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
   align-items: start;
   width: 100%;
   padding: 0px 5px 0px 0px;
   margin: 0vh 0vw;
   overflow-y: scroll;
   height: 40vh;
-  /* border: 1px solid red; */
 }
 
 .officials-list {
   display: flex;
-    /* overflow-y: scroll; */
-
   flex-wrap: wrap;
   gap: 2px;
-  /* border: 1px solid greenyellow; */
   justify-content: center;
   width: 110%;
   max-width: 1200px;

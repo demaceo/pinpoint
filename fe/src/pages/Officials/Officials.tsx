@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { fetchOfficialsByState } from "../../services/OpenStates/openStatesService.ts";
-// import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import {
+  fetchOfficialsByState,
+  fetchOfficialsByGeo,
+} from "../../services/OpenStates/openStatesService.ts";
+import { useUserLocation } from "../../hooks/useUserLocation";
 import Breathe from "../../components/LoadingSpinner/Breathe.tsx";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import "./Officials.css";
-import { useLocation } from "react-router-dom";
 import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
@@ -15,23 +16,31 @@ import Filters from "../../components/Filter/Filter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
+import AnimatedText from "../../components/LoadingSpinner/AnimatedText.tsx";
+import { getStateFromCoordinates } from "../../utils/getStateFromCoords.ts";
+import AnimatedPinpoint from "../../assets/pins/AnimatedPinpoint.tsx";
 
 interface OfficialsPageProps {
-  location: boolean;
-  setLoading: (loading: boolean) => void; // ✅ Accept loading prop from Home
+  headerText: string;
+  isNearYouPage: boolean;
+  setLoading: (loading: boolean) => void;
 }
-const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
-  const location = useLocation();
-  const isYourOfficialsPage = location.pathname === "/yourofficials";
-  // const [showResults, setShowResults] = useState<boolean>(false); // ✅ New state for delaying results
-
-  const [officials, setOfficials] = useState<any[]>([]);
+const Officials: React.FC<OfficialsPageProps> = ({
+  isNearYouPage,
+  setLoading,
+  headerText,
+}) => {
+  const [officials, setOfficials] = useState<Official[]>([]);
   const [loading, setLocalLoading] = useState<boolean>(true);
+  const { location, error } = useUserLocation();
+
   const usStates: UsStateEntry[] = usStatesData;
   const mockData: Official[] = mockOfficials;
 
   const [selectedState, setSelectedState] = useState<string>("");
-  const [selectedOfficial, setSelectedOfficial] = useState<any | null>(null);
+  const [selectedOfficial, setSelectedOfficial] = useState<Official | null>(
+    null
+  );
   const [selectedOfficials, setSelectedOfficials] = useState<Set<string>>(
     new Set()
   );
@@ -47,10 +56,54 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const [showContactForm, setShowContactForm] = useState<boolean>(false);
   const [closing, setClosing] = useState<boolean>(false);
-
   const [selectedAgeRange, setSelectedAgeRange] = useState<[number, number]>([
     18, 100,
   ]);
+
+  useEffect(() => {
+    if (isNearYouPage && location) {
+      getStateFromCoordinates(location.lat, location.lng).then((coords) => {
+        if (coords) {
+          console.log("coords", coords);
+          // setSelectedState(coords[name]);
+          // console.log("selected state", selectedState);
+        }
+      });
+      fetchOfficialsByGeo(location.lat, location.lng)
+        .then(setOfficials)
+        .catch((error) =>
+          console.error("Error fetching official by GEO:", error)
+        )
+        .finally(() => {
+          setTimeout(() => {
+            setLocalLoading(false);
+            setLoading(false);
+          }, 1000); //! Keep Breathe active for 3 seconds
+        });
+    } else {
+      if (!selectedState) {
+        setOfficials([]);
+        setLocalLoading(false);
+        setLoading(false);
+        return;
+      }
+      setLocalLoading(true);
+      setLoading(true);
+      fetchOfficialsByState(selectedState)
+        .then((data) => {
+          setOfficials(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching officials STATE:", error)
+        )
+        .finally(() => {
+          setTimeout(() => {
+            setLocalLoading(false);
+            setLoading(false);
+          }, 1000); //! Keep Breathe active for 3 seconds
+        });
+    }
+  }, [isNearYouPage, location, selectedState, setLoading]);
 
   const calculateAge = (birthDate: string | undefined): number | null => {
     if (!birthDate) return null;
@@ -71,7 +124,9 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
     const validOfficials = filteredOfficials.filter(
       (official) => official.email
     );
-    const validEmails = validOfficials.map((official) => official.email);
+    const validEmails = validOfficials
+      .map((official) => official.email)
+      .filter((email): email is string => email !== undefined);
 
     setSelectedEmails(validEmails);
     setShowContactForm(true);
@@ -86,33 +141,11 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
     // TODO: Implement AI chat integration
   };
 
-  useEffect(() => {
-    if (!selectedState) {
-      setOfficials([]);
-      setLocalLoading(false);
-      setLoading(false);
-      return;
-    }
-    setLocalLoading(true);
-    setLoading(true);
-    fetchOfficialsByState(selectedState)
-      .then((data) => {
-        setOfficials(data);
-      })
-      .catch((error) => console.error("Error fetching officials:", error))
-      .finally(() => {
-        setTimeout(() => {
-          setLocalLoading(false);
-          setLoading(false);
-        }, 1000); //! Keep Breathe active for 3 seconds
-      });
-  }, [selectedState, setLoading]);
-
+  if (error) return <p>{error}</p>;
+  if (loading) return <Breathe />;
   if (!officials || officials.length === 0) {
     setOfficials(mockData);
   }
-
-  if (loading) return <Breathe />;
 
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
@@ -173,9 +206,11 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
         onChatClick={handleChatClick}
         hasSelectedOfficials={hasSelectedOfficials}
       />
-      {!isYourOfficialsPage && (
+
+      {!isNearYouPage && (
         <h1 className="officials-header">
-          Elected Representatives in{" "}
+          <AnimatedText text={headerText} />
+          {"  "}
           <select
             className={`states-dropdown ${xstylesClass}`}
             value={selectedState}
@@ -191,6 +226,16 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
         </h1>
       )}
 
+      {isNearYouPage && (
+        <h1 className="officials-header">
+          {" "}
+          <AnimatedText text={headerText} />{" "}
+          <span className="pinpoint-wrapper">
+            <AnimatedPinpoint />
+          </span>
+        </h1>
+      )}
+
       {selectedAll && (
         <p className="select-all-message">
           ✅ All {filteredOfficials.length} officials selected for future
@@ -198,7 +243,6 @@ const Officials: React.FC<OfficialsPageProps> = ({ setLoading }) => {
         </p>
       )}
       <div className="officials-container">
-        {/* {loading || !showResults && (<Breathe />)}  */}
         <ul className="officials-list">
           {filteredOfficials.map((official, index) => (
             <OfficialLink
