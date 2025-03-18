@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Libre+Baskerville:ital,wght@1,700&family=Cormorant+Garamond:wght@700&display=swap");
+
 .home-officials-page {
   margin-top: 1vh;
   transition: all 1s ease-in-out;
@@ -26,4 +28,34 @@
 
 .home-welcome {
   font-family: "Raleway";
+}
+
+.fancy-font {
+  font-family: "Playfair Display", "Libre Baskerville", "Cormorant Garamond",
+    serif;
+  font-weight: 100;
+  font-style: italic;
+  color: #b48867; /* rich gold/copper tone */
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  /* padding:0px 3px; */
+}
+
+.link-officials {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  font-size: 18px;
+  font-weight: bold;
+  flex-direction: row;
+  text-decoration: underline;
+  align-items: baseline;
+  justify-content: baseline;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 2vh
+}
+
+.officials-header{
+  margin-top: 5vh;
 }
