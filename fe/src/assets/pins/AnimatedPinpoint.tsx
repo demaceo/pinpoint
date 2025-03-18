@@ -1,12 +1,6 @@
 import React from "react";
 import "./AnimatedPinpoint.css";
-
-interface AnimatedPinpointProps {
-  width?: number;
-  height?: number;
-  fill?: string;
-  stroke?: string;
-}
+import { AnimatedPinpointProps } from "../types";
 
 const AnimatedPinpoint: React.FC<AnimatedPinpointProps> = ({
   width = 35,
