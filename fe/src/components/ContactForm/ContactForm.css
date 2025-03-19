@@ -35,13 +35,19 @@
 
 .close-btn {
   background: rgba(255, 0, 0, 0);
-  color: rgb(206, 12, 12);
-  border: 2px solid rgb(255, 0, 0);
-  border-radius: 15%;
+  font-family: 'Courier New', Courier, monospace;
+  color: rgb(255, 25, 25);
+  border: 2px solid rgba(255, 0, 0, 0);
+  border-radius: 50%;
   font-weight: bolder;
-  padding: 10px 10px;
-  float: right;
+  padding: 7px 9px;
+  /* float: right; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: larger;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .contact-form-container.show {
