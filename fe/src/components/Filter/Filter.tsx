@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Filter.css";
+// import "./Filter.css";
 import { FiltersProps } from "../../assets/types";
 import Button from "../Button/Button";
 const Filters: React.FC<FiltersProps> = ({
@@ -32,11 +32,10 @@ const Filters: React.FC<FiltersProps> = ({
     const [minAge, maxAge] = selectedAgeRange;
     const newValue = parseInt(e.target.value);
 
-    // Determine whether the change is closer to min or max
     const updatedRange: [number, number] =
       Math.abs(newValue - minAge) < Math.abs(newValue - maxAge)
-        ? [newValue, maxAge] // Adjust min age
-        : [minAge, newValue]; // Adjust max age
+        ? [newValue, maxAge] 
+        : [minAge, newValue];
 
     if (updatedRange[0] <= updatedRange[1]) {
       onAgeRangeChange(updatedRange);
@@ -45,7 +44,6 @@ const Filters: React.FC<FiltersProps> = ({
 
   return (
     <div className={`filters-container ${isOpen ? "open" : "closed"}`}>
-      {/* Button to toggle filter */}
       <button
         className={`filter-toggle-btn ${isOpen ? "open" : "closed"}`}
         onClick={toggleFilter}
@@ -53,7 +51,6 @@ const Filters: React.FC<FiltersProps> = ({
         {isOpen ? "❮ Hide Filters" : "❯"}
       </button>
 
-      {/* Filter Content */}
       {isOpen && (
         <div className="filters-content">
           <h2 className="filters-title">Filters</h2>
@@ -97,7 +94,6 @@ const Filters: React.FC<FiltersProps> = ({
 
           <label className="age-range-label">
             Age Range:
-            {/* {selectedAgeRange[0]} - {selectedAgeRange[1]} */}
           </label>
           <div className="age-slider-container">
             <input
@@ -111,7 +107,6 @@ const Filters: React.FC<FiltersProps> = ({
                   selectedAgeRange[1],
                 ])
               }
-              // onChange={handleAgeChange}
               className="age-input"
             />
 

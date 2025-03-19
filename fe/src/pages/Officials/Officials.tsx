@@ -7,13 +7,14 @@ import { useUserLocation } from "../../hooks/useUserLocation";
 import Breathe from "../../components/LoadingSpinner/Breathe.tsx";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
 import "./Officials.scss";
-import  "./usStateStylings.css"
+import "./usStateStylings.css";
 import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
 import { mockOfficials } from "../../utils/mockDataGenerator";
 import Modal from "../../components/Modal/Modal.tsx";
-import Filters from "../../components/Filter/Filter.tsx";
+// import Filters from "../../components/Filter/Filter.tsx";
+import DragFilter from "../../components/Filter/DragFilter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
@@ -61,7 +62,13 @@ const Officials: React.FC<OfficialsPageProps> = ({
     18, 100,
   ]);
 
+  const [animationClass, setAnimationClass] = useState<
+    "makisuDrop" | "makisuFold"
+  >("makisuDrop");
+
   useEffect(() => {
+    setAnimationClass("makisuFold");
+
     if (isNearYouPage && location) {
       getStateFromCoordinates(location.lat, location.lng).then((state) => {
         if (state) {
@@ -92,6 +99,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
       fetchOfficialsByState(selectedState)
         .then((data) => {
           setOfficials(data);
+          setAnimationClass("makisuDrop"); // Step 3: Animate new list in
         })
         .catch((error) =>
           console.error("Error fetching officials STATE:", error)
@@ -140,7 +148,6 @@ const Officials: React.FC<OfficialsPageProps> = ({
     alert(`Opening AI chat with ${selectedOfficials.size} officials.`);
     // TODO: Implement AI chat integration
   };
-
 
   const resetFilter = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     setSelectedParty("");
@@ -203,7 +210,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
 
   return (
     <div className="officials-page-container">
-      <Filters
+      <DragFilter
         selectedParty={selectedParty}
         selectedRole={selectedRole}
         selectedAgeRange={selectedAgeRange}
@@ -253,7 +260,8 @@ const Officials: React.FC<OfficialsPageProps> = ({
         </p>
       )} */}
       <div className="officials-container">
-        <ul className="officials-list">
+        <ul className={`officials-list ${animationClass}`}>
+          {/* <ul className="officials-list"> */}
           {filteredOfficials.map((official, index) => (
             <OfficialLink
               key={index}

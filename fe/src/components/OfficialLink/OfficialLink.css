@@ -1,4 +1,3 @@
-/* Individual Official Checkboxes */
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -9,7 +8,7 @@
   padding: 5px 10px;
   border-bottom: 1px solid #ddd !important;
   cursor: pointer;
-  flex: 1 1 250px; /* ✅ Allows flexibility while wrapping */
+  flex: 1 1 250px; /* Allows flexibility while wrapping */
 }
 
 /* Hide the default checkbox */
@@ -59,3 +58,10 @@
   cursor: pointer;
   width: fit-content;
 }
+
+/* .official-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+} */

@@ -1,17 +1,18 @@
-/* !🎸 90s Retro-Themed Official Card */
 .official-card {
   background-color: #2b2a2ade;
   border-radius: 5px;
   box-shadow: 0 8px 16px rgba(152, 152, 152, 0.6);
   width: 320px;
   max-width: 90%;
+  max-height: 84vh;
+  height: fit-content;
   margin: auto;
   text-align: center;
   padding: 20px;
   position: relative;
   overflow: hidden;
   animation-fill-mode: backwards;
-  animation: text-yo .8s ease-in-out;
+  animation: text-yo 0.8s ease-in-out;
   /* transform: translate(-50%, -50%) rotate(0deg); */
   display: flex;
   flex-direction: column;
@@ -31,12 +32,12 @@
 
 .official-photo {
   width: 75%;
-  height: 35%;
+  height: 30%;
   object-fit: cover;
   margin: 30px auto;
   display: block;
   background: white;
-  border-radius: 1%;
+  border-radius: 12px;
   background: white;
 }
 
