@@ -6,7 +6,8 @@ import {
 import { useUserLocation } from "../../hooks/useUserLocation";
 import Breathe from "../../components/LoadingSpinner/Breathe.tsx";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
-import "./Officials.css";
+import "./Officials.scss";
+import  "./usStateStylings.css"
 import { UsStateEntry, Official } from "../../assets/types.ts";
 import usStatesData from "../../assets/statesData.json";
 import StateDisplay from "../../components/StateDisplay/StateDisplay.tsx";
