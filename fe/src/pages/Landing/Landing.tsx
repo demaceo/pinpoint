@@ -2,7 +2,9 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Landing.css";
 import Welcome from "../../components/Welcome/Welcome.tsx";
-const Officials = lazy(() => import("../Officials/Officials"));
+const Officials = lazy(
+  () => import("../../components/Officials/Officials.tsx")
+);
 
 const Landing: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -20,7 +22,6 @@ const Landing: React.FC = () => {
       setLinkText("Find Elected Representatives Near You");
     }
   }, [isNearYouPage]);
-
 
   return (
     <div className={`${loading ? "loading-page" : "home-officials-page"}`}>
