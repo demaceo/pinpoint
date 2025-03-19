@@ -5,11 +5,15 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
+import { formatDate } from "../../utils/formatDate";
+// import AnimatedPinpoint from "../../assets/pins/AnimatedPinpoint.tsx";
+
 import { mockBills } from "../../utils/mockBillGenerator";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
   const billCache = new Map<string, BillDetails>();
+  const [pinnedBills, setPinnedBills] = useState<string[]>([]);
 
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,6 +32,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     if (!jurisdiction) return;
 
     setLoading(true);
+    const savedBills = JSON.parse(localStorage.getItem("pinnedBills") || "[]");
+    setPinnedBills(savedBills.map((bill: Bill) => bill.id));
     fetchBillsByJurisdiction(jurisdiction)
       .then((data) => {
         setBills(data);
@@ -94,6 +100,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   if (!bills.length)
     return <div className="ticker-no-results">No recent bills found.</div>;
 
+  console.log("bills", bills[0]);
+
   return (
     <div
       className={`ticker-container ${isVisible ? "visible" : "hidden"}`}
@@ -112,6 +120,32 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
               onMouseEnter={(e) => handleMouseEnter(e, bill)}
               onMouseLeave={handleMouseLeave}
             >
+              {pinnedBills.includes(bill.id) && (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 200 200"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="100"
+                    cy="50"
+                    r="40"
+                    fill="gold"
+                    stroke="black"
+                    strokeWidth="3"
+                  />
+                  <line
+                    x1="100"
+                    y1="90"
+                    x2="100"
+                    y2="190"
+                    stroke="black"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              )}
               <strong>{bill.identifier}</strong>: {bill.title} {" | "}
             </span>
           ))}
@@ -119,113 +153,34 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
       </div>
       {hoveredBill && (
         <div ref={tooltipRef} className="bill-tooltip show">
-          <strong>{hoveredBill.identifier}</strong>
-          <p>{hoveredBill.title}</p>
+          <p>
+            <em>#ID_ </em>
+            <strong>{hoveredBill.identifier}</strong>{" "}
+          </p>
+          <p>
+            <em>Title_ </em>
+            {hoveredBill.title}
+          </p>
           {hoveredBill.session && hoveredBill.jurisdiction?.name ? (
             <p>
-              <em>Session:</em> {hoveredBill.session} (
+              <em>Session_ </em> {hoveredBill.session} (
               {hoveredBill.jurisdiction.name})
             </p>
           ) : (
             <p>
-              <em>Session:</em> Not available
+              <em>Session_</em> Not available
             </p>
           )}
-
           {hoveredBill.latest_action_description &&
           hoveredBill.latest_action_date ? (
             <p>
-              <em>Last Action:</em> {hoveredBill.latest_action_description} (
-              {hoveredBill.latest_action_date})
+              <em>Last Action_</em> {hoveredBill.latest_action_description}{" "}
+              <br/>
+              <em>On Date_</em> {formatDate(hoveredBill.latest_action_date)}
             </p>
           ) : (
             <p>
-              <em>Last Action:</em> Not available
-            </p>
-          )}
-
-          {hoveredBill.abstracts?.length ? (
-            <p>
-              <em>Summary:</em>{" "}
-              {hoveredBill.abstracts[0]?.abstract || "No summary available."}
-            </p>
-          ) : (
-            <p>
-              <em>Summary:</em> Not available
-            </p>
-          )}
-
-          {hoveredBill.sponsorships?.length ? (
-            <p>
-              <em>Sponsored by:</em>{" "}
-              {hoveredBill.sponsorships
-                .map(
-                  (s) =>
-                    `${s.current_role?.title || ""} ${s.name} (${
-                      s.party || "Unknown"
-                    })`
-                )
-                .join(", ")}
-            </p>
-          ) : (
-            <p>
-              <em>Sponsored by:</em> No sponsors listed
-            </p>
-          )}
-
-          {hoveredBill.related_bills?.length ? (
-            <p>
-              <em>Related Bills:</em>{" "}
-              {hoveredBill.related_bills
-                .map(
-                  (b) =>
-                    `${b.identifier} (${b.relation_type}, ${b.legislative_session})`
-                )
-                .join(", ")}
-            </p>
-          ) : (
-            <p>
-              <em>Related Bills:</em> None found
-            </p>
-          )}
-
-          {hoveredBill.documents?.length ? (
-            <p>
-              <em>Documents:</em>{" "}
-              {hoveredBill.documents.map((doc, i) => (
-                <a
-                  key={i}
-                  href={doc.links[0]?.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {doc.note || "View Document"}
-                </a>
-              ))}
-            </p>
-          ) : (
-            <p>
-              <em>Documents:</em> None available
-            </p>
-          )}
-
-          {hoveredBill.versions?.length ? (
-            <p>
-              <em>Versions:</em>{" "}
-              {hoveredBill.versions.map((ver, i) => (
-                <a
-                  key={i}
-                  href={ver.links[0]?.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {ver.note || "View Version"}
-                </a>
-              ))}
-            </p>
-          ) : (
-            <p>
-              <em>Versions:</em> None available
+              <em>Last Action_</em> Not available
             </p>
           )}
         </div>

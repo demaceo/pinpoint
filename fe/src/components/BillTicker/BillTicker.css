@@ -85,6 +85,11 @@
   transform: scale(1);
 }
 
+.show p em {
+  font-size: 15px;
+  color: #f9c74f;
+}
+
 @media (max-width: 768px) {
   .ticker-container {
     font-size: 14px;
