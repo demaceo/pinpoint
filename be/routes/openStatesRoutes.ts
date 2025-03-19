@@ -1,18 +1,11 @@
 import express from "express";
 import { Request, Response } from "express";
-
 import {
     getOfficialsByState, getOfficialsByGeo, getBillsByState, getCommitteesByState,
     // getOfficialById 
 } from "../controllers/openStatesController.js";
 
 const router = express.Router();
-
-// router.get("/officials/state", getOfficialsByState);
-// router.get("/officials/geo", getOfficialsByGeo);
-// router.get("/bills", getBillsByState);
-// router.get("/committees", getCommitteesByState);
-
 
 router.get("/officials/state", async (req: Request, res: Response) => {
     try {

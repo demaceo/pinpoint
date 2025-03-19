@@ -14,8 +14,6 @@ const apiClient = axios.create({
     },
 });
 
-
-
 /**
  * Fetch elected officials by state.
  */
