@@ -141,6 +141,16 @@ const Officials: React.FC<OfficialsPageProps> = ({
     // TODO: Implement AI chat integration
   };
 
+
+  const resetFilter = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setSelectedParty("");
+    setSelectedRole("");
+    setSearchQuery("");
+    setSelectedOfficials(new Set());
+    setSelectedOfficial(null);
+    setSelectedState(e.target.value);
+  };
+
   if (error) return <p>{error}</p>;
   if (loading) return <Breathe />;
   if (!officials || officials.length === 0) {
@@ -214,7 +224,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
           <select
             className={`states-dropdown ${xstylesClass}`}
             value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
+            onChange={(e) => resetFilter(e)}
           >
             {usStates.map((item) => (
               <option key={item.abbr} value={item.abbr}>
