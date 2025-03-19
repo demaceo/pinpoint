@@ -121,7 +121,6 @@ const USMap: React.FC = () => {
     });
   }, [selectedState]);
 
-  // Fetch representatives from OpenStates API
   const fetchStateRepresentatives = async (stateName: string) => {
     try {
       const response = await fetch(

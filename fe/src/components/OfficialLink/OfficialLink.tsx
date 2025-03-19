@@ -19,7 +19,7 @@ const OfficialLink: React.FC<OfficialLinkProps> = ({
       <input
         type="checkbox"
         id={`official-${index}`}
-        checked={isChecked} 
+        checked={isChecked}
         onChange={onSelect}
       />
       {/* <CustomCheckbox
