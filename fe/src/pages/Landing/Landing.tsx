@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Landing.css";
 import Welcome from "../../components/Welcome/Welcome.tsx";
-
+import AnimatedText from "../../components/Officials/AnimatedText.tsx";
 const Officials = lazy(
   () => import("../../components/Officials/Officials.tsx")
 );
@@ -28,11 +28,11 @@ const Landing: React.FC = () => {
     <div className={`${loading ? "loading-page" : "home-officials-page"}`}>
       <div className={`${loading ? "loading-container" : "home-container"}`}>
         <Welcome />
-        <Link to={isNearYouPage ? "/" : "/near-you"} className="link-officials">
+        <Link to={isNearYouPage ? "/" : "/near-you"} className="link-to-text">
           {linkText}
         </Link>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<AnimatedText text="Loading..." />}>
         <Officials
           isNearYouPage={isNearYouPage}
           setLoading={setLoading}

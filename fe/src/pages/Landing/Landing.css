@@ -23,7 +23,7 @@
   opacity: 0.5;
 }
 
-.link-officials {
+.link-to-text {
   display: flex;
   align-items: center;
   gap: 0px;
@@ -54,4 +54,31 @@
   justify-content: start;
   align-items: baseline;
   margin: 5vh 0;
+}
+
+@media screen and (max-width: 480px) {
+  .home-officials-page {
+    width: 90vw;
+    /* padding-left: 20px; */
+  }
+  .officials-header {
+    flex-direction: column;
+    align-items: center;
+    margin: 3vh 0;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .link-to-text{
+    font-size: 14px;
+    color: #007bff;
+    /* text-decoration: none; */
+  }
+  .link-to-text:hover {
+    text-decoration: underline;
+  }
 }

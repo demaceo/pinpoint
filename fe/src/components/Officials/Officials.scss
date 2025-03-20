@@ -14,11 +14,23 @@
   height: 40px;
   font-size: 1rem;
   padding: 10px 15px;
-  border: 2px solid rgb(255, 174, 0);
+  outline: none;
+  // border: 0px;
+  box-shadow: 0 0 10px rgb(236, 233, 227);
   border-radius: 5px;
   margin-right: 1vw;
   font-weight: bold;
   cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+
+.states-dropdown:hover {
+  outline: none;
+  box-shadow: 0 0 10px rgb(236, 233, 227);
+  border-color: rgb(229, 215, 188);
+  background-color: rgb(236, 233, 227);
+  color: white;
 }
 
 .officials-container {
@@ -26,7 +38,6 @@
   flex-direction: row;
   align-items: start;
   width: 98%;
-  // padding: 0px 5px 0px 0px;
   margin: 0vh 0vw;
   overflow-y: scroll;
   height: 60vh;
@@ -70,7 +81,7 @@
   flex-wrap: wrap;
   gap: 1px;
   justify-content: center;
-  width: 110%;
+  // width: 110%;
   max-width: 1200px;
   height: 100%;
   padding: 10px;
@@ -93,34 +104,33 @@
   }
 }
 
-  @media (max-width: 480px) {
-    .officials-header {
-      // width: fit-content;
-      font-size: 1rem;
-      height: fit-content;
-      color: #333;
-      box-sizing: border-box;
-      text-align: center;
-      display: flex;
-      // flex-direction: column;
-      flex-wrap: wrap;
-      justify-content: center;
-      border: 1px solid red;
-    }
-
-    .officials-container {
-      display: flex;
-      flex-direction: row;
-      align-items: start;
-      width: 98%;
-      padding: 0px 5px 0px 0px;
-      margin: 0vh 0vw;
-      overflow-y: scroll;
-      height: 35vh;
-      box-shadow: inset;
-      flex-wrap: wrap; /* Added to allow wrapping of items */
-      align-items: center; /* Added to center items vertically */
-      justify-content: center; /* Added to center items horizontally */
-      border: 1px solid blue; /* Added border for better visibility */
-    }
+@media (max-width: 480px) {
+  .officials-header {
+    // width: 100%;
+    font-size: 1rem;
+    height: fit-content;
+    color: #333;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    // flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-shadow: 1px 3px 10px rgb(154, 147, 141);
   }
+
+  .officials-container {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    width: 98%;
+    padding: 0px 5px 0px 0px;
+    margin: 0vh 0vw;
+    overflow-y: scroll;
+    height: 50vh;
+    // box-shadow: inset;
+    flex-wrap: wrap; /* Added to allow wrapping of items */
+    align-items: center; /* Added to center items vertically */
+    justify-content: center; /* Added to center items horizontally */
+  }
+}

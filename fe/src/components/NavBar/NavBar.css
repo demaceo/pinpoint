@@ -202,3 +202,34 @@
 .drop-down-item:hover::before {
   background-position: right;
 }
+
+@media screen and (max-width: 768px) {
+  .menu-button {
+    right: 15px;
+  }
+
+  .logo {
+    left: 15px;
+  }
+
+  .white-bar {
+    width: 20px;
+  }
+
+  .drop-down-container {
+    width: 100%;
+  }
+
+  .the-bass {
+    width: 100vw;
+  }
+
+  .drop-down-item {
+    font-size: 1.5rem;
+  }
+  
+
+  .navbar {
+    min-height: 50px;
+  }
+}

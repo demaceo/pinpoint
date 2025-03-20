@@ -72,7 +72,6 @@ const Officials: React.FC<OfficialsPageProps> = ({
     if (isNearYouPage && location) {
       getStateFromCoordinates(location.lat, location.lng).then((state) => {
         if (state) {
-          console.log("coords", state);
           setSelectedState(state);
         }
       });
