@@ -2,11 +2,24 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
 
 @keyframes cosineWave {
-  0% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(calc(2px * cos(25deg))) rotate(calc(1deg * cos(25deg))); }
-  50% { transform: translateY(calc(-2px * cos(50deg))) rotate(calc(-1deg * cos(50deg))); }
-  75% { transform: translateY(calc(2px * cos(75deg))) rotate(calc(1deg * cos(75deg))); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(calc(2px * cos(25deg)))
+      rotate(calc(1deg * cos(25deg)));
+  }
+  50% {
+    transform: translateY(calc(-2px * cos(50deg)))
+      rotate(calc(-1deg * cos(50deg)));
+  }
+  75% {
+    transform: translateY(calc(2px * cos(75deg)))
+      rotate(calc(1deg * cos(75deg)));
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 .navbar {
@@ -25,14 +38,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25vh;
+  /* margin-bottom: 25vh; */
+  /* z-index: 9999; */
 }
 
 .navbar.scrolled {
   min-height: 60px;
   background-color: #fdfdfd;
   box-shadow: 0 0 30px 3px rgba(0, 0, 0, 0.6);
-
 }
 
 .logo {
@@ -108,7 +121,6 @@
 .navbar:not(.menu-open) .white-bar {
   animation: cosineWave 2s ease-in-out;
 }
-
 
 /* Stagger animation delays for a natural wave effect */
 .navbar:not(.menu-open) .white-bar:nth-child(1) {
@@ -205,11 +217,11 @@
 
 @media screen and (max-width: 768px) {
   .menu-button {
-    right: 15px;
+    right: 1px;
   }
 
   .logo {
-    left: 15px;
+    left: 35px;
   }
 
   .white-bar {
@@ -227,9 +239,12 @@
   .drop-down-item {
     font-size: 1.5rem;
   }
-  
 
   .navbar {
     min-height: 50px;
+  }
+
+  .navbar.scrolled {
+    min-height: 70px;
   }
 }

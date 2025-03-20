@@ -7,7 +7,7 @@
   display: flex;
   align-items: center; /* Align dropdown and SVG on the same row */
   gap: 12px;
-  margin: 1vh 0;
+  margin: 2vh 0;
 }
 
 .states-dropdown {
@@ -35,13 +35,30 @@
 
 .officials-container {
   display: flex;
+  scrollbar-darkshadow-color: #333;
+  scrollbar-color: #f5f5f5 #f5f5f5;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
   flex-direction: row;
   align-items: start;
   width: 98%;
   margin: 0vh 0vw;
   overflow-y: scroll;
-  height: 60vh;
+  height: 50vh;
   box-shadow: inset;
+  padding: 0;
+  /* Add custom scrollbar styles */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
 }
 
 @keyframes makisuFold {
@@ -104,16 +121,45 @@
   }
 }
 
+@media (max-width: 768px) {
+  .officials-header {
+    font-size: 1.5rem;
+    height: fit-content;
+    color: #333;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    text-shadow: 1px 3px 10px rgb(206, 175, 148);
+  }
+
+  .officials-container {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    width: 98%;
+    padding: 0px 5px 0px 0px;
+    margin: 0vh 0vw;
+    overflow-y: scroll;
+    height: 50vh;
+    flex-wrap: wrap;
+    align-items: center; /* Added to center items vertically */
+    justify-content: center; /* Added to center items horizontally */
+  }
+  .states-dropdown {
+    font-size: 1.2rem;
+    margin-left: 2vw;
+  }
+}
+
 @media (max-width: 480px) {
   .officials-header {
-    // width: 100%;
     font-size: 1rem;
     height: fit-content;
     color: #333;
     box-sizing: border-box;
     text-align: center;
     display: flex;
-    // flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     text-shadow: 1px 3px 10px rgb(154, 147, 141);
@@ -128,7 +174,6 @@
     margin: 0vh 0vw;
     overflow-y: scroll;
     height: 50vh;
-    // box-shadow: inset;
     flex-wrap: wrap; /* Added to allow wrapping of items */
     align-items: center; /* Added to center items vertically */
     justify-content: center; /* Added to center items horizontally */

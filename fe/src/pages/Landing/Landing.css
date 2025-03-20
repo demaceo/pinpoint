@@ -5,6 +5,7 @@
   transition: all 1.5s ease-in-out;
   padding-left: 2vw;
   width: 90vw;
+  /* overflow: hidden; */
 }
 
 .loading-page {

@@ -22,3 +22,9 @@
     font-size: 1.5rem;
   }
 }
+
+@media (max-width: 375px) {
+  .home-title {
+    font-size: 1.1rem;
+  }
+}
