@@ -1,0 +1,26 @@
+.text-container {
+  display: flex;
+  gap: 0.5px;
+  padding-right: 0.5vw;
+}
+
+.letter {
+  display: inline-block;
+  filter: blur(8px);
+}
+
+.space {
+  width: 15px;
+}
+
+@media (max-width: 480px) {
+  .letter {
+    font-size: 1rem;
+  }
+  .text-container {
+    font-size: 0.9rem;
+  }
+  .space {
+    width: 5px;
+  }
+}

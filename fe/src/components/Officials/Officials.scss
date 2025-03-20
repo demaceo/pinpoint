@@ -14,6 +14,7 @@
   height: 40px;
   font-size: 1rem;
   padding: 10px 15px;
+  border: 2px solid rgb(255, 174, 0);
   border-radius: 5px;
   margin-right: 1vw;
   font-weight: bold;
@@ -24,25 +25,13 @@
   display: flex;
   flex-direction: row;
   align-items: start;
-  width: 100%;
-  padding: 0px 5px 0px 0px;
+  width: 98%;
+  // padding: 0px 5px 0px 0px;
   margin: 0vh 0vw;
   overflow-y: scroll;
-  height: 40vh;
+  height: 60vh;
   box-shadow: inset;
 }
-
-/* .officials-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  justify-content: center;
-  width: 110%;
-  max-width: 1200px;
-  height: 100%;
-  padding: 0;
-  padding-bottom: 0px;
-} */
 
 @keyframes makisuFold {
   0% {
@@ -87,12 +76,10 @@
   padding: 10px;
   perspective: 800px; /* Enhances 3D effect */
 
-
   /* Apply animations dynamically */
-.officials-list.makisuFold > * {
-  animation: makisuFold 0.5s ease-out forwards;
-}
-
+  .officials-list.makisuFold > * {
+    animation: makisuFold 0.5s ease-out forwards;
+  }
 
   .checkbox-container {
     animation: makisuDrop 0.6s ease-out forwards;
@@ -104,21 +91,36 @@
       animation-delay: #{$i * 0.1}s;
     }
   }
+}
 
   @media (max-width: 480px) {
     .officials-header {
-      font-size: 20px;
-      line-height: 24px;
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: #f9f9f9;
-      border-radius: 10px;
+      // width: fit-content;
+      font-size: 1rem;
+      height: fit-content;
       color: #333;
       box-sizing: border-box;
       text-align: center;
       display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
+      // flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      border: 1px solid red;
+    }
+
+    .officials-container {
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+      width: 98%;
+      padding: 0px 5px 0px 0px;
+      margin: 0vh 0vw;
+      overflow-y: scroll;
+      height: 35vh;
+      box-shadow: inset;
+      flex-wrap: wrap; /* Added to allow wrapping of items */
+      align-items: center; /* Added to center items vertically */
+      justify-content: center; /* Added to center items horizontally */
+      border: 1px solid blue; /* Added border for better visibility */
     }
   }
-}

@@ -18,7 +18,7 @@ import DragFilter from "../../components/Filter/DragFilter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
-import AnimatedText from "../../components/LoadingSpinner/AnimatedText.tsx";
+import AnimatedText from "./AnimatedText.tsx";
 import { getStateFromCoordinates } from "../../utils/getStateFromCoords.ts";
 import AnimatedPinpoint from "../../assets/pins/AnimatedPinpoint.tsx";
 
@@ -253,15 +253,8 @@ const Officials: React.FC<OfficialsPageProps> = ({
         </h1>
       )}
 
-      {/* {selectedAll && (
-        <p className="select-all-message">
-          ✅ All {filteredOfficials.length} officials selected for future
-          actions...
-        </p>
-      )} */}
       <div className="officials-container">
         <ul className={`officials-list ${animationClass}`}>
-          {/* <ul className="officials-list"> */}
           {filteredOfficials.map((official, index) => (
             <OfficialLink
               key={index}

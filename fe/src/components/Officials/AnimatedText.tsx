@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./AnimatedText.css";
 import { LetterProps, TextProps, AnimatedTextProps } from "../../assets/types";
 
-const Letter: React.FC<LetterProps> = ({ char, animationDelay, fontSize }) => {
+const Letter: React.FC<LetterProps> = ({ char, animationDelay }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Letter: React.FC<LetterProps> = ({ char, animationDelay, fontSize }) => {
     <span
       className={`letter ${char === " " ? "space" : ""}`}
       style={{
-        fontSize,
+        // fontSize,
         opacity: visible ? 1 : 0,
         filter: visible ? "blur(0px)" : "blur(8px)",
         transition: "opacity 0.5s ease-in, filter 0.5s ease-in",
@@ -31,7 +31,7 @@ const Letter: React.FC<LetterProps> = ({ char, animationDelay, fontSize }) => {
 const RandomText: React.FC<TextProps> = ({
   text,
   animationSpeed,
-  fontSize,
+  // fontSize,
 }) => {
   return (
     <div className="text-container">
@@ -40,7 +40,7 @@ const RandomText: React.FC<TextProps> = ({
           key={i}
           char={char}
           animationDelay={i * animationSpeed}
-          fontSize={fontSize}
+          // fontSize={fontSize}
         />
       ))}
     </div>
@@ -50,13 +50,13 @@ const RandomText: React.FC<TextProps> = ({
 const AnimatedText: React.FC<AnimatedTextProps> = ({
   text = "Welcome to Pinpoint!",
   animationSpeed = 20,
-  fontSize = 35,
+  // fontSize = 35,
 }) => {
   return (
     <RandomText
       text={text}
       animationSpeed={animationSpeed}
-      fontSize={fontSize}
+      // fontSize={fontSize}
     />
   );
 };

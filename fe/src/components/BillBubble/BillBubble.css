@@ -6,7 +6,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   font-size: 14px;
-  width: max-content;
+  max-width: 60%;
   height: max-content;
   z-index: 10000;
   margin-bottom: 7vh;
@@ -57,22 +57,24 @@
   transform: scale(1.2);
 }
 
-
 @media (max-width: 768px) {
   .bill-tooltip {
     font-size: 12px;
     bottom: 5vh;
     right: 5px;
     padding: 8px 16px;
+      width: 50%;
+    height: max-content;
   }
 }
 
 @media (max-width: 480px) {
-
   .bill-tooltip {
     font-size: 11px;
-    bottom: 3vh;
+    bottom: 5vh;
     right: 3px;
-    padding: 6px 12px;
+    padding: 6px 12px 12px;
+    width: 75%;
+    height: max-content;
   }
 }
