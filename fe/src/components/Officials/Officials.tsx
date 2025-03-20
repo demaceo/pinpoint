@@ -20,7 +20,6 @@ import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
 import AnimatedText from "./AnimatedText.tsx";
 import { getStateFromCoordinates } from "../../utils/getStateFromCoords.ts";
-import AnimatedPinpoint from "../../assets/pins/AnimatedPinpoint.tsx";
 
 interface OfficialsPageProps {
   headerText: string;
@@ -98,7 +97,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
       fetchOfficialsByState(selectedState)
         .then((data) => {
           setOfficials(data);
-          setAnimationClass("makisuDrop"); // Step 3: Animate new list in
+          setAnimationClass("makisuDrop");
         })
         .catch((error) =>
           console.error("Error fetching officials STATE:", error)
@@ -246,9 +245,9 @@ const Officials: React.FC<OfficialsPageProps> = ({
         <h1 className="officials-header">
           {" "}
           <AnimatedText text={headerText} />{" "}
-          <span className="pinpoint-wrapper">
+          {/* <span className="pinpoint-wrapper">
             <AnimatedPinpoint />
-          </span>
+          </span> */}
         </h1>
       )}
 

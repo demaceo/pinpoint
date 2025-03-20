@@ -6,7 +6,6 @@ import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
 import { formatDate } from "../../utils/formatDate";
-// import AnimatedPinpoint from "../../assets/pins/AnimatedPinpoint.tsx";
 import { mockBills } from "../../utils/mockBillGenerator";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
@@ -36,7 +35,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     fetchBillsByJurisdiction(jurisdiction)
       .then((data) => {
         setBills(data);
-        setTimeout(() => setIsVisible(true), 300); // Trigger slide-in effect
+        setTimeout(() => setIsVisible(true), 600); // Trigger slide-in effect
       })
       .catch((error) => console.error("Error fetching bills:", error))
       .finally(() => setLoading(false));
@@ -62,7 +61,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
           console.error("Error loading bill details:", error);
         }
       }
-    }, 500); // Throttle API requests (prevents spamming)
+    }, 1000); // Throttle API requests (prevents spamming)
   };
 
   const handleMouseLeave = () => {
@@ -98,8 +97,6 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     return <div className="ticker-loading">Loading latest bills...</div>;
   if (!bills.length)
     return <div className="ticker-no-results">No recent bills found.</div>;
-
-  console.log("bills", bills[0]);
 
   return (
     <div
@@ -174,7 +171,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
           hoveredBill.latest_action_date ? (
             <p>
               <em>Last Action_</em> {hoveredBill.latest_action_description}{" "}
-              <br/>
+              <br />
               <em>On Date_</em> {formatDate(hoveredBill.latest_action_date)}
             </p>
           ) : (

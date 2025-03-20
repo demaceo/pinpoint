@@ -3,11 +3,8 @@ export const getStateFromCoordinates = async (latitude: number, longitude: numbe
     try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log('data', data);
 
         if (data.address && data.address.state) {
-            console.log('data address', data.address)
-            console.log('data address state', data.address.state)
             return data.address.state; // Returns the state name
         }
 
