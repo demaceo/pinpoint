@@ -312,19 +312,19 @@ export interface AnimatedPinpointProps {
 export interface LetterProps {
     char: string;
     animationDelay: number;
-    fontSize: number;
+    // fontSize: number;
 }
 
 export interface TextProps {
     text: string;
     animationSpeed: number;
-    fontSize: number;
+    // fontSize: number;
 }
 
 export interface AnimatedTextProps {
     text?: string;
     animationSpeed?: number;
-    fontSize?: number;
+    // fontSize?: number;
 }
 
 

@@ -7,7 +7,6 @@ import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";
 import { formatDate } from "../../utils/formatDate";
 // import AnimatedPinpoint from "../../assets/pins/AnimatedPinpoint.tsx";
-
 import { mockBills } from "../../utils/mockBillGenerator";
 
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
