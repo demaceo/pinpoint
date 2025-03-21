@@ -9,6 +9,33 @@ const billCache = new Map<string, any>();
 const billDetailsCache = new Map<string, any>();
 const officialsCache = new Map<string, any>();
 
+export const fetchWithRetry = async (
+    fn: () => Promise<any>,
+    retries = 3,
+    delay = 1000
+): Promise<any> => {
+    try {
+        return await fn();
+    } catch (error: any) {
+        const isRateLimit = error.response?.status === 429;
+
+        if (isRateLimit && retries > 0) {
+            const detail = error.response?.data?.detail || "Rate limit exceeded";
+            console.warn(`⚠️ 429: ${detail}. Retrying in ${delay / 1000}s...`);
+            await new Promise((res) => setTimeout(res, delay));
+            return fetchWithRetry(fn, retries - 1, delay * 2);
+        }
+
+        // ✅ Propagate message to be handled in UI
+        if (isRateLimit) {
+            const detail = error.response?.data?.detail || "Rate limit exceeded";
+            throw new Error(detail);
+        }
+
+        throw error;
+    }
+};
+
 export const fetchOfficials = async (address: string) => {
     if (!address) throw new Error("Address is required");
     if (officialsCache.has(address)) {
@@ -58,18 +85,18 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
     }
 };
 
-const fetchWithRetry = async (fn: () => Promise<any>, retries = 3, delay = 2000) => {
-    try {
-        return await fn();
-    } catch (error: any) {
-        if (error.response?.status === 429 && retries > 0) {
-            console.warn(`Rate limit hit. Retrying in ${delay / 1000} seconds...`);
-            await new Promise((res) => setTimeout(res, delay));
-            return fetchWithRetry(fn, retries - 1, delay * 2);
-        }
-        throw error;
-    }
-};
+// const fetchWithRetry = async (fn: () => Promise<any>, retries = 3, delay = 2000) => {
+//     try {
+//         return await fn();
+//     } catch (error: any) {
+//         if (error.response?.status === 429 && retries > 0) {
+//             console.warn(`Rate limit hit. Retrying in ${delay / 1000} seconds...`);
+//             await new Promise((res) => setTimeout(res, delay));
+//             return fetchWithRetry(fn, retries - 1, delay * 2);
+//         }
+//         throw error;
+//     }
+// };
 
 export const fetchOfficialsByState = async (stateAbbr: string) => {
     if (!stateAbbr) throw new Error("State abbreviation is required");
