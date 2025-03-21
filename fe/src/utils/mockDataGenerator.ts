@@ -30,7 +30,7 @@ const states = [
  * @param count Number of officials to generate
  * @returns An array of mock officials
  */
-export function generateMockOfficials(count: number = 50): Official[] {
+export function generateMockOfficials(count: number = 120): Official[] {
     const officials: Official[] = [];
 
     const getRandomBirthDate = (): string => {
