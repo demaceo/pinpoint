@@ -12,7 +12,7 @@ const officialsCache = new Map<string, any>();
 export const fetchWithRetry = async (
     fn: () => Promise<any>,
     retries = 1,
-    delay = 1000
+    delay = 5000
 ): Promise<any> => {
     try {
         return await fn();
