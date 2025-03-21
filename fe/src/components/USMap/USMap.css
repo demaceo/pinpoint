@@ -1,21 +1,76 @@
 .usmap-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+  width: 99vw;
+  height: 90vh;
+  transition: 1.5s ease;
+  border: none;
   /* background-color: transparent; */
 }
 .usmap-container {
-  background-color: rgb(48, 48, 48);
-  border-radius: 15px;
-  padding: 10px;
+  /* background-color: rgb(48, 48, 48); */
+  /* border-radius: 15px; */
+  /* padding: 10px; */
+  overflow: visible;
+  width: 65%;
+  transform: scale(0.88);
+  margin-left: 15vw;
 }
 
-.usmap-results-container {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+/* .usmap-container svg {
   width: 100%;
   height: 100%;
-  flex: 1 1 250px; 
+} */
+
+.usmap-container svg path {
+  fill: #9f5151;
+  stroke: #05ea7f;
+  stroke-width: 0.5;
+  cursor: pointer;
+}
+/* .usmap-container svg path:hover {
+  fill: #ffcc00;
+}
+.usmap-container svg path.active {
+  fill: #ffcc00;
+}
+.usmap-container svg path.active:hover {
+  fill: #ffcc00;
+  stroke: #ffcc00;
+  stroke-width: 4;
+} */
+
+.usmap-results-container {
+  /* width: 25%; */
+  overflow-x: hidden;
+  height: 80vh;
+  flex: 1 1 250px;
+  overflow-y: scroll;
+}
+
+/* .state-svg{
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease;
+  filter: brightness(1);
+  border: 2px solid yellow;
+  border-radius: 5px;
+  cursor: pointer;}
+
+.state-svg:hover{
+  filter: brightness(0.8);
+} */
+
+.state-tooltip {
+  position: "absolute";
+  background-color: "black";
+  color: "white";
+  padding: "5px 10px";
+  border-radius: "4px";
+  font-size: "12px";
+  visibility: "hidden";
+  pointer-events: "none";
+  content: "";
 }

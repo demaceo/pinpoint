@@ -27,7 +27,7 @@ const USMap: React.FC = () => {
 
   useEffect(() => {
     if (!svgRef.current) return;
-    const width = 1300;
+    const width = 800;
     const height = 750;
 
     // Define projection
@@ -58,8 +58,8 @@ const USMap: React.FC = () => {
       .attr("class", "state")
       .attr("d", pathGenerator)
       .attr("fill", "transparent")
-      // .attr("stroke", "#333")
-      // .attr("stroke-width", 0)
+      .attr("stroke", "#333")
+      .attr("stroke-width", 1)
       .on("mouseover", function (_, d) {
         tooltip
           .style("visibility", "visible")
@@ -86,15 +86,15 @@ const USMap: React.FC = () => {
         .attr("y", y - 20)
         .attr("width", 70)
         .attr("height", 70)
-        // .attr("fill", "#fff")
-        // .attr("stroke", "#000")
-        // .attr("stroke-width", 1)
+        .attr("fill", "#fff")
+        .attr("stroke", "#000")
+        .attr("stroke-width", 1)
         .attr("xlink:href", getStateSvg(stateName))
         .attr("key", (_d: any, i: number) => `state-svg-${i}`)
         .style("cursor", "pointer")
         .on("mouseover", function () {
           // d3.select(this).style("filter", "brightness(2.5)");
-          d3.select(this).style("filter", "drop-shadow(0px 2px 7px teal)");
+          d3.select(this).style("filter", "drop-shadow(0px 2px 7px orange)");
           tooltip
             .text("")
             .style("visibility", "visible")
@@ -139,8 +139,6 @@ const USMap: React.FC = () => {
 
   return (
     <div className="usmap-page">
-      <div ref={tooltipRef} style={tooltipStyles}></div>
-      <svg className="usmap-container" ref={svgRef}></svg>
       {selectedState && (
         <div className="usmap-results-container">
           <h2>Elected Officials for {selectedState}</h2>
@@ -161,6 +159,8 @@ const USMap: React.FC = () => {
           <button onClick={() => setSelectedState(null)}>Reset</button>
         </div>
       )}
+      <div ref={tooltipRef} className="state-tooltip" style={tooltipStyles}></div>
+      <svg className="usmap-container" ref={svgRef}></svg>
     </div>
   );
 };
@@ -176,7 +176,6 @@ const tooltipStyles: React.CSSProperties = {
   visibility: "hidden",
   pointerEvents: "none",
   content: "",
-  //   display: "none",
 };
 
 export default USMap;

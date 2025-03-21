@@ -32,8 +32,15 @@ const Officials: React.FC<OfficialsPageProps> = ({
   headerText,
 }) => {
   const [officials, setOfficials] = useState<Official[]>([]);
+  const [pagination, setPagination] = useState<{
+    page: number;
+    max_page: number;
+    total_items: number;
+    per_page: number;
+  } | null>(null);
   const [loading, setLocalLoading] = useState<boolean>(true);
   const { location, error } = useUserLocation();
+  const [rateLimitMessage, setRateLimitMessage] = useState<string | null>(null);
 
   const usStates: UsStateEntry[] = usStatesData;
   const mockData: Official[] = mockOfficials;
@@ -45,6 +52,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
   const [selectedOfficials, setSelectedOfficials] = useState<Set<string>>(
     new Set()
   );
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Filtering & Search
   const [selectedParty, setSelectedParty] = useState<string>("");
@@ -76,9 +84,12 @@ const Officials: React.FC<OfficialsPageProps> = ({
       });
       fetchOfficialsByGeo(location.lat, location.lng)
         .then(setOfficials)
-        .catch((error) =>
-          console.error("Error fetching official by GEO:", error)
-        )
+        .catch((error) => {
+          console.error("Error fetching official by GEO:", error);
+          if (error?.message?.toLowerCase().includes("limit")) {
+            setRateLimitMessage(error.message); // show "exceeded limit of ..." clearly
+          }
+        })
         .finally(() => {
           setTimeout(() => {
             setLocalLoading(false);
@@ -96,12 +107,20 @@ const Officials: React.FC<OfficialsPageProps> = ({
       setLoading(true);
       fetchOfficialsByState(selectedState)
         .then((data) => {
-          setOfficials(data);
+          setOfficials(data.results);
+          setPagination(data.pagination);
           setAnimationClass("makisuDrop");
         })
-        .catch((error) =>
-          console.error("Error fetching officials STATE:", error)
-        )
+
+        .catch((error) => {
+          console.error("Error fetching officials STATE:", error);
+          if (
+            typeof error === "string" &&
+            error.toLowerCase().includes("limit")
+          ) {
+            setRateLimitMessage(error); // show "exceeded limit of ..." clearly
+          }
+        })
         .finally(() => {
           setTimeout(() => {
             setLocalLoading(false);
@@ -109,7 +128,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
           }, 1000); //! Keep Breathe active for 1 seconds
         });
     }
-  }, [isNearYouPage, location, selectedState, setLoading]);
+  }, [currentPage, isNearYouPage, location, selectedState, setLoading]);
 
   const calculateAge = (birthDate: string | undefined): number | null => {
     if (!birthDate) return null;
@@ -153,6 +172,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
     setSearchQuery("");
     setSelectedOfficials(new Set());
     setSelectedOfficial(null);
+    setCurrentPage(1);
     setSelectedState(e.target.value);
   };
 
@@ -221,34 +241,61 @@ const Officials: React.FC<OfficialsPageProps> = ({
         onChatClick={handleChatClick}
         hasSelectedOfficials={hasSelectedOfficials}
       />
-
-      {!isNearYouPage && (
+      <div className="officials-header-container">
         <h1 className="officials-header">
-          <AnimatedText text={headerText} />
+          {pagination?.total_items} <AnimatedText text={headerText} />
           {"  "}
-          <select
-            className={`states-dropdown ${xstylesClass}`}
-            value={selectedState}
-            onChange={(e) => resetFilter(e)}
-          >
-            {usStates.map((item) => (
-              <option key={item.abbr} value={item.abbr}>
-                {item.abbr}
-              </option>
-            ))}
-          </select>
-          {selectedState && <StateDisplay selectedAbbr={selectedState} />}
-        </h1>
-      )}
+        </h1>{" "}
+        {!isNearYouPage && (
+          <div className="state-selector-container">
+            <select
+              className={`states-dropdown ${xstylesClass}`}
+              value={selectedState}
+              onChange={(e) => resetFilter(e)}
+            >
+              {usStates.map((item) => (
+                <option key={item.abbr} value={item.abbr}>
+                  {item.abbr}
+                </option>
+              ))}
+            </select>
+            {selectedState && <StateDisplay selectedAbbr={selectedState} />}
 
-      {isNearYouPage && (
-        <h1 className="officials-header">
-          {" "}
-          <AnimatedText text={headerText} />{" "}
-          {/* <span className="pinpoint-wrapper">
-            <AnimatedPinpoint />
-          </span> */}
-        </h1>
+            
+            {rateLimitMessage && (
+              // Display rate limit message if it exists
+              <div
+                style={{ color: "red", fontWeight: "bold", padding: "10px" }}
+              >
+                🚨 {rateLimitMessage}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {pagination && pagination.max_page > 1 && (
+        <div className="pagination-controls">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={pagination.page === 1}
+          >
+            ⬅ Prev
+          </button>
+          <span>
+            Page {pagination.page} of {pagination.max_page}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) =>
+                prev < pagination.max_page ? prev + 1 : prev
+              )
+            }
+            disabled={pagination.page === pagination.max_page}
+          >
+            Next ➡
+          </button>
+        </div>
       )}
 
       <div className="officials-container">

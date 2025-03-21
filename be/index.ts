@@ -13,7 +13,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5001;
 
 // Connect to MongoDB database
-const connectDB = require("./config/database.js");
+import { connectDB } from "./config/database.js";
 connectDB();
 
 
