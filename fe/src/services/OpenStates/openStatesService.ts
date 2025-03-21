@@ -11,7 +11,7 @@ const officialsCache = new Map<string, any>();
 
 export const fetchWithRetry = async (
     fn: () => Promise<any>,
-    retries = 3,
+    retries = 1,
     delay = 1000
 ): Promise<any> => {
     try {
@@ -25,13 +25,11 @@ export const fetchWithRetry = async (
             await new Promise((res) => setTimeout(res, delay));
             return fetchWithRetry(fn, retries - 1, delay * 2);
         }
-
         // ✅ Propagate message to be handled in UI
         if (isRateLimit) {
             const detail = error.response?.data?.detail || "Rate limit exceeded";
             throw new Error(detail);
         }
-
         throw error;
     }
 };
@@ -41,13 +39,11 @@ export const fetchOfficials = async (address: string) => {
     if (officialsCache.has(address)) {
         return officialsCache.get(address);
     }
-
     try {
         const response = await axios.post(`${BASE_URL}/api/officials`, { address }, {
             headers: { "Content-Type": "application/json" },
         });
         officialsCache.set(address, response.data);
-
         return response.data;
     } catch (error) {
         console.error("Error fetching officials:", error);
@@ -59,7 +55,6 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
     if (billDetailsCache.has(openstatesBillId)) {
         return billDetailsCache.get(openstatesBillId);
     }
-
     try {
         const response = await axios.get(`${BASE_URL}/bills/${openstatesBillId}`, {
             params: {
@@ -77,7 +72,6 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
             headers: { "x-api-key": API_KEY },
         });
         billDetailsCache.set(openstatesBillId, response.data);
-
         return response.data;
     } catch (error) {
         console.error("Error fetching bill details:", error);
@@ -101,9 +95,9 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
 export const fetchOfficialsByState = async (stateAbbr: string) => {
     if (!stateAbbr) throw new Error("State abbreviation is required");
 
-    if (officialCache.has(stateAbbr)) {
-        return officialCache.get(stateAbbr);
-    }
+    // if (officialCache.has(stateAbbr)) {
+    //     return officialCache.get(stateAbbr);
+    // }
 
     const response = await fetchWithRetry(() =>
         axios.get(`${BASE_URL}/people`, {
@@ -123,12 +117,13 @@ export const fetchBillsByJurisdiction = async (jurisdiction: string) => {
         return billCache.get(jurisdiction);
     }
 
-    const response = await fetchWithRetry(() =>
+    const response = await 
+    // fetchWithRetry(() =>
         axios.get(`${BASE_URL}/bills`, {
             params: { jurisdiction, per_page: 5, sort: "latest_action_desc" },
             headers: { "x-api-key": API_KEY },
         })
-    );
+    // );
 
     billCache.set(jurisdiction, response.data.results);
     return response.data.results;
