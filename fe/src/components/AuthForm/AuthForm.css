@@ -34,7 +34,7 @@
   min-height: 60vh;
   text-align: left;
   margin: 0rem 3rem 2rem;
-  width: 90%;
+  width: 100%;
 }
 
 .auth-title {
@@ -55,11 +55,18 @@
 .login-input {
   background: #f8f9fd00;
   width: 100%;
+  outline: none;
+  /* border: 1px solid #f8f9fd; */
   padding: 0.75rem;
   border-radius: 90rem 10rem;
   text-indent: 15px;
   transition: all 0.5s ease;
   letter-spacing: 1px;
+}
+.register-input:focus,
+.login-input:focus {
+  border: 1px solid #66eac0;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
 }
 
 .confirm-password-input {
@@ -78,7 +85,6 @@
   /* background: #66ea92; */
   background: #66eac0;
   /* padding: 3px ; */
-
   color: white;
   border: none;
   border-radius: 3rem 1rem;
@@ -88,6 +94,7 @@
   font-weight: bold;
   margin-top: 1vh;
   /* border-radius: 3px 97px; */
+  transition: background 0.3s ease;
 }
 
 .auth-button:hover {
@@ -126,16 +133,16 @@
   width: 100%;
 }
 
-/* .login-form-wrapper {
+.login-form-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80%;
-  border: 1px solid white;
-  min-height: 50%;
+  /* width: 80%; */
+  /* border: 1px solid white; */
+  /* min-height: 50%; */
   margin-bottom: 1rem;
-} */
+}
 
 .login-form-group {
   display: flex;
