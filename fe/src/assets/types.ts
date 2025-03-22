@@ -112,7 +112,7 @@ export interface Location {
 export interface FiltersProps {
     selectedParty: string;
     selectedRole: string;
-    selectedAgeRange: [number, number]; // ✅ Age range as a tuple [minAge, maxAge]
+    // selectedAgeRange: [number, number]; // ✅ Age range as a tuple [minAge, maxAge]
     searchQuery: string;
     onFilterChange: (filterType: string, value: string) => void;
     onSearchChange: (value: string) => void;
@@ -120,7 +120,7 @@ export interface FiltersProps {
     onContactClick: () => void;
     onChatClick: () => void;
     hasSelectedOfficials: boolean;
-    onAgeRangeChange: (ageRange: [number, number]) => void; // ✅ Function to update age range
+    // onAgeRangeChange: (ageRange: [number, number]) => void; // ✅ Function to update age range
 }
 
 export interface ButtonProps {

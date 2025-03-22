@@ -136,6 +136,10 @@ const DragFilter: React.FC<FiltersProps> = ({
             <option value="">All</option>
             <option value="Democratic">Democratic</option>
             <option value="Republican">Republican</option>
+            <option value="Independent">Independent</option>
+            <option value="Libertarian">Libertarian</option>
+            <option value="Green">Green</option>
+            <option value="Nonpartisan">Nonpartisan</option>
           </select>
 
           <label>Role:</label>
@@ -146,10 +150,18 @@ const DragFilter: React.FC<FiltersProps> = ({
             <option value="">All</option>
             <option value="Governor">Governor</option>
             <option value="Senator">Senator</option>
+            <option value="Mayor">Mayor</option>
+            <option value="Representative">Representative</option>
+            <option value="Attorney General">Attorney General</option>
+            <option value="Council Member">Council Member</option>
+            <option value="Secretary of State">Secretary of State</option>
           </select>
 
           <label className="select-all-label">
-            <input type="checkbox" onChange={(e) => onSelectAll(e.target.checked)} />
+            <input
+              type="checkbox"
+              onChange={(e) => onSelectAll(e.target.checked)}
+            />
             Select All Results
           </label>
 

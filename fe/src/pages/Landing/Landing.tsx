@@ -10,7 +10,7 @@ const Officials = lazy(
 const Landing: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const currentEndpoint = useLocation();
-  const isNearYouPage = currentEndpoint.pathname === "/near-you";
+  const isNearYouPage = currentEndpoint.pathname === "/nearby";
   const [headerText, setHeaderText] = useState<string>("");
   const [linkText, setLinkText] = useState<string>("");
 
@@ -28,7 +28,7 @@ const Landing: React.FC = () => {
     <div className={`${loading ? "loading-page" : "home-officials-page"}`}>
       <div className={`${loading ? "loading-container" : "home-container"}`}>
         <Welcome />
-        <Link to={isNearYouPage ? "/" : "/near-you"} className="link-to-text">
+        <Link to={isNearYouPage ? "/" : "/nearby"} className="link-to-text">
           {linkText}
         </Link>
       </div>

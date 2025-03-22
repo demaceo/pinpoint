@@ -16,7 +16,7 @@ import Modal from "../../components/Modal/Modal.tsx";
 // import Filters from "../../components/Filter/Filter.tsx";
 import DragFilter from "../../components/Filter/DragFilter.tsx";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
-import BillTicker from "../../components/BillTicker/BillTicker.tsx";
+// import BillTicker from "../../components/BillTicker/BillTicker.tsx";
 import OfficialCard from "../../components/OfficialCard/OfficialCard.tsx";
 import AnimatedText from "./AnimatedText.tsx";
 import { getStateFromCoordinates } from "../../utils/getStateFromCoords.ts";
@@ -65,9 +65,9 @@ const Officials: React.FC<OfficialsPageProps> = ({
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const [showContactForm, setShowContactForm] = useState<boolean>(false);
   const [closing, setClosing] = useState<boolean>(false);
-  const [selectedAgeRange, setSelectedAgeRange] = useState<[number, number]>([
-    18, 100,
-  ]);
+  // const [selectedAgeRange, setSelectedAgeRange] = useState<[number, number]>([
+  //   18, 100,
+  // ]);
 
   const [animationClass, setAnimationClass] = useState<
     "makisuDrop" | "makisuFold"
@@ -75,20 +75,31 @@ const Officials: React.FC<OfficialsPageProps> = ({
 
   useEffect(() => {
     setAnimationClass("makisuFold");
-      if (!loading && officials.length === 0) {
-        setOfficials(mockData);
-      }
+    if (!loading && officials.length === 0) {
+      setOfficials(mockData);
+    }
 
     if (isNearYouPage && location) {
-      console.log('location value Officials line 83', location)
       getStateFromCoordinates(location.lat, location.lng).then((state) => {
         if (state) {
           setSelectedState(state);
-          console.log("COLLECT IF ABBR State from coords:", state);
         }
       });
-      fetchOfficialsByGeo(location.lat, location.lng)
-        .then(setOfficials)
+      fetchOfficialsByGeo(
+        location.lat.toString(),
+        location.lng.toString(),
+        currentPage
+      )
+        .then((data) => {
+          if (data?.results && Array.isArray(data.results)) {
+            setOfficials(data.results);
+            setPagination(data.pagination);
+          } else {
+            console.warn("Invalid data format from fetchOfficialsByGeo:", data);
+            setOfficials(mockData); // fallback safely
+          }
+          setAnimationClass("makisuDrop");
+        })
         .catch((error) => {
           console.error("Error fetching Officials by GEO:", error);
           if (error?.message?.toLowerCase().includes("limit")) {
@@ -110,13 +121,8 @@ const Officials: React.FC<OfficialsPageProps> = ({
       }
       setLocalLoading(true);
       setLoading(true);
-      fetchOfficialsByState(selectedState)
+      fetchOfficialsByState(selectedState, currentPage)
         .then((data) => {
-          console.log(
-            "Officials.tsx line 111:  data returned via fetchOfficialsByState ",
-            data
-          );
-          console.log("data.results", data.results);
           if (data?.results && Array.isArray(data.results)) {
             setOfficials(data.results);
             setPagination(data.pagination);
@@ -146,14 +152,23 @@ const Officials: React.FC<OfficialsPageProps> = ({
           }, 1000); //! Keep Breathe active for 1 seconds
         });
     }
-  }, [currentPage, isNearYouPage, loading, location, mockData, officials.length, selectedState, setLoading]);
+  }, [
+    currentPage,
+    isNearYouPage,
+    loading,
+    location,
+    mockData,
+    officials.length,
+    selectedState,
+    setLoading,
+  ]);
 
-  const calculateAge = (birthDate: string | undefined): number | null => {
-    if (!birthDate) return null;
-    const birthYear = new Date(birthDate).getFullYear();
-    const currentYear = new Date().getFullYear();
-    return currentYear - birthYear;
-  };
+  // const calculateAge = (birthDate: string | undefined): number | null => {
+  //   if (!birthDate) return null;
+  //   const birthYear = new Date(birthDate).getFullYear();
+  //   const currentYear = new Date().getFullYear();
+  //   return currentYear - birthYear;
+  // };
 
   const handleToggleContactForm = () => {
     setClosing(!closing);
@@ -196,7 +211,6 @@ const Officials: React.FC<OfficialsPageProps> = ({
 
   if (error) return <p>{error}</p>;
   if (loading) return <Breathe />;
- 
 
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
@@ -231,14 +245,15 @@ const Officials: React.FC<OfficialsPageProps> = ({
   };
 
   const filteredOfficials = officials.filter((official) => {
-    const age = calculateAge(official.birth_date);
+    // const age = calculateAge(official.birth_date);
     return (
       (searchQuery
         ? official.name.toLowerCase().includes(searchQuery.toLowerCase())
         : true) &&
       (selectedParty ? official.party === selectedParty : true) &&
-      (selectedRole ? official.current_role.title === selectedRole : true) &&
-      (age ? age >= selectedAgeRange[0] && age <= selectedAgeRange[1] : true)
+      (selectedRole ? official.current_role.title === selectedRole : true)
+      // &&
+      // (age ? age >= selectedAgeRange[0] && age <= selectedAgeRange[1] : true)
     );
   });
 
@@ -247,12 +262,12 @@ const Officials: React.FC<OfficialsPageProps> = ({
       <DragFilter
         selectedParty={selectedParty}
         selectedRole={selectedRole}
-        selectedAgeRange={selectedAgeRange}
+        // selectedAgeRange={selectedAgeRange}
         searchQuery={searchQuery}
         onFilterChange={handleFilterChange}
         onSearchChange={handleSearchChange}
         onSelectAll={handleSelectAll}
-        onAgeRangeChange={setSelectedAgeRange}
+        // onAgeRangeChange={setSelectedAgeRange}
         onContactClick={handleContactClick}
         onChatClick={handleChatClick}
         hasSelectedOfficials={hasSelectedOfficials}
@@ -292,7 +307,10 @@ const Officials: React.FC<OfficialsPageProps> = ({
       {pagination && pagination.max_page > 1 && (
         <div className="pagination-controls">
           <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            onClick={(e) => {
+              e.preventDefault();
+              setCurrentPage((prev) => Math.max(prev - 1, 1));
+            }}
             disabled={pagination.page === 1}
           >
             ⬅ Prev
@@ -301,11 +319,12 @@ const Officials: React.FC<OfficialsPageProps> = ({
             Page {pagination.page} of {pagination.max_page}
           </span>
           <button
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault();
               setCurrentPage((prev) =>
                 prev < pagination.max_page ? prev + 1 : prev
-              )
-            }
+              );
+            }}
             disabled={pagination.page === pagination.max_page}
           >
             Next ➡
@@ -358,7 +377,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
         </div>
       )}
 
-      {selectedState && <BillTicker jurisdiction={selectedState} />}
+      {/* {selectedState && <BillTicker jurisdiction={selectedState} />} */}
     </div>
   );
 };

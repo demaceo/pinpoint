@@ -5,14 +5,14 @@ import Button from "../Button/Button";
 const Filters: React.FC<FiltersProps> = ({
   selectedParty,
   selectedRole,
-  selectedAgeRange,
+  // selectedAgeRange,
   searchQuery,
   onFilterChange,
   onSearchChange,
   onSelectAll,
   onContactClick,
   onChatClick,
-  onAgeRangeChange,
+  // onAgeRangeChange,
   hasSelectedOfficials,
 }) => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -28,19 +28,19 @@ const Filters: React.FC<FiltersProps> = ({
     onSelectAll(isChecked);
   };
 
-  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const [minAge, maxAge] = selectedAgeRange;
-    const newValue = parseInt(e.target.value);
+  // const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // const [minAge, maxAge] = selectedAgeRange;
+  // const newValue = parseInt(e.target.value);
 
-    const updatedRange: [number, number] =
-      Math.abs(newValue - minAge) < Math.abs(newValue - maxAge)
-        ? [newValue, maxAge] 
-        : [minAge, newValue];
+  // const updatedRange: [number, number] =
+  //   Math.abs(newValue - minAge) < Math.abs(newValue - maxAge)
+  //     ? [newValue, maxAge]
+  //     : [minAge, newValue];
 
-    if (updatedRange[0] <= updatedRange[1]) {
-      onAgeRangeChange(updatedRange);
-    }
-  };
+  // if (updatedRange[0] <= updatedRange[1]) {
+  //   // onAgeRangeChange(updatedRange);
+  // }
+  // };
 
   return (
     <div className={`filters-container ${isOpen ? "open" : "closed"}`}>
@@ -92,21 +92,19 @@ const Filters: React.FC<FiltersProps> = ({
             <option value="Secretary of State">Secretary of State</option>
           </select>
 
-          <label className="age-range-label">
-            Age Range:
-          </label>
+          <label className="age-range-label">Age Range:</label>
           <div className="age-slider-container">
             <input
               type="number"
               min="18"
               max="110"
-              value={selectedAgeRange[0]}
-              onChange={(e) =>
-                onAgeRangeChange([
-                  parseInt(e.target.value),
-                  selectedAgeRange[1],
-                ])
-              }
+              // value={selectedAgeRange[0]}
+              // onChange={(e) =>
+              // onAgeRangeChange([
+              // parseInt(e.target.value),
+              // selectedAgeRange[1],
+              // ])
+              // }
               className="age-input"
             />
 
@@ -115,8 +113,8 @@ const Filters: React.FC<FiltersProps> = ({
               min="18"
               max="110"
               step="1"
-              value={selectedAgeRange[1]}
-              onChange={handleAgeChange}
+              // value={selectedAgeRange[1]}
+              // onChange={handleAgeChange}
               className="age-slider"
             />
 
@@ -124,13 +122,13 @@ const Filters: React.FC<FiltersProps> = ({
               type="number"
               min="18"
               max="100"
-              value={selectedAgeRange[1]}
-              onChange={(e) =>
-                onAgeRangeChange([
-                  selectedAgeRange[0],
-                  parseInt(e.target.value),
-                ])
-              }
+              // value={selectedAgeRange[1]}
+              // onChange={(e) =>
+              //   onAgeRangeChange([
+              //     selectedAgeRange[0],
+              //     parseInt(e.target.value),
+              //   ])
+              // }
               className="age-input"
             />
           </div>
