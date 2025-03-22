@@ -16,7 +16,6 @@ const PORT = process.env.PORT || 5001;
 import { connectDB } from "./config/database.js";
 connectDB();
 
-
 // Define routes
 const app = express();
 

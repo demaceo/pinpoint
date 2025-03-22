@@ -1,7 +1,7 @@
 import {
   fetchBillsByJurisdiction,
   fetchBillDetails,
-} from "../../services/OpenStates/openStatesService";
+} from "../../requests/openStatesService";
 import React, { useEffect, useRef, useState } from "react";
 import "./BillTicker.css";
 import { Bill, BillDetails, BillTickerProps } from "../../assets/types";

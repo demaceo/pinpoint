@@ -36,9 +36,11 @@ export const fetchWithRetry = async (
 
 export const fetchOfficials = async (address: string) => {
     if (!address) throw new Error("Address is required");
+
     if (officialsCache.has(address)) {
         return officialsCache.get(address);
     }
+
     try {
         const response = await axios.post(`${BASE_URL}/api/officials`, { address }, {
             headers: { "Content-Type": "application/json" },
@@ -50,11 +52,14 @@ export const fetchOfficials = async (address: string) => {
         throw error;
     }
 };
+
 export const fetchBillDetails = async (openstatesBillId: string) => {
     if (!openstatesBillId) throw new Error("Bill ID is required");
+
     if (billDetailsCache.has(openstatesBillId)) {
         return billDetailsCache.get(openstatesBillId);
     }
+
     try {
         const response = await axios.get(`${BASE_URL}/bills/${openstatesBillId}`, {
             params: {
@@ -79,7 +84,7 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
     }
 };
 
-// const fetchWithRetry = async (fn: () => Promise<any>, retries = 3, delay = 2000) => {
+// const fetchWithRetry = async (fn: () => Promise<any>, retries = 1, delay = 2000) => {
 //     try {
 //         return await fn();
 //     } catch (error: any) {
@@ -95,16 +100,17 @@ export const fetchBillDetails = async (openstatesBillId: string) => {
 export const fetchOfficialsByState = async (stateAbbr: string) => {
     if (!stateAbbr) throw new Error("State abbreviation is required");
 
-    // if (officialCache.has(stateAbbr)) {
-    //     return officialCache.get(stateAbbr);
-    // }
+    if (officialCache.has(stateAbbr)) {
+        return officialCache.get(stateAbbr);
+    }
 
-    const response = await fetchWithRetry(() =>
+    const response = await
+        // fetchWithRetry(() =>
         axios.get(`${BASE_URL}/people`, {
             params: { jurisdiction: stateAbbr, per_page: 50, include: ["offices", "links"] },
             headers: { "x-api-key": API_KEY },
         })
-    );
+    // );
 
     officialCache.set(stateAbbr, response.data.results);
     return response.data.results;
@@ -117,8 +123,8 @@ export const fetchBillsByJurisdiction = async (jurisdiction: string) => {
         return billCache.get(jurisdiction);
     }
 
-    const response = await 
-    // fetchWithRetry(() =>
+    const response = await
+        // fetchWithRetry(() =>
         axios.get(`${BASE_URL}/bills`, {
             params: { jurisdiction, per_page: 5, sort: "latest_action_desc" },
             headers: { "x-api-key": API_KEY },
@@ -151,10 +157,17 @@ export const fetchBillsByJurisdiction = async (jurisdiction: string) => {
 
 export const fetchOfficialsByGeo = async (latitude: number, longitude: number) => {
     try {
-        const response = await axios.post(`${BASE_URL}/proxy/officials/geo`, {
-            latitude,
-            longitude
-        });
+        // const response = await axios.post(`${BASE_URL}/proxy/officials/geo`, {
+        //     latitude,
+        //     longitude
+        // });
+
+
+        const response = await axios.get(`${BASE_URL}/officials/geo`, {
+            params: { latitude, longitude, per_page: 50, include: ["offices", "links"] },
+            headers: { "x-api-key": API_KEY },
+        })
+
 
         return response.data;
     } catch (error) {

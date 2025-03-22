@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   fetchOfficialsByState,
   fetchOfficialsByGeo,
-} from "../../services/OpenStates/openStatesService.ts";
+} from "../../requests/openStatesService.ts";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import Breathe from "../../components/LoadingSpinner/Breathe.tsx";
 import OfficialLink from "../../components/OfficialLink/OfficialLink";
@@ -261,7 +261,6 @@ const Officials: React.FC<OfficialsPageProps> = ({
             </select>
             {selectedState && <StateDisplay selectedAbbr={selectedState} />}
 
-            
             {rateLimitMessage && (
               // Display rate limit message if it exists
               <div

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import api from "../../services/api";
+import api from "../../requests/api";
 import { useNavigate } from "react-router-dom";
 import "./AuthForm.css";
 
