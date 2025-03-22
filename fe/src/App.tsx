@@ -34,7 +34,7 @@ const App: React.FC = () => {
           }
         />
         <Route path="/" element={<HomeLayout />} />
-        <Route path="/near-you" element={<HomeLayout />} />
+        <Route path="/nearby" element={<HomeLayout />} />
         <Route path="/login" element={<AuthForm mode="login" />} />
         <Route path="/register" element={<AuthForm mode="register" />} />
         <Route
