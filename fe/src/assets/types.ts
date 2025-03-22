@@ -289,16 +289,16 @@ export interface NucleusProps {
 }
 
 export interface CanvasProps {
-  w: number;
-  h: number;
-  children: React.ReactNode;
-  bgColor?: string;
+    w: number;
+    h: number;
+    children: React.ReactNode;
+    bgColor?: string;
 }
 
 export interface BillTooltipProps {
-  content: React.ReactNode;
-  visible: boolean;
-  position?: { top?: number; left?: number; right?: number; bottom?: number };
+    content: React.ReactNode;
+    visible: boolean;
+    position?: { top?: number; left?: number; right?: number; bottom?: number };
 }
 
 export interface AnimatedPinpointProps {
@@ -332,4 +332,13 @@ export interface CustomCheckboxProps {
     label: string;
     checked?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export interface OpenStatesResponse {
+    results: Official[];
+    pagination: {
+        page: number;
+        per_page: number;
+        max_page: number;
+        total_items: number;
+    };
 }

@@ -75,17 +75,22 @@ const Officials: React.FC<OfficialsPageProps> = ({
 
   useEffect(() => {
     setAnimationClass("makisuFold");
+      if (!loading && officials.length === 0) {
+        setOfficials(mockData);
+      }
 
     if (isNearYouPage && location) {
+      console.log('location value Officials line 83', location)
       getStateFromCoordinates(location.lat, location.lng).then((state) => {
         if (state) {
           setSelectedState(state);
+          console.log("COLLECT IF ABBR State from coords:", state);
         }
       });
       fetchOfficialsByGeo(location.lat, location.lng)
         .then(setOfficials)
         .catch((error) => {
-          console.error("Error fetching official by GEO:", error);
+          console.error("Error fetching Officials by GEO:", error);
           if (error?.message?.toLowerCase().includes("limit")) {
             setRateLimitMessage(error.message); // show "exceeded limit of ..." clearly
           }
@@ -107,11 +112,24 @@ const Officials: React.FC<OfficialsPageProps> = ({
       setLoading(true);
       fetchOfficialsByState(selectedState)
         .then((data) => {
-          setOfficials(data.results);
-          setPagination(data.pagination);
+          console.log(
+            "Officials.tsx line 111:  data returned via fetchOfficialsByState ",
+            data
+          );
+          console.log("data.results", data.results);
+          if (data?.results && Array.isArray(data.results)) {
+            setOfficials(data.results);
+            setPagination(data.pagination);
+          } else {
+            console.warn(
+              "Invalid data format from fetchOfficialsByState:",
+              data
+            );
+            setOfficials(mockData); // fallback safely
+          }
+
           setAnimationClass("makisuDrop");
         })
-
         .catch((error) => {
           console.error("Error fetching officials STATE:", error);
           if (
@@ -128,7 +146,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
           }, 1000); //! Keep Breathe active for 1 seconds
         });
     }
-  }, [currentPage, isNearYouPage, location, selectedState, setLoading]);
+  }, [currentPage, isNearYouPage, loading, location, mockData, officials.length, selectedState, setLoading]);
 
   const calculateAge = (birthDate: string | undefined): number | null => {
     if (!birthDate) return null;
@@ -178,9 +196,7 @@ const Officials: React.FC<OfficialsPageProps> = ({
 
   if (error) return <p>{error}</p>;
   if (loading) return <Breathe />;
-  if (!officials || officials.length === 0) {
-    setOfficials(mockData);
-  }
+ 
 
   const selectedObj = usStates.find((obj) => obj.abbr === selectedState);
   const xstylesClass = selectedObj?.xstyles || "";
