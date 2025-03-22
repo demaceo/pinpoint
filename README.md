@@ -39,20 +39,22 @@
 
 ---
 
-## **📂 Project Structure**
+## **📂 General Project Structure**
 
 ```
 pinpoint/
 │── fe/ (React + Vite)
 │   ├── src/
 │   │   ├── assets/ (static images/icons)
-│   │   ├── components/ (reusable UI components)
+│   │   ├── components/ (TSX component folders containing corresponding .tsx and .css files)
 │   │   ├── hooks/ (useFetch.ts and useUserLocation.ts)
 │   │   ├── pages/ (views like Landing, Country)
 │   │   ├── requests/ (API calls)
-│   │   ├── utils/ (helper functions)
+│   │   ├── utils/ (series of files containing helper functions such as cache.ts, formateDate.ts, getStateFromCoords.ts, mockBillGenerator.ts, mockOfficialsGenerator.ts, etc)
+│   │   ├── App.css
 │   │   ├── App.tsx (main app)
-│   │   ├── main.tsx 
+│   │   ├── index.css
+│   │   ├── main.tsx
 │── be/ (Node.js + Express + TypeScript)
 │   ├── config/database.ts (Node.js + Express  (+ Mongoose?))
 │   ├── controllers/ (handles API logic)
