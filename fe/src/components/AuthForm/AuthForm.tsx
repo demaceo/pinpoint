@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import api from "../../requests/api";
+// import api from "../../requests/api";
 import { useNavigate } from "react-router-dom";
 import "./AuthForm.css";
 
@@ -35,16 +35,16 @@ export default function AuthForm({ mode }: AuthFormProps) {
         `${isLogin ? "Logging in" : "Registering"} with data:`,
         formData
       );
-      const endpoint = isLogin ? "/login" : "/register";
-      const response = await api.post(endpoint, formData);
+      // const endpoint = isLogin ? "/login" : "/register";
+      // const response = await api.post(endpoint, formData);
 
       if (isLogin) {
-        const token = response.data.token;
-        if (!token) {
-          setError("Invalid credentials");
-          return;
-        }
-        localStorage.setItem("token", token);
+        // const token = response.data.token;
+        // if (!token) {
+        //   setError("Invalid credentials");
+        //   return;
+        // }
+        // localStorage.setItem("token", token);
         navigate("/home");
       } else {
         navigate("/");
@@ -77,7 +77,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
           {!isLogin && (
             <>
               <div className="register-form-group">
-                <label className="register-label">First Name</label>
+                <label className="register-label auth-label">
+                  First Name:{" "}
+                </label>
                 <input
                   className="register-input"
                   type="text"
@@ -89,9 +91,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 />
               </div>
               <div className="register-form-group">
-                <label className="register-label">Last Name</label>
+                <label className="register-label auth-label">Last Name: </label>
                 <input
-                  className="register-input"
+                  className="register-input "
                   type="text"
                   name="lastName"
                   value={formData.lastName}
@@ -102,38 +104,40 @@ export default function AuthForm({ mode }: AuthFormProps) {
               </div>
             </>
           )}
+          {/* <div className="login-form-wrapper"> */}
+            <div className="login-form-group">
+              <label className="auth-label">Email:{"  "}</label>
+              {"  "}
+              <input
+                className="login-input"
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
 
-          <div className="login-form-group">
-            <label>Email</label>
-            <input
-              className="login-input"
-              type="text"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-
-          <div className="login-form-group">
-            <label>Password</label>
-            <input
-              className="login-input"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
+            <div className="login-form-group">
+              <label className="auth-label">Password: </label>
+              <input
+                className="login-input"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+          {/* </div> */}
 
           {!isLogin && (
             <div className="register-form-group">
-              <label className="register-label">Confirm Password</label>
+              <label className="register-label"></label>
               <input
-                className="register-input"
+                className="confirm-password-input"
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
