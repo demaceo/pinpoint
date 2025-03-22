@@ -43,16 +43,21 @@
 
 ```
 pinpoint/
-│── frontend/ (React + Vite)
+│── fe/ (React + Vite)
 │   ├── src/
 │   │   ├── assets/ (static images/icons)
 │   │   ├── components/ (reusable UI components)
-│   │   ├── pages/ (views like Home, Officials, Contact)
-│   │   ├── services/ (API calls)
+│   │   ├── hooks/ (useFetch.ts and useUserLocation.ts)
+│   │   ├── pages/ (views like Landing, Country)
+│   │   ├── requests/ (API calls)
 │   │   ├── utils/ (helper functions)
 │   │   ├── App.tsx (main app)
-│── backend/ (Node.js + Express + TypeScript)
+│   │   ├── main.tsx 
+│── be/ (Node.js + Express + TypeScript)
+│   ├── config/database.ts (Node.js + Express  (+ Mongoose?))
 │   ├── controllers/ (handles API logic)
+│   ├── middleware/authenticateToken.ts
+│   ├── models/
 │   ├── routes/ (API endpoints)
 │   ├── services/ (external API & helper functions)
 │   ├── index.ts (main backend entry)
