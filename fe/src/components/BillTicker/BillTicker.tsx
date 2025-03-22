@@ -11,7 +11,7 @@ import { mockBills } from "../../utils/mockBillGenerator";
 const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
   let hoverTimeout: NodeJS.Timeout | null = null;
   const billCache = new Map<string, BillDetails>();
-  const [pinnedBills, setPinnedBills] = useState<string[]>([]);
+  // const [pinnedBills, setPinnedBills] = useState<string[]>([]);
 
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,8 +30,8 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
     if (!jurisdiction) return;
 
     setLoading(true);
-    const savedBills = JSON.parse(localStorage.getItem("pinnedBills") || "[]");
-    setPinnedBills(savedBills.map((bill: Bill) => bill.id));
+    // const savedBills = JSON.parse(localStorage.getItem("pinnedBills") || "[]");
+    // setPinnedBills(savedBills.map((bill: Bill) => bill.id));
     fetchBillsByJurisdiction(jurisdiction)
       .then((data) => {
         setBills(data);
@@ -116,7 +116,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
               onMouseEnter={(e) => handleMouseEnter(e, bill)}
               onMouseLeave={handleMouseLeave}
             >
-              {pinnedBills.includes(bill.id) && (
+              {/* {pinnedBills.includes(bill.id) && (
                 <svg
                   width="16"
                   height="16"
@@ -141,7 +141,7 @@ const BillTicker: React.FC<BillTickerProps> = ({ jurisdiction }) => {
                     strokeLinecap="round"
                   />
                 </svg>
-              )}
+              )} */}
               <strong>{bill.identifier}</strong>: {bill.title} {" | "}
             </span>
           ))}
