@@ -27,8 +27,8 @@ const USMap: React.FC = () => {
 
   useEffect(() => {
     if (!svgRef.current) return;
-    const width = 800;
-    const height = 750;
+    const width = 1100;
+    const height = 700;
 
     // Define projection
     const projection = d3
