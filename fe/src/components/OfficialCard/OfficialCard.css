@@ -4,13 +4,16 @@
   box-shadow: 0 8px 16px rgba(152, 152, 152, 0.6);
   width: 320px;
   max-width: 90%;
-  max-height: 80vh;
-  min-height: fit-content;
+  border-radius: 1px solid yellow;
+  max-height: 60vh;
+  min-height: 50vh;
+  /* min-height: fit-content; */
   margin: auto;
   text-align: center;
   padding: 20px;
   position: relative;
   overflow: hidden;
+  overflow-y: scroll;
   animation-fill-mode: backwards;
   animation: text-yo 0.8s ease-in-out;
   /* transform: translate(-50%, -50%) rotate(0deg); */
@@ -19,26 +22,26 @@
   align-items: center;
 }
 
-.official-card::before {
+/* .official-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 80%;
   background-image: url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
   opacity: 0.1;
   z-index: -1;
-}
+} */
 
-.official-card::after {
+/* .official-card::after {
   content: "";
   position: absolute;
   top: -10px;
   left: -10px;
   width: 100%;
-  height: 100%;
+  height: 80%;
   z-index: -1;
-}
+} */
 
 .official-photo {
   width: 75%;
